@@ -1,0 +1,23 @@
+/*For testing*/
+
+body{
+	margin: 10px;
+}
+
+/*For implementation*/
+
+.JUnitTable1{
+	border-radius: 5px;
+}
+.findInput{
+	border: 0px;
+	border-bottom: 1px solid black;
+	width: 30px;
+}
+#checkMark{
+	height: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	opacity: 0.5;
+}
