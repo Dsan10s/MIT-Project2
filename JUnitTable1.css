@@ -7,12 +7,19 @@ body{
 /*For implementation*/
 
 .JUnitTable1{
-	border-radius: 5px;
+	border-radius: 10px;
 }
-.findInput{
+.findInput1{
 	border: 0px;
+	border-radius: 4px;
 	border-bottom: 1px solid black;
 	width: 30px;
+}
+.findInput2{
+	border: 0px;
+	border-radius: 4px;
+	border-bottom: 1px solid black;
+	width: 120px;
 }
 #checkMark{
 	height: 30px;
