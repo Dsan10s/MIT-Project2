@@ -85,25 +85,27 @@ $(document).ready(function(){
 
 	/*Nulls are placeholders so indexing is easier later*/
 	var radioData = [[null], [null, false, false, false], [null, false, false, false], [null, false, false, false], [null, false, false, false], [null, false, false, false], [null, false, false, false]];
+	$(".customRadioBorder").on("hover", function(){
+		$(this).css('cursor', 'pointer');
+	})
+
 	$(".customRadioBorder").on("click", function(){
 			var rowClass = $(this).parent('span').parent('td').parent('tr').attr("class");
 			var rowIndex = rowClass[3];
 			var colClass = $(this).parent('span').parent('td').attr("class");
 			var colIndex = colClass[3];
-		if (radioFill === false){
+		if (radioData[rowIndex][colIndex] === false){
 			d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
 			.attr("r", 20).duration(300)
 			.attr("stroke", "white").duration(300);
 			radioFill = true;
 			radioData[rowIndex][colIndex] = true;
-			console.log(radioData)
-		}else{
+		}else if(radioData[rowIndex][colIndex] === true){
 			d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
 			.attr("r", 0).duration(300)
 			.attr("stroke", "grey").duration(300);
 			radioFill = false;
 			radioData[rowIndex][colIndex] = false;
-			console.log(radioData)
 		}
 		
 	})
