@@ -5,6 +5,7 @@
 		<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 		<script src = "js/bootstrap.min.js"></script>
 		<script src = "FindCodes.js"></script>
+		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 		<script src = "JUnitTable1.js"></script>
 		<script src = "JUnitTable2.js"></script>
     <script src="googlePrettify/run_prettify.js" type="text/javascript"></script>
@@ -18,29 +19,6 @@
 
 	</head>
 	<body>
-	<pre class="prettyprint linenums">
-		for (var r = 1; r <= 6; r++){
-			var newRow = $("<tr class = 'row" + r + "'></tr>");
-			for (var c = 0; c <= 3; c++){
-				var rowClass = ".row" + r;
-				var newCol = $("<td class = 'col" + c + "'></td>");
-				/*CSS*/
-				if (r == 3){
-					var cellID
-					$(".row3 .col").css("border-bottom", "4px solid black")
-				}
-				if (r == 4){
-					$(".row4").css("border-top", "4px solid black")
-				}
-				/*Labels*/
-				if (c == 0){
-					 	newCol.append("<div class='btn btn-link view span4' data-row='"+r+"'>view code"+letters[r]+"</div>");
-				}else{
-				}
-
-				newRow.append(newCol);
-			}
-	</pre>
 		<h1>Find Function</h1>
 		<p>What we'll be doing here is attempting to exhaust our test cases given a function, <b>find</b>.  You'll see the code for find below.  </p>
 		<p>On the left, as a label for every row, you'll see labels that define <b>key test cases</b>. You want to be sure that when you test your function, you test each of these cases.</p>
