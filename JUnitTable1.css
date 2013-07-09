@@ -21,10 +21,10 @@ body{
 	border-bottom: 1px solid black;
 	width: 120px;
 }
-#checkMark{
+.checkMark{
 	height: 30px;
 	margin-left: auto;
 	margin-right: auto;
 	display: block;
-	opacity: 0.5;
+	opacity: 0;
 }
