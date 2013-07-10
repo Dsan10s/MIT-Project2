@@ -113,7 +113,7 @@ $(document).ready(function(){
 	/*Creates Grey bar in middle of table*/
 	for (var r = 1; r <= 6; r++){
 		var newRow = $("<tr class = 'row" + r + "'></tr>");
-		for (var c = 0; c <= 3; c++){
+		for (var c = 1; c <= 3; c++){
 			var rowClass = ".row" + r;
 			var newCol = $("<td class = 'col" + c + "'></td>");
 			if (r == 3){
@@ -177,7 +177,16 @@ $(document).ready(function(){
 				$("#mainAlert").html("Make sure that <b>a</b> is a matrix");
 			}
 			if(find(true, radioData[1]) > 2 || find(true, radioData[2]) > 2 || find(true, radioData[3]) > 2){
-				$("#mainAlert").html("You can only select one option from each half of the table");
+				$("#mainAlert").html("You can only select one option from each half of the table per column");
+			}
+			for (var c = 1; c <= 3; c++){
+				var entries = [];
+				for (var r = 1; r <= 6; r++){
+					if(radioData[r][c] in entries){
+						$("#mainAlert").html("You can only select one option from each half of the table per column")
+					}
+					entries.push(radioData[r][c]);
+				}
 			}
 
 			/*Column 1*/
