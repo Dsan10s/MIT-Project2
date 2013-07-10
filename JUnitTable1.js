@@ -3,11 +3,10 @@ var JUnitTable1 = (function(){
 	var exports = {};
 	var setup = function(div){
 		var table = $("<table id = 'JUnitTable1' class = 'table table-hover table-bordered'></table>");
-		var bottomDiv = $("<div class = 'row-fluid'></div>")
-		var submit = $("<div class = 'span1'><button id = 'submit1' class = 'btn btn-success btn-large' style = 'width: 100%'>Submit</button></div>")
-		var alert = $("<div class = 'span11'><div id = 'mainAlert' class = 'alert alert-error'></div></div>")
-
-		var success = $("<div class = 'span11'><div id = 'mainSuccess' class = 'alert alert-success'></div></div>")
+		var bottomDiv = $("<div style = 'width: 100%'></div>")
+		var submit = $("<button id = 'submit1' class = 'btn btn-success btn-large' style = 'float: left'>Submit</button>")
+		var alert = $("<div id = 'mainAlert' class = 'alert alert-error'>Test</div>")
+		var success = $("<div id = 'mainSuccess' class = 'alert alert-success'>Test</div>")
 		bottomDiv.append(submit, alert, success);
 
 	/*Row0*/
@@ -69,6 +68,9 @@ $(document).ready(function(){
 		JUnitTable1.setup(this);
 	});
 
+	$("#mainSuccess").hide();
+	$("#mainAlert").hide();
+
 	/*Allows us to animate backgroundColor (copied from stackOverflow)*/
 	(function(d){d.each(["backgroundColor","borderBottomColor","borderLeftColor","borderRightColor","borderTopColor","color","outlineColor"],function(f,e){d.fx.step[e]=function(g){if(!g.colorInit){g.start=c(g.elem,e);g.end=b(g.end);g.colorInit=true}g.elem.style[e]="rgb("+[Math.max(Math.min(parseInt((g.pos*(g.end[0]-g.start[0]))+g.start[0]),255),0),Math.max(Math.min(parseInt((g.pos*(g.end[1]-g.start[1]))+g.start[1]),255),0),Math.max(Math.min(parseInt((g.pos*(g.end[2]-g.start[2]))+g.start[2]),255),0)].join(",")+")"}});function b(f){var e;if(f&&f.constructor==Array&&f.length==3){return f}if(e=/rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)/.exec(f)){return[parseInt(e[1]),parseInt(e[2]),parseInt(e[3])]}if(e=/rgb\(\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*\)/.exec(f)){return[parseFloat(e[1])*2.55,parseFloat(e[2])*2.55,parseFloat(e[3])*2.55]}if(e=/#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})/.exec(f)){return[parseInt(e[1],16),parseInt(e[2],16),parseInt(e[3],16)]}if(e=/#([a-fA-F0-9])([a-fA-F0-9])([a-fA-F0-9])/.exec(f)){return[parseInt(e[1]+e[1],16),parseInt(e[2]+e[2],16),parseInt(e[3]+e[3],16)]}if(e=/rgba\(0, 0, 0, 0\)/.exec(f)){return a.transparent}return a[d.trim(f).toLowerCase()]}function c(g,e){var f;do{f=d.css(g,e);if(f!=""&&f!="transparent"||d.nodeName(g,"body")){break}e="backgroundColor"}while(g=g.parentNode);return b(f)}var a={aqua:[0,255,255],azure:[240,255,255],beige:[245,245,220],black:[0,0,0],blue:[0,0,255],brown:[165,42,42],cyan:[0,255,255],darkblue:[0,0,139],darkcyan:[0,139,139],darkgrey:[169,169,169],darkgreen:[0,100,0],darkkhaki:[189,183,107],darkmagenta:[139,0,139],darkolivegreen:[85,107,47],darkorange:[255,140,0],darkorchid:[153,50,204],darkred:[139,0,0],darksalmon:[233,150,122],darkviolet:[148,0,211],fuchsia:[255,0,255],gold:[255,215,0],green:[0,128,0],indigo:[75,0,130],khaki:[240,230,140],lightblue:[173,216,230],lightcyan:[224,255,255],lightgreen:[144,238,144],lightgrey:[211,211,211],lightpink:[255,182,193],lightyellow:[255,255,224],lime:[0,255,0],magenta:[255,0,255],maroon:[128,0,0],navy:[0,0,128],olive:[128,128,0],orange:[255,165,0],pink:[255,192,203],purple:[128,0,128],violet:[128,0,128],red:[255,0,0],silver:[192,192,192],white:[255,255,255],yellow:[255,255,0],transparent:[255,255,255]}})(jQuery);
 
@@ -116,7 +118,7 @@ $(document).ready(function(){
 	/*Creates Grey bar in middle of table*/
 	for (var r = 1; r <= 6; r++){
 		var newRow = $("<tr class = 'row" + r + "'></tr>");
-		for (var c = 1; c <= 3; c++){
+		for (var c = 0; c <= 3; c++){
 			var rowClass = ".row" + r;
 			var newCol = $("<td class = 'col" + c + "'></td>");
 			if (r == 3){
@@ -154,6 +156,10 @@ $(document).ready(function(){
 		var row5checks = [];
 		var row6checks = [];*/
 
+
+		$("#mainAlert").hide();
+		$("#mainSuccess").hide();
+
 		$("#mainAlert").animate({"opacity": "0"}, 200);
 		$("#mainSuccess").animate({"opacity": "0"}, 200);
 
@@ -179,12 +185,13 @@ $(document).ready(function(){
 
 			if($(".findInput2").val()[0] !== "["){
 				console.log("not a matrix");
-				$("#mainAlert").animate({"opacity": "0"}, 200);
+				$("#mainAlert").show();
 				$("#mainAlert").animate({"opacity": "1"}, 200);
 				$("#mainAlert").html("Make sure that <b>a</b> is a matrix");
 			}
 			if(find(true, radioData[1]) > 2 || find(true, radioData[2]) > 2 || find(true, radioData[3]) > 2){
 
+				$("#mainAlert").show();
 				$("#mainAlert").animate({"opacity": "1"}, 200);
 				$("#mainAlert").html("You can only select one option from each half of the table");
 
@@ -193,6 +200,7 @@ $(document).ready(function(){
 				var entries = [];
 				for (var r = 1; r <= 6; r++){
 					if(radioData[r][c] in entries){
+						$("#mainAlert").show();
 						$("#mainAlert").animate({"opacity": "1"}, 200);
 						$("#mainAlert").html("You can only select one option from each half of the table per column");
 					}
@@ -373,43 +381,52 @@ $(document).ready(function(){
 			if(find(true, radioData[1]) < 1){
 				console.log("Rows not filled")
 				$(".row1").animate({backgroundColor: "#ffc4c4"}, 200);
+				$("#mainAlert").show();
 				$("#mainAlert").animate({"opacity": "1"}, 200);
 				$("#mainAlert").html("Make sure you have an answer for every row")
 			}	
 			if(find(true, radioData[2]) < 1){
 				console.log("Rows not filled")
 				$(".row2").animate({backgroundColor: "#ffc4c4"}, 200);
+				$("#mainAlert").show();
 				$("#mainAlert").animate({"opacity": "1"}, 200);
 				$("#mainAlert").html("Make sure you have an answer for every row")
 			}
 			if(find(true, radioData[3]) < 1){
 				console.log("Rows not filled")
 				$(".row3").animate({backgroundColor: "#ffc4c4"}, 200);
+				$("#mainAlert").show();
 				$("#mainAlert").animate({"opacity": "1"}, 200);
 				$("#mainAlert").html("Make sure you have an answer for every row")
 			}
 			if(find(true, radioData[4]) < 1){
 				console.log("Rows not filled")
 				$(".row4").animate({backgroundColor: "#ffc4c4"}, 200);
+				$("#mainAlert").show();
 				$("#mainAlert").animate({"opacity": "1"}, 200);
 				$("#mainAlert").html("Make sure you have an answer for every row")
 			}
 			if(find(true, radioData[5]) < 1){
 				console.log("Rows not filled")
 				$(".row5").animate({backgroundColor: "#ffc4c4"}, 200);
+				$("#mainAlert").show();
 				$("#mainAlert").animate({"opacity": "1"}, 200);
 				$("#mainAlert").html("Make sure you have an answer for every row")
 			}
 			if(find(true, radioData[6]) < 1){
 				console.log("Rows not filled")
 				$(".row6").animate({backgroundColor: "#ffc4c4"}, 200);
+				$("#mainAlert").show();
 				$("#mainAlert").animate({"opacity": "1"}, 200);
 				$("#mainAlert").html("Make sure you have an answer for every row")
 			}
 
+			/*Checks if all answers are correct*/
+
 		}catch(e){
 			if($(".findInput1").val() === "" || $(".findInput2").val() === ""){
 				console.log("You must have an input in every field");
+				$("#mainAlert").show();
 				$("#mainAlert").animate({"opacity": "1"}, 200);
 				$("#mainAlert").html("You must have an input in every field");
 			}	

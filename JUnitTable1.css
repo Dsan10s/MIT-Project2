@@ -48,12 +48,14 @@ body{
 .popover {
 	width: 1000px;
 }
-
+#submit1{
+	float: left;
+}
 #mainAlert{
-	position: absolute;
+	float: right;
 	opacity: 0.5;
 }
 #mainSuccess{
-	position: absolute;
+	float: right;
 	opacity: 0.5;
 }
