@@ -1,4 +1,5 @@
 /*Currently, the table only works with the "find" function*/
+var columnsDisplayed = [0, 1, 2, 3];
 var JUnitTable1 = (function(){
 	var exports = {};
 	var setup = function(div){
@@ -11,7 +12,7 @@ var JUnitTable1 = (function(){
 
 	/*Row0*/
 		var row0 = $("<tr class = 'row0'></tr>");
-		var emptyLabel = $("<td class = 'empty'></td>");
+		var emptyLabel = $("<td class = 'col0'><button class = 'plusButton btn btn-info'><b style = 'font-size: 20pt'>+</b></button></td>");
 		var findLabel1 = $("<td class = 'col1'>Find(<input id = 'xInput1' class = 'findInput1' placeholder = '  x'></input>, <input id = aInput1 class = 'findInput2' placeholder = '  a'></input>)</td>");
 		var findLabel2 = $("<td class = 'col2'>Find(<input id = 'xInput2' class = 'findInput1' placeholder = '  x'></input>, <input id = aInput2 class = 'findInput2' placeholder = '  a'></input>)</td>");
 		var findLabel3 = $("<td class = 'col3'>Find(<input id = 'xInput3' class = 'findInput1' placeholder = '  x'></input>, <input id = aInput3 class = 'findInput2' placeholder = '  a'></input>)</td>");
@@ -23,7 +24,7 @@ var JUnitTable1 = (function(){
 	/*Table Content*/
 		for (var r = 1; r <= 6; r++){
 			var newRow = $("<tr class = 'row" + r + "'></tr>");
-			for (var c = 0; c <= 3; c++){
+			for (var c = 0; c < columnsDisplayed.length; c++){
 				var rowClass = ".row" + r;
 				var newCol = $("<td class = 'col" + c + "'></td>");
 				/*CSS*/
@@ -46,6 +47,23 @@ var JUnitTable1 = (function(){
 			table.append(newRow);
 		}
 		$(div).append(table, bottomDiv);
+
+		/*Creates Grey bar in middle of table*/
+		for (var r = 1; r <= 6; r++){
+			var newRow = $("<tr class = 'row" + r + "'></tr>");
+			for (var c = 0; c < columnsDisplayed.length; c++){
+				var rowClass = ".row" + r;
+				var newCol = $("<td class = 'col" + c + "'></td>");
+				if (r == 3){
+					var cellID = ".row3 .col" + c;
+					$(cellID).css("border-bottom", "3px solid grey")
+				}
+				if (r == 4){
+					var cellID = ".row4 .col" + c;
+					$(cellID).css("border-top", "3px solid grey")
+				}
+			}
+		}
 	}
 	exports.setup = setup;
 	return exports;
@@ -55,6 +73,7 @@ $(document).ready(function(){
 	$(".JUnitTable1").each(function(){
 		JUnitTable1.setup(this);
 	});
+
 
 	$("#mainSuccess").hide();
 	$("#mainAlert").hide();
@@ -78,6 +97,7 @@ $(document).ready(function(){
 
 	/*Nulls are placeholders so indexing is easier later*/
 	var radioData = [[null], [null, false, false, false], [null, false, false, false], [null, false, false, false], [null, false, false, false], [null, false, false, false], [null, false, false, false]];
+
 	$(".customRadioBorder").on("hover", function(){
 		$(this).css('cursor', 'pointer');
 	})
@@ -102,25 +122,36 @@ $(document).ready(function(){
 		}
 		
 	})
+	
+	/*Adds another column to the table when the plus button is pressed*/
+	
+		$(".plusButton").on("click", function(){
+			var lastNumber = columnsDisplayed[columnsDisplayed.length - 1];
+			var newNum = lastNumber + 1;
+			
 
-	/*Creates Grey bar in middle of table*/
-	for (var r = 1; r <= 6; r++){
-		var newRow = $("<tr class = 'row" + r + "'></tr>");
-		for (var c = 0; c <= 3; c++){
-			var rowClass = ".row" + r;
-			var newCol = $("<td class = 'col" + c + "'></td>");
-			if (r == 3){
-				var cellID = ".row3 .col" + c;
-				$(cellID).css("border-bottom", "3px solid grey")
+			for (var r = 0; r <= 6; r++){
+				
+				var rowClass = ".row" + r;
+				var newCol = $("<td class = 'col" + newNum + "'></td>");
+				$(rowClass).append(newCol);
+				/*CSS*/
+				if (r == 3){
+					var cellID = ".row3 .col" + c;
+					$(cellID).css("border-bottom", "4px solid black")
+				}
+				if (r == 4){
+					var cellID = ".row4 .col" + c;
+					$(cellID).css("border-top", "4px solid black")
+				}
+				/*Labels*/
+				
+				newCol.append("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><img class = 'mark checkMark' src = 'images/checkMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span>")
+				
+				$("#JUnitTable1").append(newRow);
 			}
-			if (r == 4){
-				var cellID = ".row4 .col" + c;
-				$(cellID).css("border-top", "3px solid grey")
-			}
-		}
-	}
-
-
+			columnsDisplayed.push(newNum);
+		});
 
 	/*Checks the user inputs when the submit button is pressed*/
 	$("#submit1").on("click", function(){
@@ -150,15 +181,26 @@ $(document).ready(function(){
 		$(".row4").animate({backgroundColor: "white"}, 200);
 		$(".row5").animate({backgroundColor: "white"}, 200);
 		$(".row6").animate({backgroundColor: "white"}, 200);
+		//Default
+			$("#xInput1").val('1');
+			$("#xInput2").val('1');
+			$("#xInput3").val('1');
+			$("#aInput1").val('[]');
+			$("#aInput2").val('[1]');
+			$("#aInput3").val('[1,1]');
 
 		try{
-			var x1 = JSON.parse($("#xInput1").val());
-			var a1 = JSON.parse($("#aInput1").val());
-			var x2 = JSON.parse($("#xInput2").val());
-			var a2 = JSON.parse($("#aInput2").val());
-			var x3 = JSON.parse($("#xInput3").val());
-			var a3 = JSON.parse($("#aInput3").val());
+			
 
+			var x = ["ph",JSON.parse($("#xInput1").val()),
+				JSON.parse($("#xInput2").val()),
+				JSON.parse($("#xInput3").val())];
+			var a = ["ph",JSON.parse($("#aInput1").val()),
+				JSON.parse($("#aInput2").val()),
+				JSON.parse($("#aInput3").val())];
+
+
+			
 			/*Some error checking*/
 
 			if($(".findInput2").val()[0] !== "["){
@@ -186,175 +228,26 @@ $(document).ready(function(){
 				}
 			}
 
-			/*Column 1*/
-		// Check Marks
-			if(rowNames[1].checkMembership(a1) && radioData[1][1] == true){
-				$(".row1 .col1 .checkMark").animate({"opacity": "1"}, 200);
-				$(".row1 .col1 .errorMark").animate({"opacity": "0"}, 200);
-				// row1checks.push(1);
-			}else if(a1.length == 1 && radioData[2][1] == true){
-				$(".row2 .col1 .checkMark").animate({"opacity": "1"}, 200);
-				$(".row2 .col1 .errorMark").animate({"opacity": "0"}, 200);
-				// row2checks.push(1);
-			}else if(a1.length > 1 && radioData[3][1] == true){
-				$(".row3 .col1 .checkMark").animate({"opacity": "1"}, 200);
-				$(".row3 .col1 .errorMark").animate({"opacity": "0"}, 200);
-				// row3checks.push(1);
-			}
-			if(rowNames[4].checkMembership(x1,a1) && radioData[4][1] == true){
-				$(".row4 .col1 .checkMark").animate({"opacity": "1"}, 200);
-				$(".row4 .col1 .errorMark").animate({"opacity": "0"}, 200);
-				// row4checks.push(1);
-			}else if(find(x1, a1) == 1 && radioData[5][1] == true){
-				$(".row5 .col1 .checkMark").animate({"opacity": "1"}, 200);
-				$(".row5 .col1 .errorMark").animate({"opacity": "0"}, 200);
-				// row5checks.push(1);
-			}else if(find(x1, a1) > 1 && radioData[6][1] == true){
-				$(".row6 .col1 .checkMark").animate({"opacity": "1"}, 200);
-				$(".row6 .col1 .errorMark").animate({"opacity": "0"}, 200);
-				// row6checks.push(1);
-			}
-		// Error Marks
-			if(a1.length !== 0 && radioData[1][1] == true){
-				$(".row1 .col1 .checkMark").animate({"opacity": "0"}, 200);
-				$(".row1 .col1 .errorMark").animate({"opacity": "1"}, 200);
-				// row1checks.push(1);
-			}else if(a1.length !== 1 && radioData[2][1] == true){
-				$(".row2 .col1 .checkMark").animate({"opacity": "0"}, 200);
-				$(".row2 .col1 .errorMark").animate({"opacity": "1"}, 200);
-				// row2checks.push(1);
-			}else if(a1.length <= 1 && radioData[3][1] == true){
-				$(".row3 .col1 .checkMark").animate({"opacity": "0"}, 200);
-				$(".row3 .col1 .errorMark").animate({"opacity": "1"}, 200);
-				// row3checks.push(1);
-			}
-			if(find(x1, a1) !== 0 && radioData[4][1] == true){
-				$(".row4 .col1 .checkMark").animate({"opacity": "0"}, 200);
-				$(".row4 .col1 .errorMark").animate({"opacity": "1"}, 200);
-				// row4checks.push(1);
-			}else if(find(x1, a1) !== 1 && radioData[5][1] == true){
-				$(".row5 .col1 .checkMark").animate({"opacity": "0"}, 200);
-				$(".row5 .col1 .errorMark").animate({"opacity": "1"}, 200);
-				// row5checks.push(1);
-			}else if(find(x1, a1) <= 1 && radioData[6][1] == true){
-				$(".row6 .col1 .checkMark").animate({"opacity": "0"}, 200);
-				$(".row6 .col1 .errorMark").animate({"opacity": "1"}, 200);
-				// row6checks.push(1);
+		// Check Marks & Error Marks
+			for(var c=1;c<=x.length;c++){
+				for(var r=1;r<=rowNames.length-1;r++){
+					if(rowNames[r].checkMembership(x[c],a[c])&& radioData[r][c] == true){
+						$(".row"+r+" .col"+c+" .checkMark").animate({"opacity":"1"},200);
+						$(".row"+r+" .col"+c+" .errorMark").animate({"opacity":"0"},200);
+					}
+					if(!(rowNames[r].checkMembership(x[c],a[c]))&& radioData[r][c] == true){
+						console.log(r,c,JSON.stringify(x[c]),JSON.stringify(a[c]));
+
+						$(".row"+r+" .col"+c+" .checkMark").animate({"opacity": "0"}, 200);
+						$(".row"+r+" .col"+c+" .errorMark").animate({"opacity": "1"}, 200);
+					}
+								console.log("JSON.stringify(radioData[1])")
+
+				}
 			}
 
-			/*Column 2*/
-		// Check Marks
-			if(a2.length == 0 && radioData[1][2] == true){
-				$(".row1 .col2 .checkMark").animate({"opacity": "1"}, 200);
-				$(".row1 .col2 .errorMark").animate({"opacity": "0"}, 200);
-				// row1checks.push(1);
-			}else if(a2.length == 1 && radioData[2][2] == true){
-				$(".row2 .col2 .checkMark").animate({"opacity": "1"}, 200);
-				$(".row2 .col2 .errorMark").animate({"opacity": "0"}, 200);
-				// row2checks.push(1);
-			}else if(a2.length > 1 && radioData[3][2] == true){
-				$(".row3 .col2 .checkMark").animate({"opacity": "1"}, 200);
-				$(".row3 .col2 .errorMark").animate({"opacity": "0"}, 200);
-				// row3checks.push(1);
-			}
-			if(find(x2, a2) == 0 && radioData[4][2] == true){
-				$(".row4 .col2 .checkMark").animate({"opacity": "1"}, 200);
-				$(".row4 .col2 .errorMark").animate({"opacity": "0"}, 200);
-				// row4checks.push(1);
-			}else if(find(x2, a2) == 1 && radioData[5][2] == true){
-				$(".row5 .col2 .checkMark").animate({"opacity": "1"}, 200);
-				$(".row5 .col2 .errorMark").animate({"opacity": "0"}, 200);
-				// row5checks.push(1);
-			}else if(find(x2, a2) > 1 && radioData[6][2] == true){
-				$(".row6 .col2 .checkMark").animate({"opacity": "1"}, 200);
-				$(".row6 .col2 .errorMark").animate({"opacity": "0"}, 200);
-				// row6checks.push(1);
-			}
-		// Error Marks
-			if(a2.length !== 0 && radioData[1][2] == true){
-				$(".row1 .col2 .checkMark").animate({"opacity": "0"}, 200);
-				$(".row1 .col2 .errorMark").animate({"opacity": "1"}, 200);
-				// row1checks.push(1);
-			}else if(a2.length !== 1 && radioData[2][2] == true){
-				$(".row2 .col2 .checkMark").animate({"opacity": "0"}, 200);
-				$(".row2 .col2 .errorMark").animate({"opacity": "1"}, 200);
-				// row2checks.push(1);
-			}else if(a2.length <= 1 && radioData[3][2] == true){
-				$(".row3 .col2 .checkMark").animate({"opacity": "0"}, 200);
-				$(".row3 .col2 .errorMark").animate({"opacity": "1"}, 200);
-				// row3checks.push(1);
-			}
-			if(find(x2, a2) !== 0 && radioData[4][2] == true){
-				$(".row4 .col2 .checkMark").animate({"opacity": "0"}, 200);
-				$(".row4 .col2 .errorMark").animate({"opacity": "1"}, 200);
-				// row4checks.push(1);
-			}else if(find(x2, a2) !== 1 && radioData[5][2] == true){
-				$(".row5 .col2 .checkMark").animate({"opacity": "0"}, 200);
-				$(".row5 .col2 .errorMark").animate({"opacity": "1"}, 200);
-				// row5checks.push(1);
-			}else if(find(x2, a2) <= 1 && radioData[6][2] == true){
-				$(".row6 .col2 .checkMark").animate({"opacity": "0"}, 200);
-				$(".row6 .col2 .errorMark").animate({"opacity": "1"}, 200);
-				// row6checks.push(1);
-			}
-
-			/*Column 3*/
-		// Check Marks
-			if(a3.length == 0 && radioData[1][3] == true){
-				$(".row1 .col3 .checkMark").animate({"opacity": "1"}, 200);
-				$(".row1 .col3 .errorMark").animate({"opacity": "0"}, 200);
-				// row1checks.push(1);
-			}else if(a3.length == 1 && radioData[2][3] == true){
-				$(".row2 .col3 .checkMark").animate({"opacity": "1"}, 200);
-				$(".row2 .col3 .errorMark").animate({"opacity": "0"}, 200);
-				// row2checks.push(1);
-			}else if(a3.length > 1 && radioData[3][3] == true){
-				$(".row3 .col3 .checkMark").animate({"opacity": "1"}, 200);
-				$(".row3 .col3 .errorMark").animate({"opacity": "0"}, 200);
-				// row3checks.push(1);
-			}
-			if(find(x3, a3) == 0 && radioData[4][3] == true){
-				$(".row4 .col3 .checkMark").animate({"opacity": "1"}, 200);
-				$(".row4 .col3 .errorMark").animate({"opacity": "0"}, 200);
-				// row4checks.push(1);
-			}else if(find(x3, a3) == 1 && radioData[5][3] == true){
-				$(".row5 .col3 .checkMark").animate({"opacity": "1"}, 200);
-				$(".row5 .col3 .errorMark").animate({"opacity": "0"}, 200);
-				// row5checks.push(1);
-			}else if(find(x3, a3) > 1 && radioData[6][3] == true){
-				$(".row6 .col3 .checkMark").animate({"opacity": "1"}, 200);
-				$(".row6 .col3 .errorMark").animate({"opacity": "0"}, 200);
-				// row6checks.push(1);
-			}
-		// Error Marks
-			if(a3.length !== 0 && radioData[1][3] == true){
-				$(".row1 .col3 .checkMark").animate({"opacity": "0"}, 200);
-				$(".row1 .col3 .errorMark").animate({"opacity": "1"}, 200);
-				// row1checks.push(1);
-			}else if(a3.length !== 1 && radioData[2][3] == true){
-				$(".row2 .col3 .checkMark").animate({"opacity": "0"}, 200);
-				$(".row2 .col3 .errorMark").animate({"opacity": "1"}, 200);
-				// row2checks.push(1);
-			}else if(a3.length <= 1 && radioData[3][3] == true){
-				$(".row3 .col3 .checkMark").animate({"opacity": "0"}, 200);
-				$(".row3 .col3 .errorMark").animate({"opacity": "1"}, 200);
-				// row3checks.push(1);
-			}
-			if(find(x3, a3) !== 0 && radioData[4][3] == true){
-				$(".row4 .col3 .checkMark").animate({"opacity": "0"}, 200);
-				$(".row4 .col3 .errorMark").animate({"opacity": "1"}, 200);
-				// row4checks.push(1);
-			}else if(find(x3, a3) !== 1 && radioData[5][3] == true){
-				$(".row5 .col3 .checkMark").animate({"opacity": "0"}, 200);
-				$(".row5 .col3 .errorMark").animate({"opacity": "1"}, 200);
-				// row5checks.push(1);
-			}else if(find(x3, a3) <= 1 && radioData[6][3] == true){
-				$(".row6 .col3 .checkMark").animate({"opacity": "0"}, 200);
-				$(".row6 .col3 .errorMark").animate({"opacity": "1"}, 200);
-				// row6checks.push(1);
-			}
-
-			/*Turns a row red if there is more than one button clicked*/
+			/*Turns a row red if there is no button clicked*/
+			console.log("JSON.stringify(radioData[1])")
 
 			if(find(true, radioData[1]) < 1){
 				console.log("Rows not filled")
@@ -400,6 +293,10 @@ $(document).ready(function(){
 			}
 
 			/*Checks if all answers are correct*/
+			/*for(var i = 1; i <= radioData.length; i++){
+
+			}*/
+
 
 		}catch(e){
 			if($(".findInput1").val() === "" || $(".findInput2").val() === ""){

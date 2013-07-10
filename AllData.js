@@ -10,12 +10,12 @@ var header =
 mode when instructor give input partions
 */
 var rowNames = ["ph",
-		{title:"<div><b>a</b> empty</div>",checkMembership:function (a){return a.length==0}},
-		{title:"<div>Length of <b>a</b> = 1</div>",checkMembership:function (a){return a.length==1}},
-		{title:"<div>Length of <b>a</b> > 1</div>",checkMembership:function (a){return a.length>1}},
-		{title:"<div><b>x</b> not in <b>a</b></div>",checkMembership:function(x,a){return find(x,a)==0}},
-		{title:"<div><b>x</b> in <b>a</b> once</div>",checkMembership:function(x,a){return find(x,a)==1}},
-		{title:"<div><b>x</b> in <b>a</b> more than once</div>",checkMembership:function(x,a){return find(x,a)>1}}
+		{group:1,title:"<div><b>a</b> empty</div>",checkMembership:function (x,a){return a.length==0}},
+		{group:1,title:"<div>Length of <b>a</b> = 1</div>",checkMembership:function (x,a){return a.length==1}},
+		{group:1,title:"<div>Length of <b>a</b> > 1</div>",checkMembership:function (x,a){return a.length>1}},
+		{group:2,title:"<div><b>x</b> not in <b>a</b></div>",checkMembership:function(x,a){return find(x,a)==0}},
+		{group:2,title:"<div><b>x</b> in <b>a</b> once</div>",checkMembership:function(x,a){return find(x,a)==1}},
+		{group:2,title:"<div><b>x</b> in <b>a</b> more than once</div>",checkMembership:function(x,a){return find(x,a)>1}}
 		];
 
 /*

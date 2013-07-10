@@ -60,3 +60,11 @@ body{
 	float: right;
 	opacity: 0.5;
 }
+.plusButton{
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	color: white;
+	width: 30%;
+	/*font-size: 20pt;*/
+}
