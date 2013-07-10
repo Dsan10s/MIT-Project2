@@ -1,6 +1,8 @@
 /*Currently, the table only works with the "find" function*/
 var JUnitTable2 = (function(){
 	var exports = {};
+	var letters=['ph','A','B','C','D','E','F'];
+
 	var setupDiv = function(div){
 		var table = $("<table id = 'JUnitTable2' class = 'table table-hover table-bordered'></table>");
 	/*Row0*/
@@ -31,21 +33,9 @@ var JUnitTable2 = (function(){
 				}
 				/*Labels*/
 				if (c == 0){
-					 if (r == 1){
-					 	newCol.append("<div class='btn btn-link view span4' data-id='1'>view codeA</div>");
-					 }else if(r == 2){
-					 	newCol.append("<div class='btn btn-link view span4' data-id='2'>view codeB</div>");
-					 }else if(r == 3){
-					 	newCol.append("<div class='btn btn-link view span4' data-id='3'>view codeC</div>");
-					 }else if(r == 4){
-					 	newCol.append("<div class='btn btn-link view span4' data-id='4'>view codeD</div>");
-					 }else if(r == 5){
-					 	newCol.append("<div class='btn btn-link view span4' data-id='5'>view codeE</div>");
-					 }else if(r == 6){
-					 	newCol.append("<div class='btn btn-link view span4' data-id='6'>view codeF</div>");
-					 }
+					 	newCol.append("<div class='btn btn-link view span4' data-row='"+r+"'>view code"+letters[r]+"</div>");
 				}else{
-					//newCol.append("<img id = 'checkMark' src = 'images/checkMark.png'/>")
+					//newCol.append("<img row = 'checkMark' src = 'images/checkMark.png'/>")
 				}
 
 				newRow.append(newCol);
@@ -58,15 +48,27 @@ var JUnitTable2 = (function(){
 	var setupClick = function(div){
 		//set onclick
 		$(".view").on("click", function(){
-			selectedCell=$('.row'+$(this).attr('data-id')+' .col0')
-			//selectedCell.text("CodeA")
-			selectedCell.append("<div class='btn btn-link hide span4'>hide code</div>")
+			var selectedRow = $(this).attr('data-row');
+			selectedCell=$('.JUnitTable2 .row'+selectedRow+' .col0');
+			viewCode=$('.JUnitTable2 .row'+selectedRow+' .col0 div');
+			if(!viewCode.hasClass('hidden')){
+				viewCode.text("hide code"+letters[selectedRow]);
+				viewCode.addClass('hidden');
+			}else{
+				viewCode.text("view code"+letters[selectedRow]);
+				viewCode.removeClass('hidden');
+			}			
+
+			var selectedCode ="<pre class='prettyprint linenums' style='width:350;'>"+code[selectedRow]+"</pre>"
+
+			if(selectedRow<=3){
+				selectedCell.popover({ title: 'Code', content: selectedCode, html:true, placement:'bottom'});
+			}
+			else{
+				selectedCell.popover({ title: 'Code', content: selectedCode, html:true, placement:'top' });
+			}
 		});
 
-		// $('.hide').on("click",function(){
-		// 	selectedCell=$('.row'+$(this).attr('id')+' .col0')
-		// 	selectedCell.append("<div class='btn btn-link view span4' id='"+$(this).attr('id')+"'>view code</div>")
-		// })
 	}
 
 	exports.setupDiv = setupDiv;
