@@ -1,4 +1,5 @@
 /*Currently, the table only works with the "find" function*/
+var columnsDisplayed = [0, 1, 2, 3];
 var JUnitTable1 = (function(){
 	var exports = {};
 	var setup = function(div){
@@ -11,7 +12,7 @@ var JUnitTable1 = (function(){
 
 	/*Row0*/
 		var row0 = $("<tr class = 'row0'></tr>");
-		var emptyLabel = $("<td class = 'empty'></td>");
+		var emptyLabel = $("<td class = 'col0'><button class = 'plusButton btn btn-info'><b style = 'font-size: 20pt'>+</b></button></td>");
 		var findLabel1 = $("<td class = 'col1'>Find(<input id = 'xInput1' class = 'findInput1' placeholder = '  x'></input>, <input id = aInput1 class = 'findInput2' placeholder = '  a'></input>)</td>");
 		var findLabel2 = $("<td class = 'col2'>Find(<input id = 'xInput2' class = 'findInput1' placeholder = '  x'></input>, <input id = aInput2 class = 'findInput2' placeholder = '  a'></input>)</td>");
 		var findLabel3 = $("<td class = 'col3'>Find(<input id = 'xInput3' class = 'findInput1' placeholder = '  x'></input>, <input id = aInput3 class = 'findInput2' placeholder = '  a'></input>)</td>");
@@ -23,7 +24,7 @@ var JUnitTable1 = (function(){
 	/*Table Content*/
 		for (var r = 1; r <= 6; r++){
 			var newRow = $("<tr class = 'row" + r + "'></tr>");
-			for (var c = 0; c <= 3; c++){
+			for (var c = 0; c < columnsDisplayed.length; c++){
 				var rowClass = ".row" + r;
 				var newCol = $("<td class = 'col" + c + "'></td>");
 				/*CSS*/
@@ -46,6 +47,23 @@ var JUnitTable1 = (function(){
 			table.append(newRow);
 		}
 		$(div).append(table, bottomDiv);
+
+		/*Creates Grey bar in middle of table*/
+		for (var r = 1; r <= 6; r++){
+			var newRow = $("<tr class = 'row" + r + "'></tr>");
+			for (var c = 0; c < columnsDisplayed.length; c++){
+				var rowClass = ".row" + r;
+				var newCol = $("<td class = 'col" + c + "'></td>");
+				if (r == 3){
+					var cellID = ".row3 .col" + c;
+					$(cellID).css("border-bottom", "3px solid grey")
+				}
+				if (r == 4){
+					var cellID = ".row4 .col" + c;
+					$(cellID).css("border-top", "3px solid grey")
+				}
+			}
+		}
 	}
 	exports.setup = setup;
 	return exports;
@@ -55,6 +73,7 @@ $(document).ready(function(){
 	$(".JUnitTable1").each(function(){
 		JUnitTable1.setup(this);
 	});
+
 
 	$("#mainSuccess").hide();
 	$("#mainAlert").hide();
@@ -103,22 +122,7 @@ $(document).ready(function(){
 		
 	})
 
-	/*Creates Grey bar in middle of table*/
-	for (var r = 1; r <= 6; r++){
-		var newRow = $("<tr class = 'row" + r + "'></tr>");
-		for (var c = 0; c <= 3; c++){
-			var rowClass = ".row" + r;
-			var newCol = $("<td class = 'col" + c + "'></td>");
-			if (r == 3){
-				var cellID = ".row3 .col" + c;
-				$(cellID).css("border-bottom", "3px solid grey")
-			}
-			if (r == 4){
-				var cellID = ".row4 .col" + c;
-				$(cellID).css("border-top", "3px solid grey")
-			}
-		}
-	}
+	
 
 	/*Find method returns number of times a number was found in an array*/
 
@@ -131,6 +135,36 @@ $(document).ready(function(){
 		}
 		return instances;
 	}
+	
+	/*Adds another column to the table when the plus button is pressed*/
+	
+		$(".plusButton").on("click", function(){
+			var lastNumber = columnsDisplayed[columnsDisplayed.length - 1];
+			var newNum = lastNumber + 1;
+			
+
+			for (var r = 0; r <= 6; r++){
+				
+				var rowClass = ".row" + r;
+				var newCol = $("<td class = 'col" + newNum + "'></td>");
+				$(rowClass).append(newCol);
+				/*CSS*/
+				if (r == 3){
+					var cellID = ".row3 .col" + c;
+					$(cellID).css("border-bottom", "4px solid black")
+				}
+				if (r == 4){
+					var cellID = ".row4 .col" + c;
+					$(cellID).css("border-top", "4px solid black")
+				}
+				/*Labels*/
+				
+				newCol.append("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><img class = 'mark checkMark' src = 'images/checkMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span>")
+				
+				$("#JUnitTable1").append(newRow);
+			}
+			columnsDisplayed.push(newNum);
+		});
 
 	/*Checks the user inputs when the submit button is pressed*/
 	$("#submit1").on("click", function(){
@@ -410,6 +444,10 @@ $(document).ready(function(){
 			}
 
 			/*Checks if all answers are correct*/
+			/*for(var i = 1; i <= radioData.length; i++){
+
+			}*/
+
 
 		}catch(e){
 			if($(".findInput1").val() === "" || $(".findInput2").val() === ""){
