@@ -36,5 +36,13 @@ body{
 .cellContent{
 	margin-left: auto;
 	margin-right: auto;
+	display: block;
+	opacity: 0;
+}
+
+.popover {
+	width: 1000px;
+
+}
 	display: table;
 }
