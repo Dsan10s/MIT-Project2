@@ -27,14 +27,28 @@ body{
 .customRadioFill{
 	position: absolute;
 }
-.checkMark{
+.mark{
 	margin-left: 10px;
-	margin-top: -30px;
 	height: 40px;
+}
+.checkMark{
+	position: absolute;
+	opacity: 0;
+}
+.errorMark{
+	position: absolute;
 	opacity: 0;
 }
 .cellContent{
 	margin-left: auto;
 	margin-right: auto;
 	display: table;
+}
+#mainAlert{
+	position: absolute;
+	opacity: 0.5;
+}
+#mainSuccess{
+	position: absolute;
+	opacity: 0.5;
 }
