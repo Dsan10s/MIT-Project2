@@ -37,19 +37,7 @@ var JUnitTable1 = (function(){
 				}
 				/*Labels*/
 				if (c == 0){
-					 if (r == 1){
-					 	newCol.append("<div><b>a</b> empty</div>");
-					 }else if(r == 2){
-					 	newCol.append("<div>Length of <b>a</b> = 1</div>");
-					 }else if(r == 3){
-					 	newCol.append("<div>Length of <b>a</b> > 1</div>");
-					 }else if(r == 4){
-					 	newCol.append("<div><b>x</b> not in <b>a</b></div>");
-					 }else if(r == 5){
-					 	newCol.append("<div><b>x</b> in <b>a</b> once</div>");
-					 }else if(r == 6){
-					 	newCol.append("<div><b>x</b> in <b>a</b> more than once</div>");
-					 }
+					newCol.append(rowNames[r].title);
 				}else{
 					newCol.append("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><img class = 'mark checkMark' src = 'images/checkMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span>")
 				}
