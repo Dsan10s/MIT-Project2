@@ -229,7 +229,7 @@ $(document).ready(function(){
 			}
 
 		// Check Marks & Error Marks
-			for(var c=1;c<=x.length;c++){
+			for(var c=1;c<=x.length-1;c++){
 				for(var r=1;r<=rowNames.length-1;r++){
 					if(rowNames[r].checkMembership(x[c],a[c])&& radioData[r][c] == true){
 						$(".row"+r+" .col"+c+" .checkMark").animate({"opacity":"1"},200);
@@ -241,14 +241,10 @@ $(document).ready(function(){
 						$(".row"+r+" .col"+c+" .checkMark").animate({"opacity": "0"}, 200);
 						$(".row"+r+" .col"+c+" .errorMark").animate({"opacity": "1"}, 200);
 					}
-								console.log("JSON.stringify(radioData[1])")
-
 				}
 			}
 
 			/*Turns a row red if there is no button clicked*/
-			console.log("JSON.stringify(radioData[1])")
-
 			if(find(true, radioData[1]) < 1){
 				console.log("Rows not filled")
 				$(".row1").animate({backgroundColor: "#ffc4c4"}, 200);
