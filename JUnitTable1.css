@@ -42,13 +42,18 @@ body{
 .cellContent{
 	margin-left: auto;
 	margin-right: auto;
-	display: block;
-	opacity: 0;
+	display: table;
 }
 
 .popover {
 	width: 1000px;
-
 }
-	display: table;
+
+#mainAlert{
+	position: absolute;
+	opacity: 0.5;
+}
+#mainSuccess{
+	position: absolute;
+	opacity: 0.5;
 }

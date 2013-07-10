@@ -6,7 +6,10 @@ var JUnitTable1 = (function(){
 		var bottomDiv = $("<div class = 'row-fluid'></div>")
 		var submit = $("<div class = 'span1'><button id = 'submit1' class = 'btn btn-success btn-large' style = 'width: 100%'>Submit</button></div>")
 		var alert = $("<div class = 'span11'><div id = 'mainAlert' class = 'alert alert-error'></div></div>")
-		bottomDiv.append(submit, alert);
+
+		var success = $("<div class = 'span11'><div id = 'mainSuccess' class = 'alert alert-success'></div></div>")
+		bottomDiv.append(submit, alert, success);
+
 	/*Row0*/
 		var row0 = $("<tr class = 'row0'></tr>");
 		var emptyLabel = $("<td class = 'empty'></td>");
@@ -151,6 +154,8 @@ $(document).ready(function(){
 		var row5checks = [];
 		var row6checks = [];*/
 
+		$("#mainAlert").animate({"opacity": "0"}, 200);
+		$("#mainSuccess").animate({"opacity": "0"}, 200);
 
 		$(".checkMark").animate({"opacity": "0"}, 200);
 		$(".errorMark").animate({"opacity": "0"}, 200);
@@ -174,16 +179,22 @@ $(document).ready(function(){
 
 			if($(".findInput2").val()[0] !== "["){
 				console.log("not a matrix");
+				$("#mainAlert").animate({"opacity": "0"}, 200);
+				$("#mainAlert").animate({"opacity": "1"}, 200);
 				$("#mainAlert").html("Make sure that <b>a</b> is a matrix");
 			}
 			if(find(true, radioData[1]) > 2 || find(true, radioData[2]) > 2 || find(true, radioData[3]) > 2){
-				$("#mainAlert").html("You can only select one option from each half of the table per column");
+
+				$("#mainAlert").animate({"opacity": "1"}, 200);
+				$("#mainAlert").html("You can only select one option from each half of the table");
+
 			}
 			for (var c = 1; c <= 3; c++){
 				var entries = [];
 				for (var r = 1; r <= 6; r++){
 					if(radioData[r][c] in entries){
-						$("#mainAlert").html("You can only select one option from each half of the table per column")
+						$("#mainAlert").animate({"opacity": "1"}, 200);
+						$("#mainAlert").html("You can only select one option from each half of the table per column");
 					}
 					entries.push(radioData[r][c]);
 				}
@@ -357,36 +368,49 @@ $(document).ready(function(){
 				// row6checks.push(1);
 			}
 
-		/*Turns a row red if there is more than one button clicked*/
+			/*Turns a row red if there is more than one button clicked*/
 
 			if(find(true, radioData[1]) < 1){
+				console.log("Rows not filled")
 				$(".row1").animate({backgroundColor: "#ffc4c4"}, 200);
+				$("#mainAlert").animate({"opacity": "1"}, 200);
 				$("#mainAlert").html("Make sure you have an answer for every row")
 			}	
 			if(find(true, radioData[2]) < 1){
+				console.log("Rows not filled")
 				$(".row2").animate({backgroundColor: "#ffc4c4"}, 200);
+				$("#mainAlert").animate({"opacity": "1"}, 200);
 				$("#mainAlert").html("Make sure you have an answer for every row")
 			}
 			if(find(true, radioData[3]) < 1){
+				console.log("Rows not filled")
 				$(".row3").animate({backgroundColor: "#ffc4c4"}, 200);
+				$("#mainAlert").animate({"opacity": "1"}, 200);
 				$("#mainAlert").html("Make sure you have an answer for every row")
 			}
 			if(find(true, radioData[4]) < 1){
+				console.log("Rows not filled")
 				$(".row4").animate({backgroundColor: "#ffc4c4"}, 200);
+				$("#mainAlert").animate({"opacity": "1"}, 200);
 				$("#mainAlert").html("Make sure you have an answer for every row")
 			}
 			if(find(true, radioData[5]) < 1){
+				console.log("Rows not filled")
 				$(".row5").animate({backgroundColor: "#ffc4c4"}, 200);
+				$("#mainAlert").animate({"opacity": "1"}, 200);
 				$("#mainAlert").html("Make sure you have an answer for every row")
 			}
 			if(find(true, radioData[6]) < 1){
+				console.log("Rows not filled")
 				$(".row6").animate({backgroundColor: "#ffc4c4"}, 200);
+				$("#mainAlert").animate({"opacity": "1"}, 200);
 				$("#mainAlert").html("Make sure you have an answer for every row")
 			}
 
 		}catch(e){
 			if($(".findInput1").val() === "" || $(".findInput2").val() === ""){
 				console.log("You must have an input in every field");
+				$("#mainAlert").animate({"opacity": "1"}, 200);
 				$("#mainAlert").html("You must have an input in every field");
 			}	
 		}		
