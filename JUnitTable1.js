@@ -357,7 +357,7 @@ $(document).ready(function(){
 				// row6checks.push(1);
 			}
 
-			/*Turns a row red if there is more than one button clicked*/
+		/*Turns a row red if there is more than one button clicked*/
 
 			if(find(true, radioData[1]) < 1){
 				$(".row1").animate({backgroundColor: "#ffc4c4"}, 200);
