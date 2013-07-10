@@ -161,6 +161,16 @@ $(document).ready(function(){
 			var x3 = JSON.parse($("#xInput3").val());
 			var a3 = JSON.parse($("#aInput3").val());
 
+			/*Some error checking*/
+
+			if($(".findInput2").val()[0] !== "["){
+				console.log("not a matrix");
+				$("#mainAlert").html("Make sure that <b>a</b> is a matrix");
+			}
+			if(find(true, radioData[1]) > 2 || find(true, radioData[2]) > 2 || find(true, radioData[3]) > 2){
+				$("#mainAlert").html("You can only select one option from each half of the table");
+			}
+
 			/*Column 1*/
 		
 			if(a1.length == 0 && radioData[1][1] == true){
@@ -230,42 +240,39 @@ $(document).ready(function(){
 				row6checks.push(1);
 			}
 
-			/*Turns a row red if there is more than one check mark*/
+			/*Turns a row red if there is more than one button clicked*/
 
 
-			if(row1checks.length !== 1){
+			if(find(true, radioData[1]) < 1){
 				$(".row1").animate({backgroundColor: "#ffc4c4"}, 200);
-			}	$(".mainAlert").html("Try again, think of how you can fill in each row")
-			if(row2checks.length !== 1){
+				$("#mainAlert").html("Make sure you have an answer for every row")
+			}	
+			if(find(true, radioData[2]) < 1){
 				$(".row2").animate({backgroundColor: "#ffc4c4"}, 200);
-				$(".mainAlert").html("Try again, think of how you can fill in each row")
+				$("#mainAlert").html("Make sure you have an answer for every row")
 			}
-			if(row3checks.length !== 1){
+			if(find(true, radioData[3]) < 1){
 				$(".row3").animate({backgroundColor: "#ffc4c4"}, 200);
-				$(".mainAlert").html("Try again, think of how you can fill in each row")
+				$("#mainAlert").html("Make sure you have an answer for every row")
 			}
-			if(row4checks.length !== 1){
+			if(find(true, radioData[4]) < 1){
 				$(".row4").animate({backgroundColor: "#ffc4c4"}, 200);
-				$(".mainAlert").html("Try again, think of how you can fill in each row")
+				$("#mainAlert").html("Make sure you have an answer for every row")
 			}
-			if(row5checks.length !== 1){
+			if(find(true, radioData[5]) < 1){
 				$(".row5").animate({backgroundColor: "#ffc4c4"}, 200);
-				$(".mainAlert").html("Try again, think of how you can fill in each row")
+				$("#mainAlert").html("Make sure you have an answer for every row")
 			}
-			if(row6checks.length !== 1){
+			if(find(true, radioData[6]) < 1){
 				$(".row6").animate({backgroundColor: "#ffc4c4"}, 200);
-				$(".mainAlert").html("Try again, think of how you can fill in each row")
+				$("#mainAlert").html("Make sure you have an answer for every row")
 			}
 
 		}catch(e){
 			if($(".findInput1").val() === "" || $(".findInput2").val() === ""){
 				console.log("You must have an input in every field");
 				$("#mainAlert").html("You must have an input in every field");
-			}
-			
-		}
-			
-
-		
+			}	
+		}		
 	})
 });
