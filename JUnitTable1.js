@@ -4,8 +4,8 @@ var JUnitTable1 = (function(){
 	var setup = function(div){
 		var table = $("<table id = 'JUnitTable1' class = 'table table-hover table-bordered'></table>");
 		var bottomDiv = $("<div class = 'row-fluid'></div>")
-		var submit = $("<div class = 'span2'><button id = 'submit1' class = 'btn btn-success btn-large'>Submit</button></div>")
-		var alert = $("<div class = 'span10'><div id = 'mainAlert' class = 'alert alert-error'></div></div>")
+		var submit = $("<div class = 'span1'><button id = 'submit1' class = 'btn btn-success btn-large' style = 'width: 100%'>Submit</button></div>")
+		var alert = $("<div class = 'span11'><div id = 'mainAlert' class = 'alert alert-error'></div></div>")
 		bottomDiv.append(submit, alert);
 	/*Row0*/
 		var row0 = $("<tr class = 'row0'></tr>");
@@ -49,7 +49,7 @@ var JUnitTable1 = (function(){
 					 	newCol.append("<div><b>x</b> in <b>a</b> more than once</div>");
 					 }
 				}else{
-					newCol.append("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><img class = 'checkMark' src = 'images/checkMark.png'/></span>")
+					newCol.append("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><img class = 'mark checkMark' src = 'images/checkMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span>")
 				}
 				newRow.append(newCol);
 			}
@@ -96,14 +96,14 @@ $(document).ready(function(){
 			var colIndex = colClass[3];
 		if (radioData[rowIndex][colIndex] === false){
 			d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
-			.attr("r", 20).duration(300)
-			.attr("stroke", "white").duration(300);
+			.attr("r", 20).duration(200)
+			.attr("stroke", "white").duration(200);
 			radioFill = true;
 			radioData[rowIndex][colIndex] = true;
 		}else if(radioData[rowIndex][colIndex] === true){
 			d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
-			.attr("r", 0).duration(300)
-			.attr("stroke", "grey").duration(300);
+			.attr("r", 0).duration(200)
+			.attr("stroke", "grey").duration(200);
 			radioFill = false;
 			radioData[rowIndex][colIndex] = false;
 		}
@@ -141,15 +141,19 @@ $(document).ready(function(){
 
 	/*Checks the user inputs when the submit button is pressed*/
 	$("#submit1").on("click", function(){
-		var row1checks = [];
+		// Row checks temporarily commented out for testing
+		// Delete if unnecessary
+		
+		/*var row1checks = [];
 		var row2checks = [];
 		var row3checks = [];
 		var row4checks = [];
 		var row5checks = [];
-		var row6checks = [];
+		var row6checks = [];*/
 
 
 		$(".checkMark").animate({"opacity": "0"}, 200);
+		$(".errorMark").animate({"opacity": "0"}, 200);
 
 		$(".row1").animate({backgroundColor: "white"}, 200);
 		$(".row2").animate({backgroundColor: "white"}, 200);
@@ -177,76 +181,174 @@ $(document).ready(function(){
 			}
 
 			/*Column 1*/
-		
+		// Check Marks
 			if(a1.length == 0 && radioData[1][1] == true){
 				$(".row1 .col1 .checkMark").animate({"opacity": "1"}, 200);
-				row1checks.push(1);
+				$(".row1 .col1 .errorMark").animate({"opacity": "0"}, 200);
+				// row1checks.push(1);
 			}else if(a1.length == 1 && radioData[2][1] == true){
 				$(".row2 .col1 .checkMark").animate({"opacity": "1"}, 200);
-				row2checks.push(1);
+				$(".row2 .col1 .errorMark").animate({"opacity": "0"}, 200);
+				// row2checks.push(1);
 			}else if(a1.length > 1 && radioData[3][1] == true){
 				$(".row3 .col1 .checkMark").animate({"opacity": "1"}, 200);
-				row3checks.push(1);
+				$(".row3 .col1 .errorMark").animate({"opacity": "0"}, 200);
+				// row3checks.push(1);
 			}
 			if(find(x1, a1) == 0 && radioData[4][1] == true){
 				$(".row4 .col1 .checkMark").animate({"opacity": "1"}, 200);
-				row4checks.push(1);
+				$(".row4 .col1 .errorMark").animate({"opacity": "0"}, 200);
+				// row4checks.push(1);
 			}else if(find(x1, a1) == 1 && radioData[5][1] == true){
 				$(".row5 .col1 .checkMark").animate({"opacity": "1"}, 200);
-				row5checks.push(1);
+				$(".row5 .col1 .errorMark").animate({"opacity": "0"}, 200);
+				// row5checks.push(1);
 			}else if(find(x1, a1) > 1 && radioData[6][1] == true){
 				$(".row6 .col1 .checkMark").animate({"opacity": "1"}, 200);
-				row6checks.push(1);
+				$(".row6 .col1 .errorMark").animate({"opacity": "0"}, 200);
+				// row6checks.push(1);
+			}
+		// Error Marks
+			if(a1.length !== 0 && radioData[1][1] == true){
+				$(".row1 .col1 .checkMark").animate({"opacity": "0"}, 200);
+				$(".row1 .col1 .errorMark").animate({"opacity": "1"}, 200);
+				// row1checks.push(1);
+			}else if(a1.length !== 1 && radioData[2][1] == true){
+				$(".row2 .col1 .checkMark").animate({"opacity": "0"}, 200);
+				$(".row2 .col1 .errorMark").animate({"opacity": "1"}, 200);
+				// row2checks.push(1);
+			}else if(a1.length <= 1 && radioData[3][1] == true){
+				$(".row3 .col1 .checkMark").animate({"opacity": "0"}, 200);
+				$(".row3 .col1 .errorMark").animate({"opacity": "1"}, 200);
+				// row3checks.push(1);
+			}
+			if(find(x1, a1) !== 0 && radioData[4][1] == true){
+				$(".row4 .col1 .checkMark").animate({"opacity": "0"}, 200);
+				$(".row4 .col1 .errorMark").animate({"opacity": "1"}, 200);
+				// row4checks.push(1);
+			}else if(find(x1, a1) !== 1 && radioData[5][1] == true){
+				$(".row5 .col1 .checkMark").animate({"opacity": "0"}, 200);
+				$(".row5 .col1 .errorMark").animate({"opacity": "1"}, 200);
+				// row5checks.push(1);
+			}else if(find(x1, a1) <= 1 && radioData[6][1] == true){
+				$(".row6 .col1 .checkMark").animate({"opacity": "0"}, 200);
+				$(".row6 .col1 .errorMark").animate({"opacity": "1"}, 200);
+				// row6checks.push(1);
 			}
 
 			/*Column 2*/
-		
+		// Check Marks
 			if(a2.length == 0 && radioData[1][2] == true){
 				$(".row1 .col2 .checkMark").animate({"opacity": "1"}, 200);
-				row1checks.push(1);
+				$(".row1 .col2 .errorMark").animate({"opacity": "0"}, 200);
+				// row1checks.push(1);
 			}else if(a2.length == 1 && radioData[2][2] == true){
 				$(".row2 .col2 .checkMark").animate({"opacity": "1"}, 200);
-				row2checks.push(1);
+				$(".row2 .col2 .errorMark").animate({"opacity": "0"}, 200);
+				// row2checks.push(1);
 			}else if(a2.length > 1 && radioData[3][2] == true){
 				$(".row3 .col2 .checkMark").animate({"opacity": "1"}, 200);
-				row3checks.push(1);
+				$(".row3 .col2 .errorMark").animate({"opacity": "0"}, 200);
+				// row3checks.push(1);
 			}
 			if(find(x2, a2) == 0 && radioData[4][2] == true){
 				$(".row4 .col2 .checkMark").animate({"opacity": "1"}, 200);
-				row4checks.push(1);
+				$(".row4 .col2 .errorMark").animate({"opacity": "0"}, 200);
+				// row4checks.push(1);
 			}else if(find(x2, a2) == 1 && radioData[5][2] == true){
 				$(".row5 .col2 .checkMark").animate({"opacity": "1"}, 200);
-				row5checks.push(1);
+				$(".row5 .col2 .errorMark").animate({"opacity": "0"}, 200);
+				// row5checks.push(1);
 			}else if(find(x2, a2) > 1 && radioData[6][2] == true){
 				$(".row6 .col2 .checkMark").animate({"opacity": "1"}, 200);
-				row6checks.push(1);
+				$(".row6 .col2 .errorMark").animate({"opacity": "0"}, 200);
+				// row6checks.push(1);
+			}
+		// Error Marks
+			if(a2.length !== 0 && radioData[1][2] == true){
+				$(".row1 .col2 .checkMark").animate({"opacity": "0"}, 200);
+				$(".row1 .col2 .errorMark").animate({"opacity": "1"}, 200);
+				// row1checks.push(1);
+			}else if(a2.length !== 1 && radioData[2][2] == true){
+				$(".row2 .col2 .checkMark").animate({"opacity": "0"}, 200);
+				$(".row2 .col2 .errorMark").animate({"opacity": "1"}, 200);
+				// row2checks.push(1);
+			}else if(a2.length <= 1 && radioData[3][2] == true){
+				$(".row3 .col2 .checkMark").animate({"opacity": "0"}, 200);
+				$(".row3 .col2 .errorMark").animate({"opacity": "1"}, 200);
+				// row3checks.push(1);
+			}
+			if(find(x1, a2) !== 0 && radioData[4][2] == true){
+				$(".row4 .col2 .checkMark").animate({"opacity": "0"}, 200);
+				$(".row4 .col2 .errorMark").animate({"opacity": "1"}, 200);
+				// row4checks.push(1);
+			}else if(find(x1, a2) !== 1 && radioData[5][2] == true){
+				$(".row5 .col2 .checkMark").animate({"opacity": "0"}, 200);
+				$(".row5 .col2 .errorMark").animate({"opacity": "1"}, 200);
+				// row5checks.push(1);
+			}else if(find(x1, a2) <= 1 && radioData[6][2] == true){
+				$(".row6 .col2 .checkMark").animate({"opacity": "0"}, 200);
+				$(".row6 .col2 .errorMark").animate({"opacity": "1"}, 200);
+				// row6checks.push(1);
 			}
 
 			/*Column 3*/
-		
+		// Check Marks
 			if(a3.length == 0 && radioData[1][3] == true){
 				$(".row1 .col3 .checkMark").animate({"opacity": "1"}, 200);
-				row1checks.push(1);
+				$(".row1 .col3 .errorMark").animate({"opacity": "0"}, 200);
+				// row1checks.push(1);
 			}else if(a3.length == 1 && radioData[2][3] == true){
 				$(".row2 .col3 .checkMark").animate({"opacity": "1"}, 200);
-				row2checks.push(1);
+				$(".row2 .col3 .errorMark").animate({"opacity": "0"}, 200);
+				// row2checks.push(1);
 			}else if(a3.length > 1 && radioData[3][3] == true){
 				$(".row3 .col3 .checkMark").animate({"opacity": "1"}, 200);
-				row3checks.push(1);
+				$(".row3 .col3 .errorMark").animate({"opacity": "0"}, 200);
+				// row3checks.push(1);
 			}
 			if(find(x3, a3) == 0 && radioData[4][3] == true){
 				$(".row4 .col3 .checkMark").animate({"opacity": "1"}, 200);
-				row4checks.push(1);
+				$(".row4 .col3 .errorMark").animate({"opacity": "0"}, 200);
+				// row4checks.push(1);
 			}else if(find(x3, a3) == 1 && radioData[5][3] == true){
 				$(".row5 .col3 .checkMark").animate({"opacity": "1"}, 200);
-				row5checks.push(1);
+				$(".row5 .col3 .errorMark").animate({"opacity": "0"}, 200);
+				// row5checks.push(1);
 			}else if(find(x3, a3) > 1 && radioData[6][3] == true){
 				$(".row6 .col3 .checkMark").animate({"opacity": "1"}, 200);
-				row6checks.push(1);
+				$(".row6 .col3 .errorMark").animate({"opacity": "0"}, 200);
+				// row6checks.push(1);
+			}
+		// Error Marks
+			if(a3.length !== 0 && radioData[1][3] == true){
+				$(".row1 .col3 .checkMark").animate({"opacity": "0"}, 200);
+				$(".row1 .col3 .errorMark").animate({"opacity": "1"}, 200);
+				// row1checks.push(1);
+			}else if(a3.length !== 1 && radioData[2][3] == true){
+				$(".row2 .col3 .checkMark").animate({"opacity": "0"}, 200);
+				$(".row2 .col3 .errorMark").animate({"opacity": "1"}, 200);
+				// row2checks.push(1);
+			}else if(a3.length <= 1 && radioData[3][3] == true){
+				$(".row3 .col3 .checkMark").animate({"opacity": "0"}, 200);
+				$(".row3 .col3 .errorMark").animate({"opacity": "1"}, 200);
+				// row3checks.push(1);
+			}
+			if(find(x1, a3) !== 0 && radioData[4][3] == true){
+				$(".row4 .col3 .checkMark").animate({"opacity": "0"}, 200);
+				$(".row4 .col3 .errorMark").animate({"opacity": "1"}, 200);
+				// row4checks.push(1);
+			}else if(find(x1, a3) !== 1 && radioData[5][3] == true){
+				$(".row5 .col3 .checkMark").animate({"opacity": "0"}, 200);
+				$(".row5 .col3 .errorMark").animate({"opacity": "1"}, 200);
+				// row5checks.push(1);
+			}else if(find(x1, a3) <= 1 && radioData[6][3] == true){
+				$(".row6 .col3 .checkMark").animate({"opacity": "0"}, 200);
+				$(".row6 .col3 .errorMark").animate({"opacity": "1"}, 200);
+				// row6checks.push(1);
 			}
 
 			/*Turns a row red if there is more than one button clicked*/
-
 
 			if(find(true, radioData[1]) < 1){
 				$(".row1").animate({backgroundColor: "#ffc4c4"}, 200);
