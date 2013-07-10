@@ -120,17 +120,7 @@ $(document).ready(function(){
 		}
 	}
 
-	/*Find method returns number of times a number was found in an array*/
 
-	function find(x, a){
-		var instances = 0;
-		for (var i = 0; i < a.length; i++){
-			if (x == a[i]){
-				instances++;
-			}
-		}
-		return instances;
-	}
 
 	/*Checks the user inputs when the submit button is pressed*/
 	$("#submit1").on("click", function(){
@@ -198,7 +188,7 @@ $(document).ready(function(){
 
 			/*Column 1*/
 		// Check Marks
-			if(a1.length == 0 && radioData[1][1] == true){
+			if(rowNames[1].checkMembership(a1) && radioData[1][1] == true){
 				$(".row1 .col1 .checkMark").animate({"opacity": "1"}, 200);
 				$(".row1 .col1 .errorMark").animate({"opacity": "0"}, 200);
 				// row1checks.push(1);
@@ -211,7 +201,7 @@ $(document).ready(function(){
 				$(".row3 .col1 .errorMark").animate({"opacity": "0"}, 200);
 				// row3checks.push(1);
 			}
-			if(find(x1, a1) == 0 && radioData[4][1] == true){
+			if(rowNames[4].checkMembership(x1,a1) && radioData[4][1] == true){
 				$(".row4 .col1 .checkMark").animate({"opacity": "1"}, 200);
 				$(".row4 .col1 .errorMark").animate({"opacity": "0"}, 200);
 				// row4checks.push(1);
