@@ -278,15 +278,15 @@ $(document).ready(function(){
 				$(".row3 .col2 .errorMark").animate({"opacity": "1"}, 200);
 				// row3checks.push(1);
 			}
-			if(find(x1, a2) !== 0 && radioData[4][2] == true){
+			if(find(x2, a2) !== 0 && radioData[4][2] == true){
 				$(".row4 .col2 .checkMark").animate({"opacity": "0"}, 200);
 				$(".row4 .col2 .errorMark").animate({"opacity": "1"}, 200);
 				// row4checks.push(1);
-			}else if(find(x1, a2) !== 1 && radioData[5][2] == true){
+			}else if(find(x2, a2) !== 1 && radioData[5][2] == true){
 				$(".row5 .col2 .checkMark").animate({"opacity": "0"}, 200);
 				$(".row5 .col2 .errorMark").animate({"opacity": "1"}, 200);
 				// row5checks.push(1);
-			}else if(find(x1, a2) <= 1 && radioData[6][2] == true){
+			}else if(find(x2, a2) <= 1 && radioData[6][2] == true){
 				$(".row6 .col2 .checkMark").animate({"opacity": "0"}, 200);
 				$(".row6 .col2 .errorMark").animate({"opacity": "1"}, 200);
 				// row6checks.push(1);
@@ -334,15 +334,15 @@ $(document).ready(function(){
 				$(".row3 .col3 .errorMark").animate({"opacity": "1"}, 200);
 				// row3checks.push(1);
 			}
-			if(find(x1, a3) !== 0 && radioData[4][3] == true){
+			if(find(x3, a3) !== 0 && radioData[4][3] == true){
 				$(".row4 .col3 .checkMark").animate({"opacity": "0"}, 200);
 				$(".row4 .col3 .errorMark").animate({"opacity": "1"}, 200);
 				// row4checks.push(1);
-			}else if(find(x1, a3) !== 1 && radioData[5][3] == true){
+			}else if(find(x3, a3) !== 1 && radioData[5][3] == true){
 				$(".row5 .col3 .checkMark").animate({"opacity": "0"}, 200);
 				$(".row5 .col3 .errorMark").animate({"opacity": "1"}, 200);
 				// row5checks.push(1);
-			}else if(find(x1, a3) <= 1 && radioData[6][3] == true){
+			}else if(find(x3, a3) <= 1 && radioData[6][3] == true){
 				$(".row6 .col3 .checkMark").animate({"opacity": "0"}, 200);
 				$(".row6 .col3 .errorMark").animate({"opacity": "1"}, 200);
 				// row6checks.push(1);
