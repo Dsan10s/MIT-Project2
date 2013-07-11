@@ -68,3 +68,6 @@ body{
 	width: 30%;
 	/*font-size: 20pt;*/
 }
+.td{
+	max-width: 400px;
+}
