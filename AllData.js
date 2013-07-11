@@ -19,7 +19,11 @@ var rowNames = ["ph",
 		];
 
 /*
+Input name and type : string, number, object - add a checkType function to test whether it is an array or associative array or any datatype you want.
 */
+var inputs=["ph",
+			{name:"x",type:"number",display:"a number"},
+			{name:"a",type:"object",display:"an array", checkObject:function(object){return Object.prototype.toString.call( object ) === '[object Array]';}}]
 
 
 /*

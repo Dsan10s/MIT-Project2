@@ -6,6 +6,7 @@ var JUnitTable1 = (function(){
 	/*Nulls are placeholders so indexing is easier later*/
 	var radioData = [[null], [null, false, false, false], [null, false, false, false], [null, false, false, false], [null, false, false, false], [null, false, false, false], [null, false, false, false]];
 	var exports = {};
+
 	var setup = function(div){
 		var table = $("<table id = 'JUnitTable1' class = 'table table-hover table-bordered'></table>");
 		var bottomDiv = $("<div style = 'width: 100%'></div>")
@@ -169,9 +170,6 @@ var JUnitTable1 = (function(){
 			var radioFill = false;
 
 			
-			
-			
-
 			$(".col"+newNum+" .customRadioBorder").on("click", function(){
 				var rowClass = $(this).parent('span').parent('td').parent('tr').attr("class");
 				var rowIndex = rowClass[3];
@@ -194,42 +192,43 @@ var JUnitTable1 = (function(){
 				}
 				
 			})
+			console.log("radiobutton clicked")
+			$(".delete").on("click", function(){
+				console.log("delete clicked")
+				var deleteCol = $(this).parent("td").attr("class");
+				var deleteColNum = deleteCol.slice(3, deleteCol.length);
+				console.log("deleteCol: " + deleteCol)
+				
+				if(parseInt(deleteColNum)>3){
+					$("." + deleteCol).remove();
+					if(columnsDisplayed.indexOf(parseInt(deleteColNum))!=-1){
+						columnsDisplayed.splice(columnsDisplayed.indexOf(parseInt(deleteColNum)), 1);
+					}
+				}
+				console.log(columnsDisplayed);
+			})
 		});
 
 		$(".delete").on("click", function(){
-			var deleteRow = $(this).parent("tr").parent("tr").attr("class");
+			console.log("delete clicked")
 			var deleteCol = $(this).parent("td").attr("class");
 			var deleteColNum = deleteCol.slice(3, deleteCol.length);
 			console.log("deleteCol: " + deleteCol)
-			$("." + deleteCol).remove();
-			columnsDisplayed.splice(columnsDisplayed.indexOf(parseInt(deleteColNum)), 1);
+			if(parseInt(deleteColNum)<=3){
+				$("." + deleteCol).remove();
+				if(columnsDisplayed.indexOf(parseInt(deleteColNum))!=-1){
+					columnsDisplayed.splice(columnsDisplayed.indexOf(parseInt(deleteColNum)), 1);				
+				}
+			}
+
 			console.log(columnsDisplayed);
 		})
 
 		/*Find method returns number of times a number was found in an array*/
 
-		function find(x, a){
-			var instances = 0;
-			for (var i = 0; i < a.length; i++){
-				if (x == a[i]){
-					instances++;
-				}
-			}
-			return instances;
-		}
 
 		/*Checks the user inputs when the submit button is pressed*/
 		$("#submit1").on("click", function(){
-			// Row checks temporarily commented out for testing
-			// Delete if unnecessary
-			
-			/*var row1checks = [];
-			var row2checks = [];
-			var row3checks = [];
-			var row4checks = [];
-			var row5checks = [];
-			var row6checks = [];*/
-
 
 			$("#mainAlert").hide();
 			$("#mainSuccess").hide();
@@ -240,57 +239,16 @@ var JUnitTable1 = (function(){
 			$(".checkMark").animate({"opacity": "0"}, 200);
 			$(".errorMark").animate({"opacity": "0"}, 200);
 
-			$(".row1").animate({backgroundColor: "white"}, 200);
-			$(".row2").animate({backgroundColor: "white"}, 200);
-			$(".row3").animate({backgroundColor: "white"}, 200);
-			$(".row4").animate({backgroundColor: "white"}, 200);
-			$(".row5").animate({backgroundColor: "white"}, 200);
-			$(".row6").animate({backgroundColor: "white"}, 200);
+			for(var i=1;i<=rowNames.length-1;i++){
+				$(".row"+i).animate({backgroundColor:"white"},200);
+			}
 
 			try{
-				console.log("here1")
-/*				var x1 = JSON.parse($("#xInput1").val());
-				var a1 = JSON.parse($("#aInput1").val());
-				var x2 = JSON.parse($("#xInput2").val());
-				var a2 = JSON.parse($("#aInput2").val());
-				var x3 = JSON.parse($("#xInput3").val());
-				var a3 = JSON.parse($("#aInput3").val());*/
-
-				/*Some error checking*/
-				console.log("here2")
-				if($(".findInput2").val()[0] !== "["){
-					console.log("not a matrix");
-					$("#mainAlert").show();
-					$("#mainAlert").animate({"opacity": "1"}, 200);
-					$("#mainAlert").html("Make sure that <b>a</b> is a matrix");
-				}
-				console.log("here3")
-				if(find(true, radioData[1]) > 2 || find(true, radioData[2]) > 2 || find(true, radioData[3]) > 2){
-
-					$("#mainAlert").show();
-					$("#mainAlert").animate({"opacity": "1"}, 200);
-					$("#mainAlert").html("You can only select one option from each half of the table");
-
-				}
-				console.log("here4")
-				for (var c = 1; c <= 3; c++){
-					var entries = [];
-					for (var r = 1; r <= 6; r++){
-						if(radioData[r][c] in entries){
-							$("#mainAlert").show();
-							$("#mainAlert").animate({"opacity": "1"}, 200);
-							$("#mainAlert").html("You can only select one option from each half of the table per column");
-						}
-						entries.push(radioData[r][c]);
-					}
-				}
-
-				console.log("here5")
 				/*Displays check and error marks based on user input*/
 				console.log("columnsDisplayed: " + columnsDisplayed)
 				for (var c = columnsDisplayed[1]; c <= columnsDisplayed[columnsDisplayed.length - 1]; c++){
 					/*for loop stops when it reaches a number in columnsDisplayed that doesn't exist*/
-					console.log("here6")
+					console.log("here1")
 					if (columnsDisplayed.indexOf(c) == -1){
 						console.log("column does not exist, moving to next column")
 					}else{
@@ -312,84 +270,76 @@ var JUnitTable1 = (function(){
 						}
 					}
 				}	
-					/*for (var r = 1; r <= 3; r++){
-						if ( (aInp.length == 0 && radioData[r][c] == true && r == 1) || (aInp.length == 1 && radioData[r][c] == true && r == 2) || (aInp.length > 1 && radioData[r][c] == true && r == 3) ){
-							$(".row" + r + " .col" + c + " .checkMark").animate({"opacity": "1"}, 200);
-							$(".row" + r + " .col" + c + " .errorMark").animate({"opacity": "0"}, 200);
-						}else if( (aInp.length !== 0 && radioData[r][c] == true && r == 1) || (aInp.length !== 1 && radioData[r][c] == true && r == 2) || (aInp.length <= 1 && radioData[r][c] == true && r == 3) ){
-							$(".row" + r + " .col" + c + " .checkMark").animate({"opacity": "0"}, 200);
-							$(".row" + r + " .col" + c + " .errorMark").animate({"opacity": "1"}, 200);							
+				
+				/*
+				Helper function
+				*/
+				function find(x, a){
+					var instances = 0;
+					for (var i = 0; i < a.length; i++){
+						if (x == a[i]){
+							instances++;
 						}
 					}
-					for (var r = 4; r <= 6; r++){
-						if ( (find(xInp, aInp) == 0 && radioData[r][c] == true && r == 4) || (find(xInp, aInp) == 1 && radioData[r][c] == true && r == 5) || (find(xInp, aInp) > 1 && radioData[r][c] == true && r == 6) ){
-							$(".row" + r + " .col" + c + " .checkMark").animate({"opacity": "1"}, 200);
-							$(".row" + r + " .col" + c + " .errorMark").animate({"opacity": "0"}, 200);
-						}else if( (find(xInp, aInp) !== 0 && radioData[r][c] == true && r == 4) || (find(xInp, aInp) !== 1 && radioData[r][c] == true && r == 5) || (find(xInp, aInp) <= 1 && radioData[r][c] == true && r == 6) ){
-							$(".row" + r + " .col" + c + " .checkMark").animate({"opacity": "0"}, 200);
-							$(".row" + r + " .col" + c + " .errorMark").animate({"opacity": "1"}, 200);	
+					return instances;
+				}
+
+				/*
+				Type checking
+				*/
+				var hasShown =false; // whether an error msg has shown.
+				for(var i=1;i<=inputs.length-1;i++){
+					$(".findInput"+i).each(function(){
+						if(typeof(JSON.parse(this.value))!=inputs[i].type){
+							if(inputs[i].type!="object"||!inputs[i].checkObject(JSON.parse(this.value)))
+							{
+								$("#mainAlert").show();
+								$("#mainAlert").animate({"opacity": "1"}, 200);
+								$("#mainAlert").html(inputs[i].name+" has to be "+inputs[i].display);
+								hasShown=true;
+							}
 						}
-					}*/
+					});
+				};
+
+				/*Turns a row red if there is no button clicked*/
+				if(!hasShown){
+					for(var r=1;r<=rowNames.length-1;r++){
+						if(find(true,radioData[r])<1){
+							$(".row"+r).animate({backgroundColor: "#ffc4c4"}, 200);
+							$("#mainAlert").show();
+							$("#mainAlert").animate({"opacity": "1"}, 200);
+							$("#mainAlert").html("Make sure you have an answer for every row")
+						}
+					}
+				}
 				
-
-
-			/*Turns a row red if there is no button clicked*/
-				/*Write for loop for if statements below*/
-			if(find(true, radioData[1]) < 1){
-				console.log("Rows not filled")
-				$(".row1").animate({backgroundColor: "#ffc4c4"}, 200);
-				$("#mainAlert").show();
-				$("#mainAlert").animate({"opacity": "1"}, 200);
-				$("#mainAlert").html("Make sure you have an answer for every row")
-			}	
-			if(find(true, radioData[2]) < 1){
-				console.log("Rows not filled")
-				$(".row2").animate({backgroundColor: "#ffc4c4"}, 200);
-				$("#mainAlert").show();
-				$("#mainAlert").animate({"opacity": "1"}, 200);
-				$("#mainAlert").html("Make sure you have an answer for every row")
-			}
-			if(find(true, radioData[3]) < 1){
-				console.log("Rows not filled")
-				$(".row3").animate({backgroundColor: "#ffc4c4"}, 200);
-				$("#mainAlert").show();
-				$("#mainAlert").animate({"opacity": "1"}, 200);
-				$("#mainAlert").html("Make sure you have an answer for every row")
-			}
-			if(find(true, radioData[4]) < 1){
-				console.log("Rows not filled")
-				$(".row4").animate({backgroundColor: "#ffc4c4"}, 200);
-				$("#mainAlert").show();
-				$("#mainAlert").animate({"opacity": "1"}, 200);
-				$("#mainAlert").html("Make sure you have an answer for every row")
-			}
-			if(find(true, radioData[5]) < 1){
-				console.log("Rows not filled")
-				$(".row5").animate({backgroundColor: "#ffc4c4"}, 200);
-				$("#mainAlert").show();
-				$("#mainAlert").animate({"opacity": "1"}, 200);
-				$("#mainAlert").html("Make sure you have an answer for every row")
-			}
-			if(find(true, radioData[6]) < 1){
-				console.log("Rows not filled")
-				$(".row6").animate({backgroundColor: "#ffc4c4"}, 200);
-				$("#mainAlert").show();
-				$("#mainAlert").animate({"opacity": "1"}, 200);
-				$("#mainAlert").html("Make sure you have an answer for every row")
-			}
-
 				/*Checks if all answers are correct*/
 				/*for(var i = 1; i <= radioData.length; i++){
 				}*/
-
-
 			}catch(e){
-				if($(".findInput1").val() === "" || $(".findInput2").val() === ""){
-					console.log("You must have an input in every field");
+				console.log("error"+e);				
+
+				/*Some error checking*/
+				var hasShown=false;
+				var errmsg="The input fields don't make sense.\n";
+				for(var i=1;i<=inputs.length-1;i++){
+					$(".findInput"+i).each(function(){
+						if(this.value==""){
+							$("#mainAlert").show();
+							$("#mainAlert").animate({"opacity": "1"}, 200);
+							$("#mainAlert").html("You must enter every field.");
+							hasShown=true;
+						}
+						
+					});
+					errmsg+=inputs[i].name+" has to be "+inputs[i].display+".\n";
+				};
+				if(!hasShown){
 					$("#mainAlert").show();
 					$("#mainAlert").animate({"opacity": "1"}, 200);
-					$("#mainAlert").html("You must have an input in every field");
-				}	
+					$("#mainAlert").html(errmsg);
+				}
 			}		
 		})
 	}
