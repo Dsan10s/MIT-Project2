@@ -78,29 +78,29 @@ var JUnitTable1 = (function(){
 		$(".customRadioBorder").on("hover", function(){
 			$(this).css('cursor', 'pointer');
 		})
-
-		/*$(".customRadioBorder").on("click", function(){
-			var rowClass = $(this).parent('span').parent('td').parent('tr').attr("class");
-			var rowIndex = rowClass[3];
-			var colClass = $(this).parent('span').parent('td').attr("class");
-			var colIndex = colClass[3];
-			if (radioData[rowIndex][colIndex] === false){
-				console.log("rowClass: " + rowClass + ", colClass: " + colClass)
-				d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
-				.attr("r", 20).duration(200)
-				.attr("stroke", "white").duration(200);
-				radioFill = true;
-				radioData[rowIndex][colIndex] = true;
-			}else if(radioData[rowIndex][colIndex] === true){
-				d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
-				.attr("r", 0).duration(200)
-				.attr("stroke", "grey").duration(200);
-				radioFill = false;
-				radioData[rowIndex][colIndex] = false;
-			}
-			
-		})*/
-
+		for(var c=1;c<=3;c++){
+			$(".col"+c+" .customRadioBorder").on("click", function(){
+				var rowClass = $(this).parent('span').parent('td').parent('tr').attr("class");
+				var rowIndex = rowClass[3];
+				var colClass = $(this).parent('span').parent('td').attr("class");
+				var colIndex = colClass[3];
+				if (radioData[rowIndex][colIndex] === false){
+					console.log("rowClass: " + rowClass + ", colClass: " + colClass)
+					d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
+					.attr("r", 20).duration(200)
+					.attr("stroke", "white").duration(200);
+					radioFill = true;
+					radioData[rowIndex][colIndex] = true;
+				}else if(radioData[rowIndex][colIndex] === true){
+					d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
+					.attr("r", 0).duration(200)
+					.attr("stroke", "grey").duration(200);
+					radioFill = false;
+					radioData[rowIndex][colIndex] = false;
+				}
+				
+			})
+		}
 		$(".plusButton").on("click", function(){
 			var lastNumber = columnsDisplayed[columnsDisplayed.length - 1];
 			var newNum = lastNumber + 1;
@@ -158,7 +158,7 @@ var JUnitTable1 = (function(){
 			
 			
 
-			$(".customRadioBorder").on("click", function(){
+			$(".col"+newNum+" .customRadioBorder").on("click", function(){
 				var rowClass = $(this).parent('span').parent('td').parent('tr').attr("class");
 				var rowIndex = rowClass[3];
 				var colClass = $(this).parent('span').parent('td').attr("class");
@@ -279,6 +279,7 @@ var JUnitTable1 = (function(){
 					}
 				}
 
+				/*Displays check and error marks based on user input*/
 				for (var c = 1; c < columnsDisplayed.length; c++){
 					var xInp = JSON.parse($("#xInput" + c).val());
 					var aInp = JSON.parse($("#aInput" + c).val());
