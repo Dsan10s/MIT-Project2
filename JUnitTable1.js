@@ -18,11 +18,21 @@ var JUnitTable1 = (function(){
 	/*Row0*/
 		var row0 = $("<tr class = 'row0'></tr>");
 		var emptyLabel = $("<td class = 'col0'><button class = 'plusButton btn btn-info'><b style = 'font-size: 20pt'>+</b></button></td>");
-		var findLabel1 = $("<td class = 'col1'>Find(<input id = 'xInput1' class = 'findInput1' placeholder = '  x'></input>, <input id = aInput1 class = 'findInput2' placeholder = '  a'></input>)<button class = 'delete btn btn-danger' style = 'float: right;'>Delete</button></td>");
-		var findLabel2 = $("<td class = 'col2'>Find(<input id = 'xInput2' class = 'findInput1' placeholder = '  x'></input>, <input id = aInput2 class = 'findInput2' placeholder = '  a'></input>)<button class = 'delete btn btn-danger' style = 'float: right;'>Delete</button></td>");
-		var findLabel3 = $("<td class = 'col3'>Find(<input id = 'xInput3' class = 'findInput1' placeholder = '  x'></input>, <input id = aInput3 class = 'findInput2' placeholder = '  a'></input>)<button class = 'delete btn btn-danger' style = 'float: right;'>Delete</button></td>");
 
-		row0.append(emptyLabel, findLabel1, findLabel2, findLabel3);
+		row0.append(emptyLabel);
+		for(var i=1;i<=3;i++){
+			/*generate a string for input fields in HTML*/
+			var temp="";
+			for(var j=1;j<inputs.length-1;j++){
+				temp+="<input id = '"+inputs[j].name+"Input"+i+"' class = 'findInput"+j+"' placeholder = '  "+inputs[j].name+"'></input>, ";
+				
+			}
+			temp+="<input id = '"+inputs[inputs.length-1].name+"Input"+i+"' class = 'findInput"+(inputs.length-1)+"' placeholder = '  "+inputs[inputs.length-1].name+"'></input>";
+
+			var findLabel = $("<td class = 'col1'>"+functionName+"("+temp+")<button class = 'delete btn btn-danger' style = 'float: right;'>Delete</button></td>");
+			row0.append(findLabel);
+		}
+		
 		table.append(row0);
 	/*Column Labels*/
 
@@ -117,12 +127,20 @@ var JUnitTable1 = (function(){
 		$(".plusButton").on("click", function(){
 			var lastNumber = columnsDisplayed[columnsDisplayed.length - 1];
 			var newNum = lastNumber + 1;
-			for (var r = 0; r <= 6; r++){
+			for (var r = 0; r <= rowNames.length-1; r++){
 				
 				var rowClass = ".row" + r;
 				var newCol = $("<td class = 'col" + newNum + "'></td>");
 				if (r == 0){
-					var newFindLabel = $("<input id = 'xInput" + newNum + "' class = 'findInput1' placeholder = '  x'></input>, <input id = 'aInput" + newNum + "' class = 'findInput2' placeholder = '  a'></input>");
+					/*generate a string for input fields in HTML*/
+					var temp="";
+					for(var j=1;j<inputs.length-1;j++){
+						temp+="<input id = '"+inputs[j].name+"Input"+newNum+"' class = 'findInput"+j+"' placeholder = '  "+inputs[j].name+"'></input>, ";
+						
+					}
+					temp+="<input id = '"+inputs[inputs.length-1].name+"Input"+newNum+"' class = 'findInput"+(inputs.length-1)+"' placeholder = '  "+inputs[inputs.length-1].name+"'></input>";
+
+					var newFindLabel = $(temp);
 					var newDeleteBtn = $("<button class = 'delete btn btn-danger' style = 'float: right;'>Delete</button>")
 					newCol.append("Find(", newFindLabel, ")", newDeleteBtn);
 				}else{
@@ -226,6 +244,13 @@ var JUnitTable1 = (function(){
 
 		/*Find method returns number of times a number was found in an array*/
 
+//Temp just for debuging
+$("#xInput1").val(1)
+$("#xInput2").val(1)
+$("#xInput3").val(1)
+$("#aInput1").val("[]")
+$("#aInput2").val("[1]")
+$("#aInput3").val("[1,1]")
 
 		/*Checks the user inputs when the submit button is pressed*/
 		$("#submit1").on("click", function(){
@@ -248,21 +273,21 @@ var JUnitTable1 = (function(){
 				console.log("columnsDisplayed: " + columnsDisplayed)
 				for (var c = columnsDisplayed[1]; c <= columnsDisplayed[columnsDisplayed.length - 1]; c++){
 					/*for loop stops when it reaches a number in columnsDisplayed that doesn't exist*/
-					console.log("here1")
 					if (columnsDisplayed.indexOf(c) == -1){
 						console.log("column does not exist, moving to next column")
 					}else{
 
 						console.log("columnsDisplayed[1]: " + columnsDisplayed[1])
-						var xInp = JSON.parse($("#xInput" + c).val());
-						var aInp = JSON.parse($("#aInput" + c).val());
+						var inputArray =[]; 
+						for(var j=1;j<=inputs.length-1;j++){
+							inputArray.push(JSON.parse($("#"+inputs[j].name+"Input" + c).val()));
+						}
 						for(var r=1;r<=rowNames.length-1;r++){
-							if(rowNames[r].checkMembership(xInp,aInp)&& radioData[r][c] == true){
+							if(rowNames[r].checkMembership.apply(null,inputArray)&& radioData[r][c] == true){
 								$(".row"+r+" .col"+c+" .checkMark").animate({"opacity":"1"},200);
 								$(".row"+r+" .col"+c+" .errorMark").animate({"opacity":"0"},200);
 							}
-							if(!(rowNames[r].checkMembership(xInp,aInp))&& radioData[r][c] == true){
-								console.log(r,c,JSON.stringify(xInp),JSON.stringify(aInp));
+							if(!(rowNames[r].checkMembership.apply(null,inputArray))&& radioData[r][c] == true){
 
 								$(".row"+r+" .col"+c+" .checkMark").animate({"opacity": "0"}, 200);
 								$(".row"+r+" .col"+c+" .errorMark").animate({"opacity": "1"}, 200);
@@ -296,6 +321,7 @@ var JUnitTable1 = (function(){
 								$("#mainAlert").show();
 								$("#mainAlert").animate({"opacity": "1"}, 200);
 								$("#mainAlert").html(inputs[i].name+" has to be "+inputs[i].display);
+								console.log(this.value,inputs[i].name,i)
 								hasShown=true;
 							}
 						}
