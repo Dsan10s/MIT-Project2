@@ -1,7 +1,6 @@
 var setHeader = (function(){
 	var exports = {};
 	var setup = (function(div){
-		console.log("here")
 		$(div).append(header);
 	})
 
