@@ -6,6 +6,7 @@ var JUnitTable1 = (function(){
 	/*Nulls are placeholders so indexing is easier later*/
 	var radioData = [[null], [null, false, false, false], [null, false, false, false], [null, false, false, false], [null, false, false, false], [null, false, false, false], [null, false, false, false]];
 	var exports = {};
+
 	var setup = function(div){
 		var table = $("<table id = 'JUnitTable1' class = 'table table-hover table-bordered'></table>");
 		var bottomDiv = $("<div style = 'width: 100%'></div>")
@@ -17,9 +18,9 @@ var JUnitTable1 = (function(){
 	/*Row0*/
 		var row0 = $("<tr class = 'row0'></tr>");
 		var emptyLabel = $("<td class = 'col0'><button class = 'plusButton btn btn-info'><b style = 'font-size: 20pt'>+</b></button></td>");
-		var findLabel1 = $("<td class = 'col1'>Find(<input id = 'xInput1' class = 'findInput1' placeholder = '  x'></input>, <input id = aInput1 class = 'findInput2' placeholder = '  a'></input>)</td>");
-		var findLabel2 = $("<td class = 'col2'>Find(<input id = 'xInput2' class = 'findInput1' placeholder = '  x'></input>, <input id = aInput2 class = 'findInput2' placeholder = '  a'></input>)</td>");
-		var findLabel3 = $("<td class = 'col3'>Find(<input id = 'xInput3' class = 'findInput1' placeholder = '  x'></input>, <input id = aInput3 class = 'findInput2' placeholder = '  a'></input>)</td>");
+		var findLabel1 = $("<td class = 'col1'>Find(<input id = 'xInput1' class = 'findInput1' placeholder = '  x'></input>, <input id = aInput1 class = 'findInput2' placeholder = '  a'></input>)<button class = 'delete btn btn-danger' style = 'float: right;'>Delete</button></td>");
+		var findLabel2 = $("<td class = 'col2'>Find(<input id = 'xInput2' class = 'findInput1' placeholder = '  x'></input>, <input id = aInput2 class = 'findInput2' placeholder = '  a'></input>)<button class = 'delete btn btn-danger' style = 'float: right;'>Delete</button></td>");
+		var findLabel3 = $("<td class = 'col3'>Find(<input id = 'xInput3' class = 'findInput1' placeholder = '  x'></input>, <input id = aInput3 class = 'findInput2' placeholder = '  a'></input>)<button class = 'delete btn btn-danger' style = 'float: right;'>Delete</button></td>");
 
 		row0.append(emptyLabel, findLabel1, findLabel2, findLabel3);
 		table.append(row0);
@@ -122,7 +123,8 @@ var JUnitTable1 = (function(){
 				var newCol = $("<td class = 'col" + newNum + "'></td>");
 				if (r == 0){
 					var newFindLabel = $("<input id = 'xInput" + newNum + "' class = 'findInput1' placeholder = '  x'></input>, <input id = 'aInput" + newNum + "' class = 'findInput2' placeholder = '  a'></input>");
-					newCol.append("Find(", newFindLabel, ")");
+					var newDeleteBtn = $("<button class = 'delete btn btn-danger' style = 'float: right;'>Delete</button>")
+					newCol.append("Find(", newFindLabel, ")", newDeleteBtn);
 				}else{
 					newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><img class = 'mark checkMark' src = 'images/checkMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span>"));
 				}
@@ -159,6 +161,7 @@ var JUnitTable1 = (function(){
 			
 			/*Adds new column to columnsDisplayed array, and new unclicked radio Buttons to radioData array*/
 			columnsDisplayed.push(newNum);
+			console.log("columnsDisplayed: " + columnsDisplayed)
 			for (var i = 1; i < radioData.length; i++){
 				radioData[i].push(false);
 			}
@@ -171,7 +174,7 @@ var JUnitTable1 = (function(){
 				var rowClass = $(this).parent('span').parent('td').parent('tr').attr("class");
 				var rowIndex = rowClass[3];
 				var colClass = $(this).parent('span').parent('td').attr("class");
-				var colIndex = colClass[3];
+				var colIndex = colClass.slice(3, colClass.length);
 				if (radioData[rowIndex][colIndex] === false){
 					console.log("button will fill")
 					console.log("rowClass: " + rowClass + ", colClass: " + colClass)
@@ -189,7 +192,40 @@ var JUnitTable1 = (function(){
 				}
 				
 			})
+			console.log("radiobutton clicked")
+			$(".delete").on("click", function(){
+				console.log("delete clicked")
+				var deleteCol = $(this).parent("td").attr("class");
+				var deleteColNum = deleteCol.slice(3, deleteCol.length);
+				console.log("deleteCol: " + deleteCol)
+				
+				if(parseInt(deleteColNum)>3){
+					$("." + deleteCol).remove();
+					if(columnsDisplayed.indexOf(parseInt(deleteColNum))!=-1){
+						columnsDisplayed.splice(columnsDisplayed.indexOf(parseInt(deleteColNum)), 1);
+					}
+				}
+				console.log(columnsDisplayed);
+			})
 		});
+
+		$(".delete").on("click", function(){
+			console.log("delete clicked")
+			var deleteCol = $(this).parent("td").attr("class");
+			var deleteColNum = deleteCol.slice(3, deleteCol.length);
+			console.log("deleteCol: " + deleteCol)
+			if(parseInt(deleteColNum)<=3){
+				$("." + deleteCol).remove();
+				if(columnsDisplayed.indexOf(parseInt(deleteColNum))!=-1){
+					columnsDisplayed.splice(columnsDisplayed.indexOf(parseInt(deleteColNum)), 1);				
+				}
+			}
+
+			console.log(columnsDisplayed);
+		})
+
+		/*Find method returns number of times a number was found in an array*/
+
 
 		/*Checks the user inputs when the submit button is pressed*/
 		$("#submit1").on("click", function(){
@@ -209,19 +245,28 @@ var JUnitTable1 = (function(){
 
 			try{
 				/*Displays check and error marks based on user input*/
-				for (var c = 1; c < columnsDisplayed.length; c++){
-					var xInp = JSON.parse($("#xInput" + c).val());
-					var aInp = JSON.parse($("#aInput" + c).val());
-					for(var r=1;r<=rowNames.length-1;r++){
-						if(rowNames[r].checkMembership(xInp,aInp)&& radioData[r][c] == true){
-							$(".row"+r+" .col"+c+" .checkMark").animate({"opacity":"1"},200);
-							$(".row"+r+" .col"+c+" .errorMark").animate({"opacity":"0"},200);
-						}
-						if(!(rowNames[r].checkMembership(xInp,aInp))&& radioData[r][c] == true){
-							console.log(r,c,JSON.stringify(xInp),JSON.stringify(aInp));
+				console.log("columnsDisplayed: " + columnsDisplayed)
+				for (var c = columnsDisplayed[1]; c <= columnsDisplayed[columnsDisplayed.length - 1]; c++){
+					/*for loop stops when it reaches a number in columnsDisplayed that doesn't exist*/
+					console.log("here1")
+					if (columnsDisplayed.indexOf(c) == -1){
+						console.log("column does not exist, moving to next column")
+					}else{
 
-							$(".row"+r+" .col"+c+" .checkMark").animate({"opacity": "0"}, 200);
-							$(".row"+r+" .col"+c+" .errorMark").animate({"opacity": "1"}, 200);
+						console.log("columnsDisplayed[1]: " + columnsDisplayed[1])
+						var xInp = JSON.parse($("#xInput" + c).val());
+						var aInp = JSON.parse($("#aInput" + c).val());
+						for(var r=1;r<=rowNames.length-1;r++){
+							if(rowNames[r].checkMembership(xInp,aInp)&& radioData[r][c] == true){
+								$(".row"+r+" .col"+c+" .checkMark").animate({"opacity":"1"},200);
+								$(".row"+r+" .col"+c+" .errorMark").animate({"opacity":"0"},200);
+							}
+							if(!(rowNames[r].checkMembership(xInp,aInp))&& radioData[r][c] == true){
+								console.log(r,c,JSON.stringify(xInp),JSON.stringify(aInp));
+
+								$(".row"+r+" .col"+c+" .checkMark").animate({"opacity": "0"}, 200);
+								$(".row"+r+" .col"+c+" .errorMark").animate({"opacity": "1"}, 200);
+							}
 						}
 					}
 				}	
