@@ -167,9 +167,6 @@ var JUnitTable1 = (function(){
 			var radioFill = false;
 
 			
-			
-			
-
 			$(".col"+newNum+" .customRadioBorder").on("click", function(){
 				var rowClass = $(this).parent('span').parent('td').parent('tr').attr("class");
 				var rowIndex = rowClass[3];
@@ -193,18 +190,6 @@ var JUnitTable1 = (function(){
 				
 			})
 		});
-
-		/*Find method returns number of times a number was found in an array*/
-
-		function find(x, a){
-			var instances = 0;
-			for (var i = 0; i < a.length; i++){
-				if (x == a[i]){
-					instances++;
-				}
-			}
-			return instances;
-		}
 
 		/*Checks the user inputs when the submit button is pressed*/
 		$("#submit1").on("click", function(){
@@ -236,13 +221,6 @@ var JUnitTable1 = (function(){
 			$(".row6").animate({backgroundColor: "white"}, 200);
 
 			try{
-				var x1 = JSON.parse($("#xInput1").val());
-				var a1 = JSON.parse($("#aInput1").val());
-				var x2 = JSON.parse($("#xInput2").val());
-				var a2 = JSON.parse($("#aInput2").val());
-				var x3 = JSON.parse($("#xInput3").val());
-				var a3 = JSON.parse($("#aInput3").val());
-
 				/*Some error checking*/
 
 				if($(".findInput2").val()[0] !== "["){
@@ -260,7 +238,7 @@ var JUnitTable1 = (function(){
 				}
 				for (var c = 1; c <= 3; c++){
 					var entries = [];
-					for (var r = 1; r <= 6; r++){
+					for (var r = 1; r <= rowNames.length-1; r++){
 						if(radioData[r][c] in entries){
 							$("#mainAlert").show();
 							$("#mainAlert").animate({"opacity": "1"}, 200);
@@ -288,83 +266,35 @@ var JUnitTable1 = (function(){
 						}
 					}
 				}	
-					/*for (var r = 1; r <= 3; r++){
-						if ( (aInp.length == 0 && radioData[r][c] == true && r == 1) || (aInp.length == 1 && radioData[r][c] == true && r == 2) || (aInp.length > 1 && radioData[r][c] == true && r == 3) ){
-							$(".row" + r + " .col" + c + " .checkMark").animate({"opacity": "1"}, 200);
-							$(".row" + r + " .col" + c + " .errorMark").animate({"opacity": "0"}, 200);
-						}else if( (aInp.length !== 0 && radioData[r][c] == true && r == 1) || (aInp.length !== 1 && radioData[r][c] == true && r == 2) || (aInp.length <= 1 && radioData[r][c] == true && r == 3) ){
-							$(".row" + r + " .col" + c + " .checkMark").animate({"opacity": "0"}, 200);
-							$(".row" + r + " .col" + c + " .errorMark").animate({"opacity": "1"}, 200);							
+				
+				/*
+				Helper function
+				*/
+				function find(x, a){
+					var instances = 0;
+					for (var i = 0; i < a.length; i++){
+						if (x == a[i]){
+							instances++;
 						}
 					}
-					for (var r = 4; r <= 6; r++){
-						if ( (find(xInp, aInp) == 0 && radioData[r][c] == true && r == 4) || (find(xInp, aInp) == 1 && radioData[r][c] == true && r == 5) || (find(xInp, aInp) > 1 && radioData[r][c] == true && r == 6) ){
-							$(".row" + r + " .col" + c + " .checkMark").animate({"opacity": "1"}, 200);
-							$(".row" + r + " .col" + c + " .errorMark").animate({"opacity": "0"}, 200);
-						}else if( (find(xInp, aInp) !== 0 && radioData[r][c] == true && r == 4) || (find(xInp, aInp) !== 1 && radioData[r][c] == true && r == 5) || (find(xInp, aInp) <= 1 && radioData[r][c] == true && r == 6) ){
-							$(".row" + r + " .col" + c + " .checkMark").animate({"opacity": "0"}, 200);
-							$(".row" + r + " .col" + c + " .errorMark").animate({"opacity": "1"}, 200);	
-						}
-					}*/
+					return instances;
+				}
+
+				/*Turns a row red if there is no button clicked*/
+				for(var r=1;r<=rowNames.length-1;r++){
+					if(find(true,radionData[r])<1){
+						$(".row"+r).animate({backgroundColor: "#ffc4c4"}, 200);
+						$("#mainAlert").show();
+						$("#mainAlert").animate({"opacity": "1"}, 200);
+						$("#mainAlert").html("Make sure you have an answer for every row")
+					}
+				}
 				
-
-
-			/*Turns a row red if there is no button clicked*/
-			if(find(true, radioData[1]) < 1){
-				console.log("Rows not filled")
-				$(".row1").animate({backgroundColor: "#ffc4c4"}, 200);
-				$("#mainAlert").show();
-				$("#mainAlert").animate({"opacity": "1"}, 200);
-				$("#mainAlert").html("Make sure you have an answer for every row")
-			}	
-			if(find(true, radioData[2]) < 1){
-				console.log("Rows not filled")
-				$(".row2").animate({backgroundColor: "#ffc4c4"}, 200);
-				$("#mainAlert").show();
-				$("#mainAlert").animate({"opacity": "1"}, 200);
-				$("#mainAlert").html("Make sure you have an answer for every row")
-			}
-			if(find(true, radioData[3]) < 1){
-				console.log("Rows not filled")
-				$(".row3").animate({backgroundColor: "#ffc4c4"}, 200);
-				$("#mainAlert").show();
-				$("#mainAlert").animate({"opacity": "1"}, 200);
-				$("#mainAlert").html("Make sure you have an answer for every row")
-			}
-			if(find(true, radioData[4]) < 1){
-				console.log("Rows not filled")
-				$(".row4").animate({backgroundColor: "#ffc4c4"}, 200);
-				$("#mainAlert").show();
-				$("#mainAlert").animate({"opacity": "1"}, 200);
-				$("#mainAlert").html("Make sure you have an answer for every row")
-			}
-			if(find(true, radioData[5]) < 1){
-				console.log("Rows not filled")
-				$(".row5").animate({backgroundColor: "#ffc4c4"}, 200);
-				$("#mainAlert").show();
-				$("#mainAlert").animate({"opacity": "1"}, 200);
-				$("#mainAlert").html("Make sure you have an answer for every row")
-			}
-			if(find(true, radioData[6]) < 1){
-				console.log("Rows not filled")
-				$(".row6").animate({backgroundColor: "#ffc4c4"}, 200);
-				$("#mainAlert").show();
-				$("#mainAlert").animate({"opacity": "1"}, 200);
-				$("#mainAlert").html("Make sure you have an answer for every row")
-			}
-
 				/*Checks if all answers are correct*/
 				/*for(var i = 1; i <= radioData.length; i++){
 				}*/
-
-
 			}catch(e){
-				if($(".findInput1").val() === "" || $(".findInput2").val() === ""){
-					console.log("You must have an input in every field");
-					$("#mainAlert").show();
-					$("#mainAlert").animate({"opacity": "1"}, 200);
-					$("#mainAlert").html("You must have an input in every field");
-				}	
+				console.log("error"+e);
 			}		
 		})
 	}
