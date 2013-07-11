@@ -7,9 +7,10 @@ var header =
 		+"<p>What we'll be doing here is attempting to exhaust our test cases given a function, <b>find</b>.  You'll see the code for find below.  </p>\n<p>On the left, as a label for every row, you'll see labels that define <b>key test cases</b>. You want to be sure that when you test your function, you test each of these cases.</p>\n<p>Input values for <b>x</b> and <b>a</b> into the top of each column, such that every row gets checked off</p>";
 
 /*
-mode when instructor give input partions
+All rows with their properties.
+(Used mode when instructor give input partions)
 */
-var rowNames = ["ph",
+var allRows = ["ph",
 		{group:1,title:"<div><b>a</b> empty</div>",checkMembership:function (x,a){return a.length==0}},
 		{group:1,title:"<div>Length of <b>a</b> = 1</div>",checkMembership:function (x,a){return a.length==1}},
 		{group:1,title:"<div>Length of <b>a</b> > 1</div>",checkMembership:function (x,a){return a.length>1}},

@@ -45,7 +45,7 @@ var JUnitTable1 = (function(){
 				
 				/*Labels*/
 				if (c == 0){
-					newCol.append(rowNames[r].title);
+					newCol.append(allRows[r].title);
 				}else{
 					newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><img class = 'mark checkMark' src = 'images/checkMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span>"));
 				}
@@ -127,7 +127,7 @@ var JUnitTable1 = (function(){
 		$(".plusButton").on("click", function(){
 			var lastNumber = columnsDisplayed[columnsDisplayed.length - 1];
 			var newNum = lastNumber + 1;
-			for (var r = 0; r <= rowNames.length-1; r++){
+			for (var r = 0; r <= allRows.length-1; r++){
 				
 				var rowClass = ".row" + r;
 				var newCol = $("<td class = 'col" + newNum + "'></td>");
@@ -264,7 +264,7 @@ $("#aInput3").val("[1,1]")
 			$(".checkMark").animate({"opacity": "0"}, 200);
 			$(".errorMark").animate({"opacity": "0"}, 200);
 
-			for(var i=1;i<=rowNames.length-1;i++){
+			for(var i=1;i<=allRows.length-1;i++){
 				$(".row"+i).animate({backgroundColor:"white"},200);
 			}
 
@@ -282,12 +282,12 @@ $("#aInput3").val("[1,1]")
 						for(var j=1;j<=inputs.length-1;j++){
 							inputArray.push(JSON.parse($("#"+inputs[j].name+"Input" + c).val()));
 						}
-						for(var r=1;r<=rowNames.length-1;r++){
-							if(rowNames[r].checkMembership.apply(null,inputArray)&& radioData[r][c] == true){
+						for(var r=1;r<=allRows.length-1;r++){
+							if(allRows[r].checkMembership.apply(null,inputArray)&& radioData[r][c] == true){
 								$(".row"+r+" .col"+c+" .checkMark").animate({"opacity":"1"},200);
 								$(".row"+r+" .col"+c+" .errorMark").animate({"opacity":"0"},200);
 							}
-							if(!(rowNames[r].checkMembership.apply(null,inputArray))&& radioData[r][c] == true){
+							if(!(allRows[r].checkMembership.apply(null,inputArray))&& radioData[r][c] == true){
 
 								$(".row"+r+" .col"+c+" .checkMark").animate({"opacity": "0"}, 200);
 								$(".row"+r+" .col"+c+" .errorMark").animate({"opacity": "1"}, 200);
@@ -330,7 +330,7 @@ $("#aInput3").val("[1,1]")
 
 				/*Turns a row red if there is no button clicked*/
 				if(!hasShown){
-					for(var r=1;r<=rowNames.length-1;r++){
+					for(var r=1;r<=allRows.length-1;r++){
 						if(find(true,radioData[r])<1){
 							$(".row"+r).animate({backgroundColor: "#ffc4c4"}, 200);
 							$("#mainAlert").show();
