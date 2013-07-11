@@ -79,27 +79,27 @@ var JUnitTable1 = (function(){
 			$(this).css('cursor', 'pointer');
 		})
 
-		$(".customRadioBorder").on("click", function(){
-				var rowClass = $(this).parent('span').parent('td').parent('tr').attr("class");
-				var rowIndex = rowClass[3];
-				var colClass = $(this).parent('span').parent('td').attr("class");
-				var colIndex = colClass[3];
-				if (radioData[rowIndex][colIndex] === false){
-					console.log("button will fill")
-					d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
-					.attr("r", 20).duration(200)
-					.attr("stroke", "white").duration(200);
-					radioFill = true;
-					radioData[rowIndex][colIndex] = true;
-				}else if(radioData[rowIndex][colIndex] === true){
-					d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
-					.attr("r", 0).duration(200)
-					.attr("stroke", "grey").duration(200);
-					radioFill = false;
-					radioData[rowIndex][colIndex] = false;
-				}
-				
-			})
+		/*$(".customRadioBorder").on("click", function(){
+			var rowClass = $(this).parent('span').parent('td').parent('tr').attr("class");
+			var rowIndex = rowClass[3];
+			var colClass = $(this).parent('span').parent('td').attr("class");
+			var colIndex = colClass[3];
+			if (radioData[rowIndex][colIndex] === false){
+				console.log("rowClass: " + rowClass + ", colClass: " + colClass)
+				d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
+				.attr("r", 20).duration(200)
+				.attr("stroke", "white").duration(200);
+				radioFill = true;
+				radioData[rowIndex][colIndex] = true;
+			}else if(radioData[rowIndex][colIndex] === true){
+				d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
+				.attr("r", 0).duration(200)
+				.attr("stroke", "grey").duration(200);
+				radioFill = false;
+				radioData[rowIndex][colIndex] = false;
+			}
+			
+		})*/
 
 		$(".plusButton").on("click", function(){
 			var lastNumber = columnsDisplayed[columnsDisplayed.length - 1];
@@ -164,6 +164,7 @@ var JUnitTable1 = (function(){
 				var colIndex = colClass[3];
 				if (radioData[rowIndex][colIndex] === false){
 					console.log("button will fill")
+					console.log("rowClass: " + rowClass + ", colClass: " + colClass)
 					d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
 					.attr("r", 20).duration(200)
 					.attr("stroke", "white").duration(200);
