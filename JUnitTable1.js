@@ -193,16 +193,6 @@ var JUnitTable1 = (function(){
 
 		/*Checks the user inputs when the submit button is pressed*/
 		$("#submit1").on("click", function(){
-			// Row checks temporarily commented out for testing
-			// Delete if unnecessary
-			
-			/*var row1checks = [];
-			var row2checks = [];
-			var row3checks = [];
-			var row4checks = [];
-			var row5checks = [];
-			var row6checks = [];*/
-
 
 			$("#mainAlert").hide();
 			$("#mainSuccess").hide();
@@ -213,42 +203,11 @@ var JUnitTable1 = (function(){
 			$(".checkMark").animate({"opacity": "0"}, 200);
 			$(".errorMark").animate({"opacity": "0"}, 200);
 
-			$(".row1").animate({backgroundColor: "white"}, 200);
-			$(".row2").animate({backgroundColor: "white"}, 200);
-			$(".row3").animate({backgroundColor: "white"}, 200);
-			$(".row4").animate({backgroundColor: "white"}, 200);
-			$(".row5").animate({backgroundColor: "white"}, 200);
-			$(".row6").animate({backgroundColor: "white"}, 200);
+			for(var i=1;i<=rowNames.length-1;i++){
+				$(".row"+i).animate({backgroundColor:"white"},200);
+			}
 
 			try{
-				/*Some error checking*/
-
-				if($(".findInput2").val()[0] !== "["){
-					console.log("not a matrix");
-					$("#mainAlert").show();
-					$("#mainAlert").animate({"opacity": "1"}, 200);
-					$("#mainAlert").html("Make sure that <b>a</b> is a matrix");
-				}
-				if(find(true, radioData[1]) > 2 || find(true, radioData[2]) > 2 || find(true, radioData[3]) > 2){
-
-					$("#mainAlert").show();
-					$("#mainAlert").animate({"opacity": "1"}, 200);
-					$("#mainAlert").html("You can only select one option from each half of the table");
-
-				}
-				for (var c = 1; c <= 3; c++){
-					var entries = [];
-					for (var r = 1; r <= rowNames.length-1; r++){
-						if(radioData[r][c] in entries){
-							$("#mainAlert").show();
-							$("#mainAlert").animate({"opacity": "1"}, 200);
-							$("#mainAlert").html("You can only select one option from each half of the table per column");
-						}
-						entries.push(radioData[r][c]);
-					}
-				}
-
-
 				/*Displays check and error marks based on user input*/
 				for (var c = 1; c < columnsDisplayed.length; c++){
 					var xInp = JSON.parse($("#xInput" + c).val());
@@ -280,13 +239,33 @@ var JUnitTable1 = (function(){
 					return instances;
 				}
 
+				/*
+				Type checking
+				*/
+				var hasShown =false; // whether an error msg has shown.
+				for(var i=1;i<=inputs.length-1;i++){
+					$(".findInput"+i).each(function(){
+						if(typeof(JSON.parse(this.value))!=inputs[i].type){
+							if(inputs[i].type!="object"||!inputs[i].checkObject(JSON.parse(this.value)))
+							{
+								$("#mainAlert").show();
+								$("#mainAlert").animate({"opacity": "1"}, 200);
+								$("#mainAlert").html(inputs[i].name+" has to be "+inputs[i].display);
+								hasShown=true;
+							}
+						}
+					});
+				};
+
 				/*Turns a row red if there is no button clicked*/
-				for(var r=1;r<=rowNames.length-1;r++){
-					if(find(true,radionData[r])<1){
-						$(".row"+r).animate({backgroundColor: "#ffc4c4"}, 200);
-						$("#mainAlert").show();
-						$("#mainAlert").animate({"opacity": "1"}, 200);
-						$("#mainAlert").html("Make sure you have an answer for every row")
+				if(!hasShown){
+					for(var r=1;r<=rowNames.length-1;r++){
+						if(find(true,radioData[r])<1){
+							$(".row"+r).animate({backgroundColor: "#ffc4c4"}, 200);
+							$("#mainAlert").show();
+							$("#mainAlert").animate({"opacity": "1"}, 200);
+							$("#mainAlert").html("Make sure you have an answer for every row")
+						}
 					}
 				}
 				
@@ -294,7 +273,28 @@ var JUnitTable1 = (function(){
 				/*for(var i = 1; i <= radioData.length; i++){
 				}*/
 			}catch(e){
-				console.log("error"+e);
+				console.log("error"+e);				
+
+				/*Some error checking*/
+				var hasShown=false;
+				var errmsg="The input fields don't make sense.\n";
+				for(var i=1;i<=inputs.length-1;i++){
+					$(".findInput"+i).each(function(){
+						if(this.value==""){
+							$("#mainAlert").show();
+							$("#mainAlert").animate({"opacity": "1"}, 200);
+							$("#mainAlert").html("You must enter every field.");
+							hasShown=true;
+						}
+						
+					});
+					errmsg+=inputs[i].name+" has to be "+inputs[i].display+".\n";
+				};
+				if(!hasShown){
+					$("#mainAlert").show();
+					$("#mainAlert").animate({"opacity": "1"}, 200);
+					$("#mainAlert").html(errmsg);
+				}
 			}		
 		})
 	}
