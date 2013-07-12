@@ -4,7 +4,11 @@ var JUnitTable1 = (function(){
 	var columnsDisplayed = [0, 1, 2, 3];
 
 	/*Nulls are placeholders so indexing is easier later*/
-	var radioData = [[null], [null, false, false, false], [null, false, false, false], [null, false, false, false], [null, false, false, false], [null, false, false, false], [null, false, false, false]];
+	var radioData = [[null]];
+	for(var i =0;i<allRows.length-1;i++){
+		radioData.push([null, false, false, false]);
+	}
+	
 	var exports = {};
 
 	var setup = function(div){
@@ -306,17 +310,6 @@ var JUnitTable1 = (function(){
 			}
 		})	
 
-
-		/*Find method returns number of times a number was found in an array*/
-
-//Temp just for debuging
-$("#xInput1").val(1)
-$("#xInput2").val(1)
-$("#xInput3").val(1)
-$("#aInput1").val("[]")
-$("#aInput2").val("[1]")
-$("#aInput3").val("[1,1]")
-
 		/*Checks the user inputs when the submit button is pressed*/
 		$("#submit1").on("click", function(){
 
@@ -442,4 +435,11 @@ $(document).ready(function(){
 	$(".JUnitTable1").each(function(){
 		JUnitTable1.setup(this);
 	});
+	//Temp just for debuging
+	$("#xInput1").val(1)
+	$("#xInput2").val(1)
+	$("#xInput3").val(1)
+	$("#yInput1").val(1)
+	$("#yInput2").val(1)
+	$("#yInput3").val(1)
 });
