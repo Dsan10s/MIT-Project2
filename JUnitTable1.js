@@ -104,7 +104,7 @@ var JUnitTable1 = (function(){
 				var rowClass = $(this).parent('span').parent('td').parent('tr').attr("class");
 				var rowIndex = rowClass[3];
 				var colClass = $(this).parent('span').parent('td').attr("class");
-				var colIndex = colClass[3];
+				var colIndex = colClass.slice(3, colClass.length);;
 
 				if (radioData[rowIndex][colIndex] === false){
 					console.log("rowClass: " + rowClass + ", colClass: " + colClass)
@@ -178,6 +178,23 @@ var JUnitTable1 = (function(){
 				}
 				/*Labels*/	
 			}
+
+			$(".delete").on("mouseenter", function(){	
+				var colClass = $(this).parent("td").attr("class");
+				var colNum = parseInt(colClass.slice(3, colClass.length));
+				if(colNum > 3){
+					$(this).animate({"opacity": "1"}, 200);
+					console.log("1:1")	
+				}
+			});
+			$(".delete").on("mouseleave", function(){
+				var colClass = $(this).parent("td").attr("class");
+				var colNum = parseInt(colClass.slice(3, colClass.length));
+				if(colNum  > 3){
+					$(this).animate({"opacity": "0"}, 200);
+					console.log("0:1")
+				}
+			})	
 			
 
 			var customRadioBorder = d3.selectAll(".col" + newNum +  " .customRadioBorder").append("svg")
@@ -261,11 +278,22 @@ var JUnitTable1 = (function(){
 			console.log(columnsDisplayed);
 		});
 
-		$(".delete").hover(function(){
-			$(this).animate({"opacity": "1"}, 200);
-		}, function(){
-			$(this).animate({"opacity": "0"}, 200);
-		})
+		$(".delete").on("mouseenter", function(){			
+			var colClass = $(this).parent("td").attr("class");
+			var colNum = parseInt(colClass.slice(3, colClass.length));
+			if(colNum <= 3){
+				$(this).animate({"opacity": "1"}, 200);	
+				console.log("1:2")
+			}
+		});
+		$(".delete").on("mouseleave", function(){
+			var colClass = $(this).parent("td").attr("class");
+			var colNum = parseInt(colClass.slice(3, colClass.length));
+			if(colNum  <= 3){
+				$(this).animate({"opacity": "0"}, 200);
+				console.log("0:2")
+			}
+		})	
 
 
 		/*Find method returns number of times a number was found in an array*/
