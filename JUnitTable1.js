@@ -36,10 +36,10 @@ var JUnitTable1 = (function(){
 			/*generate a string for input fields in HTML*/
 			var temp="";
 			for(var j=1;j<inputs.length-1;j++){
-				temp+="<input id = '"+inputs[j].name+"Input"+i+"' class = 'findInput"+j+"' placeholder = '  "+inputs[j].name+"'></input>, ";
+				temp+="<input id = '"+inputs[j].name+"Input"+i+"' class = 'inputField"+j+"' placeholder = '  "+inputs[j].name+"'></input>, ";
 				
 			}
-			temp+="<input id = '"+inputs[inputs.length-1].name+"Input"+i+"' class = 'findInput"+(inputs.length-1)+"' placeholder = '  "+inputs[inputs.length-1].name+"'></input>";
+			temp+="<input id = '"+inputs[inputs.length-1].name+"Input"+i+"' class = 'inputField"+(inputs.length-1)+"' placeholder = '  "+inputs[inputs.length-1].name+"'></input>";
 
 			var findLabel = $("<td class = 'col" + i + "'><span>"+functionName+"("+temp+")</span><button class = 'delete btn btn-danger' style = 'float: right;'>Delete</button></td>");
 			row0.append(findLabel);
@@ -57,7 +57,7 @@ var JUnitTable1 = (function(){
 				
 				/*Labels*/
 				if (c == 0){
-					newCol.append(allRows[r].title);
+					newCol.append("<div>"+allRows[r].title+"</div>");
 				}else{
 					newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><img class = 'mark checkMark' src = 'images/checkMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span>"));
 				}
@@ -148,10 +148,10 @@ var JUnitTable1 = (function(){
 					/*generate a string for input fields in HTML*/
 					var temp="";
 					for(var j=1;j<inputs.length-1;j++){
-						temp+="<input id = '"+inputs[j].name+"Input"+newNum+"' class = 'findInput"+j+"' placeholder = '  "+inputs[j].name+"'></input>, ";
+						temp+="<input id = '"+inputs[j].name+"Input"+newNum+"' class = 'inputField"+j+"' placeholder = '  "+inputs[j].name+"'></input>, ";
 						
 					}
-					temp+="<input id = '"+inputs[inputs.length-1].name+"Input"+newNum+"' class = 'findInput"+(inputs.length-1)+"' placeholder = '  "+inputs[inputs.length-1].name+"'></input>";
+					temp+="<input id = '"+inputs[inputs.length-1].name+"Input"+newNum+"' class = 'inputField"+(inputs.length-1)+"' placeholder = '  "+inputs[inputs.length-1].name+"'></input>";
 
 					var newFindLabel = $(temp);
 					var newDeleteBtn = $("<button class = 'delete btn btn-danger' style = 'float: right;'>Delete</button>")
@@ -379,7 +379,7 @@ $("#aInput3").val("[1,1]")
 				*/
 				var hasShown =false; // whether an error msg has shown.
 				for(var i=1;i<=inputs.length-1;i++){
-					$(".findInput"+i).each(function(){
+					$(".inputField"+i).each(function(){
 						if(typeof(JSON.parse(this.value))!=inputs[i].type){
 							if(inputs[i].type!="object"||!inputs[i].checkObject(JSON.parse(this.value)))
 							{
@@ -415,7 +415,7 @@ $("#aInput3").val("[1,1]")
 				var hasShown=false;
 				var errmsg="The input fields don't make sense.\n";
 				for(var i=1;i<=inputs.length-1;i++){
-					$(".findInput"+i).each(function(){
+					$(".inputField"+i).each(function(){
 						if(this.value==""){
 							$("#mainAlert").show();
 							$("#mainAlert").animate({"opacity": "1"}, 200);

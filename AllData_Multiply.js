@@ -10,25 +10,29 @@ All rows with their properties.
 (Used mode when instructor give input partions)
 */
 var allRows = ["ph",
-		{group:1,title:"<div><b>a</b> empty</div>",checkMembership:function (x,a){return a.length==0}},
-		{group:1,title:"<div>Length of <b>a</b> = 1</div>",checkMembership:function (x,a){return a.length==1}},
-		{group:1,title:"<div>Length of <b>a</b> > 1</div>",checkMembership:function (x,a){return a.length>1}},
-		{group:2,title:"<div><b>x</b> not in <b>a</b></div>",checkMembership:function(x,a){return find(x,a)==0}},
-		{group:2,title:"<div><b>x</b> in <b>a</b> once</div>",checkMembership:function(x,a){return find(x,a)==1}},
-		{group:2,title:"<div><b>x</b> in <b>a</b> more than once</div>",checkMembership:function(x,a){return find(x,a)>1}}
+		{group:1,title:"<b>x</b> negative",checkMembership:function (x,y,z){return x<0;}},
+		{group:1,title:"<b>x</b> zero",checkMembership:function (x,y,z){return x==0;}},
+		{group:1,title:"<b>x</b> positive",checkMembership:function (x,y,z){return x>0;}},
+		{group:2,title:"<b>y</b> negative",checkMembership:function(x,y,z){return y<0;}},
+		{group:2,title:"<b>y</b> zero",checkMembership:function(x,y,z){return y==0;}},
+		{group:2,title:"<b>y</b> positive",checkMembership:function(x,y,z){return y>0;}},
+		{group:3,title:"<b>z</b> negative",checkMembership:function(x,y,z){return z<0;}},
+		{group:3,title:"<b>z</b> zero",checkMembership:function(x,y,z){return z==0;}},
+		{group:3,title:"<b>z</b> positive",checkMembership:function(x,y,z){return z>0;}},
 		];
 
 /*
-Function Name
+Function Name for the input fields
 */
-var functionName="Find";
+var functionName="Multiply";
 
 /*
 Input name and type : string, number, object - add a checkType function to test whether it is an array or associative array or any datatype you want.
 */
 var inputs=["ph",
 			{name:"x",type:"number",display:"a number"},
-			{name:"a",type:"object",display:"an array", checkObject:function(object){return Object.prototype.toString.call( object ) === '[object Array]';}}]
+			{name:"y",type:"number",display:"a number"},
+			{name:"z",type:"number",display:"a number"}];
 
 
 /*
