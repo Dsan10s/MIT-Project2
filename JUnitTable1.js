@@ -8,7 +8,19 @@ var JUnitTable1 = (function(){
 	var exports = {};
 
 	var setup = function(div){
-		var table = $("<table id = 'JUnitTable1' class = 'table table-hover table-bordered'></table>");
+		var tabbable = $(
+			"<div class = 'tabbable'>"
+				+"<ul class = 'nav nav-pills'>"
+					+"<li class = 'active'><a href='#sum' data-toggle = 'tab'>Sum Mode</a></li>"
+					+"<li><a href = '#product' data-toggle = 'tab'>Product Mode</a></li>"
+				+"</ul>"
+				+"<div class = 'tab-content'>"
+					+"<div class = 'tab-pane active' id = 'sum'></div>"
+					+"<div class = 'tab-pane' id = 'product'></div>"
+				+"</div>"
+			+"</div>)");
+		var SumTable = $("<table id = 'SumTable' class = 'table table-hover table-bordered'></table>");
+		var ProductTable = $("<table id = 'ProductTable' class = 'table table-hover table-bordered'></table>");
 		var bottomDiv = $("<div style = 'width: 100%'></div>")
 		var submit = $("<button id = 'submit1' class = 'btn btn-success btn-large' style = 'float: left'>Submit</button>")
 		var alert = $("<div id = 'mainAlert' class = 'alert alert-error'>Test</div>")
@@ -33,7 +45,8 @@ var JUnitTable1 = (function(){
 			row0.append(findLabel);
 		}
 		
-		table.append(row0);
+		SumTable.append(row0);
+		ProductTable.append(row0);
 	/*Column Labels*/
 
 	/*Table Content*/
@@ -51,9 +64,13 @@ var JUnitTable1 = (function(){
 				}
 				newRow.append(newCol);
 			}
-			table.append(newRow);
+			SumTable.append(newRow);
+			ProductTable.append(newRow);
 		}
-		$(div).append(table, bottomDiv);
+		
+		$(div).append(tabbable, bottomDiv);
+		$("#sum").append(SumTable);
+		$("#product").append(ProductTable);
 
 		/*Creates Grey bar in middle of table*/
 		for (var r = 1; r <= 6; r++){

@@ -6,8 +6,9 @@ body{
 
 /*For implementation*/
 
-.JUnitTable1{
+table{
 	border-radius: 10px;
+	/*overflow: auto;*/
 }
 .findInput1{
 	border: 0px;
@@ -70,4 +71,8 @@ body{
 }
 .delete{
 	opacity: 0;
+}
+td{
+	min-width: 300px;
+	max-width: 520px;
 }
