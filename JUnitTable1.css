@@ -68,3 +68,6 @@ body{
 .col0{
 	width: 200px;
 }
+.delete{
+	opacity: 0;
+}

@@ -29,7 +29,7 @@ var JUnitTable1 = (function(){
 			}
 			temp+="<input id = '"+inputs[inputs.length-1].name+"Input"+i+"' class = 'findInput"+(inputs.length-1)+"' placeholder = '  "+inputs[inputs.length-1].name+"'></input>";
 
-			var findLabel = $("<td class = 'col1'>"+functionName+"("+temp+")<button class = 'delete btn btn-danger' style = 'float: right;'>Delete</button></td>");
+			var findLabel = $("<td class = 'col" + i + "'><span>"+functionName+"("+temp+")</span><button class = 'delete btn btn-danger' style = 'float: right;'>Delete</button></td>");
 			row0.append(findLabel);
 		}
 		
@@ -124,6 +124,7 @@ var JUnitTable1 = (function(){
 			})
 		}
 
+
 		$(".plusButton").on("click", function(){
 			var lastNumber = columnsDisplayed[columnsDisplayed.length - 1];
 			var newNum = lastNumber + 1;
@@ -143,7 +144,7 @@ var JUnitTable1 = (function(){
 
 					var newFindLabel = $(temp);
 					var newDeleteBtn = $("<button class = 'delete btn btn-danger' style = 'float: right;'>Delete</button>")
-					newCol.append("Find(", newFindLabel, ")", newDeleteBtn);
+					newCol.append("<span>Find(", newFindLabel, ")</span>", newDeleteBtn);
 				}else{
 					newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><img class = 'mark checkMark' src = 'images/checkMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span>"));
 				}
@@ -152,14 +153,19 @@ var JUnitTable1 = (function(){
 
 				$(rowClass).append(newCol);
 
-				/*var totalPx = parseInt($(".col" + columnsDisplayed[1]).css("width")) * columnsDisplayed.length-1;
-				var newWidth = totalPx/(columnsDisplayed.length + 1);
+				/*var totalPx = parseFloat($("#JUnitTable1").css("width")) - parseFloat($(".col0").css("width"));
+				var newWidth = totalPx/(columnsDisplayed.length + 0.5);
 				console.log("totalPx: " + totalPx)
 				console.log("newWidth: " + newWidth);
-				$(".col" + newNum).animate({"width": newWidth}, 2000);
+				$(".col" + newNum).animate({"width": newWidth}, 2000,function(){
+					$(".col" + newNum).children().show();
+					$(".col" + newNum).children().animate({"opacity": "1"}, 500, function(){
+						$(".col" + newNum).css("width", "");
+					});
+					
+				});*/
 
-				$(".col" + newNum).children().show();
-				$(".col" + newNum).children().animate({"opacity": "1"}, 500);*/
+				
 
 				/*CSS*/
 				if (r == 3){
@@ -253,7 +259,14 @@ var JUnitTable1 = (function(){
 			}
 
 			console.log(columnsDisplayed);
+		});
+
+		$(".delete").hover(function(){
+			$(this).animate({"opacity": "1"}, 200);
+		}, function(){
+			$(this).animate({"opacity": "0"}, 200);
 		})
+
 
 		/*Find method returns number of times a number was found in an array*/
 
