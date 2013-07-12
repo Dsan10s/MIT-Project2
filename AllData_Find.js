@@ -38,7 +38,7 @@ var code =["ph", "public static int find(int x, int[] a) {\n  for (int i = 0; i 
 
 
 //====================================================================================
-//Helper functions for checkMembership (if need one)
+//Helper functions for checkMembership
 
 
 /*Find method returns number of times a number was found in an array*/
