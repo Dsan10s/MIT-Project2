@@ -130,7 +130,8 @@ var JUnitTable1 = (function(){
 			for (var r = 0; r <= allRows.length-1; r++){
 				
 				var rowClass = ".row" + r;
-				var newCol = $("<td class = 'col" + newNum + "'></td>");
+				var newCol = $("<td class = 'col" + newNum + "' style = 'width: 0px'></td>");
+
 				if (r == 0){
 					/*generate a string for input fields in HTML*/
 					var temp="";
@@ -146,8 +147,20 @@ var JUnitTable1 = (function(){
 				}else{
 					newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><img class = 'mark checkMark' src = 'images/checkMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span>"));
 				}
-				
+				/*$(".col" + newNum).children().css("opacity", 0)
+				$(".col" + newNum).children().hide();*/
+
 				$(rowClass).append(newCol);
+
+				/*var totalPx = parseInt($(".col" + columnsDisplayed[1]).css("width")) * columnsDisplayed.length-1;
+				var newWidth = totalPx/(columnsDisplayed.length + 1);
+				console.log("totalPx: " + totalPx)
+				console.log("newWidth: " + newWidth);
+				$(".col" + newNum).animate({"width": newWidth}, 2000);
+
+				$(".col" + newNum).children().show();
+				$(".col" + newNum).children().animate({"opacity": "1"}, 500);*/
+
 				/*CSS*/
 				if (r == 3){
 					var cellID = ".row3 .col" + newNum;
