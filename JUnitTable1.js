@@ -8,21 +8,6 @@ var JUnitTable1 = (function(){
 	var exports = {};
 
 	var setup = function(div){
-<<<<<<< HEAD
-		var tabbable = $(
-			"<div class = 'tabbable'>"
-				+"<ul class = 'nav nav-pills'>"
-					+"<li class = 'active'><a href='#sum' data-toggle = 'tab'>Sum Mode</a></li>"
-					+"<li><a href = '#product' data-toggle = 'tab'>Product Mode</a></li>"
-				+"</ul>"
-				+"<div class = 'tab-content'>"
-					+"<div class = 'tab-pane active' id = 'sum'></div>"
-					+"<div class = 'tab-pane' id = 'product'></div>"
-				+"</div>"
-			+"</div>)");
-		var SumTable = $("<table id = 'SumTable' class = 'table table-hover table-bordered'></table>");
-		var ProductTable = $("<table id = 'ProductTable' class = 'table table-hover table-bordered'></table>");
-=======
 		/*
 		Sort allRows in grouping sequence first
 		*/
@@ -32,7 +17,6 @@ var JUnitTable1 = (function(){
 		Define table here
 		*/
 		var table = $("<table id = 'JUnitTable1' class = 'table table-hover table-bordered'></table>");
->>>>>>> ae45773ff1712ce1975ea1d79a8382ef9d903bcb
 		var bottomDiv = $("<div style = 'width: 100%'></div>")
 		var submit = $("<button id = 'submit1' class = 'btn btn-success btn-large' style = 'float: left'>Submit</button>")
 		var alert = $("<div id = 'mainAlert' class = 'alert alert-error'>Test</div>")
@@ -60,14 +44,9 @@ var JUnitTable1 = (function(){
 			var findLabel = $("<td class = 'col" + i + "'><span>"+functionName+"("+temp+")</span><button class = 'delete btn btn-danger' style = 'float: right;'>Delete</button></td>");
 			row0.append(findLabel);
 		}
-<<<<<<< HEAD
-		
-		SumTable.append(row0);
-		ProductTable.append(row0);
-	/*Column Labels*/
-=======
+
 		table.append(row0);
->>>>>>> ae45773ff1712ce1975ea1d79a8382ef9d903bcb
+
 
 		/*Table Content*/
 		for (var r = 1; r <= allRows.length-1; r++){
@@ -84,13 +63,11 @@ var JUnitTable1 = (function(){
 				}
 				newRow.append(newCol);
 			}
-			SumTable.append(newRow);
-			ProductTable.append(newRow);
+			table.append(newRow);
 		}
 		
-		$(div).append(tabbable, bottomDiv);
-		$("#sum").append(SumTable);
-		$("#product").append(ProductTable);
+		$(div).append(table, bottomDiv);
+		
 
 		/*Creates Grey bar in middle of table*/
 
