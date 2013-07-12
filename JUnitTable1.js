@@ -8,6 +8,7 @@ var JUnitTable1 = (function(){
 	var exports = {};
 
 	var setup = function(div){
+<<<<<<< HEAD
 		var tabbable = $(
 			"<div class = 'tabbable'>"
 				+"<ul class = 'nav nav-pills'>"
@@ -21,17 +22,32 @@ var JUnitTable1 = (function(){
 			+"</div>)");
 		var SumTable = $("<table id = 'SumTable' class = 'table table-hover table-bordered'></table>");
 		var ProductTable = $("<table id = 'ProductTable' class = 'table table-hover table-bordered'></table>");
+=======
+		/*
+		Sort allRows in grouping sequence first
+		*/
+		allRows=["ph"].concat(allRows.slice(1).sort(function(a,b){return a.group>b.group;}));
+
+		/*
+		Define table here
+		*/
+		var table = $("<table id = 'JUnitTable1' class = 'table table-hover table-bordered'></table>");
+>>>>>>> ae45773ff1712ce1975ea1d79a8382ef9d903bcb
 		var bottomDiv = $("<div style = 'width: 100%'></div>")
 		var submit = $("<button id = 'submit1' class = 'btn btn-success btn-large' style = 'float: left'>Submit</button>")
 		var alert = $("<div id = 'mainAlert' class = 'alert alert-error'>Test</div>")
 		var success = $("<div id = 'mainSuccess' class = 'alert alert-success'>Test</div>")
 		bottomDiv.append(submit, alert, success);
 
-	/*Row0*/
+		/*Row0*/
 		var row0 = $("<tr class = 'row0'></tr>");
 		var emptyLabel = $("<td class = 'col0'><button class = 'plusButton btn btn-info'><b style = 'font-size: 20pt'>+</b></button></td>");
 
 		row0.append(emptyLabel);
+
+		/*
+		Add input fields
+		*/
 		for(var i=1;i<=3;i++){
 			/*generate a string for input fields in HTML*/
 			var temp="";
@@ -44,13 +60,17 @@ var JUnitTable1 = (function(){
 			var findLabel = $("<td class = 'col" + i + "'><span>"+functionName+"("+temp+")</span><button class = 'delete btn btn-danger' style = 'float: right;'>Delete</button></td>");
 			row0.append(findLabel);
 		}
+<<<<<<< HEAD
 		
 		SumTable.append(row0);
 		ProductTable.append(row0);
 	/*Column Labels*/
+=======
+		table.append(row0);
+>>>>>>> ae45773ff1712ce1975ea1d79a8382ef9d903bcb
 
-	/*Table Content*/
-		for (var r = 1; r <= 6; r++){
+		/*Table Content*/
+		for (var r = 1; r <= allRows.length-1; r++){
 			var newRow = $("<tr class = 'row" + r + "'></tr>");
 			for (var c = 0; c < columnsDisplayed.length; c++){
 				var rowClass = ".row" + r;
@@ -73,17 +93,14 @@ var JUnitTable1 = (function(){
 		$("#product").append(ProductTable);
 
 		/*Creates Grey bar in middle of table*/
-		for (var r = 1; r <= 6; r++){
-			var newRow = $("<tr class = 'row" + r + "'></tr>");
+
+		for (var r = 1; r <= allRows.length-2; r++){
 			for (var c = 0; c < columnsDisplayed.length; c++){
-				var rowClass = ".row" + r;
-				var newCol = $("<td class = 'col" + c + "'></td>");
-				if (r == 3){
-					var cellID = ".row3 .col" + c;
+				if (allRows[r].group < allRows[r+1].group){
+					var cellID = ".row"+r+" .col" + c;
 					$(cellID).css("border-bottom", "3px solid grey")
-				}
-				if (r == 4){
-					var cellID = ".row4 .col" + c;
+
+					var cellID = ".row"+(r+1)+" .col" + c;
 					$(cellID).css("border-top", "3px solid grey")
 				}
 			}
