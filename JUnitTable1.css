@@ -10,17 +10,11 @@ table{
 	border-radius: 10px;
 	/*overflow: auto;*/
 }
-.findInput1{
+input{
 	border: 0px;
 	border-radius: 4px;
 	border-bottom: 1px solid black;
 	width: 30px;
-}
-.findInput2{
-	border: 0px;
-	border-radius: 4px;
-	border-bottom: 1px solid black;
-	width: 120px;
 }
 .customRadio{
 	

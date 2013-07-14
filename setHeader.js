@@ -1,7 +1,11 @@
 var setHeader = (function(){
 	var exports = {};
 	var setup = (function(div){
-		$(div).append(header);
+		var text="<h1>"+header.title+"</h1>"
+		+"<pre class='prettyprint linenums'>"+header.code+"</pre>"
+		+"<p>"+header.explanation+"</p>";
+
+		$(div).append(text);
 	})
 
 	exports.setup=setup;

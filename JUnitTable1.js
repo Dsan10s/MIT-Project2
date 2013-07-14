@@ -4,9 +4,32 @@ var JUnitTable1 = (function(){
 	var columnsDisplayed = [0, 1, 2, 3];
 
 	/*Nulls are placeholders so indexing is easier later*/
-	var radioData = [[null], [null, false, false, false], [null, false, false, false], [null, false, false, false], [null, false, false, false], [null, false, false, false], [null, false, false, false]];
+	var radioData = [[null]];
+	for(var i =0;i<allRows.length-1;i++){
+		radioData.push([null, false, false, false]);
+	}
+
 	var exports = {};
 
+//========================================================================================
+//==Helper Function=======================================================================
+//========================================================================================
+	/*Creates Grey bar in middle of table*/
+	function createBar(){
+		for (var r = 1; r <= allRows.length-2; r++){
+			for (var c = 0; c < columnsDisplayed.length; c++){
+				if (allRows[r].group < allRows[r+1].group){
+					var cellID = ".row"+r+" .col" + c;
+					$(cellID).css("border-bottom", "3px solid grey")
+
+					var cellID = ".row"+(r+1)+" .col" + c;
+					$(cellID).css("border-top", "3px solid grey")
+				}
+			}
+		}
+	}
+//========================================================================================
+	
 	var setup = function(div){
 		/*
 		Sort allRows in grouping sequence first
@@ -36,10 +59,10 @@ var JUnitTable1 = (function(){
 			/*generate a string for input fields in HTML*/
 			var temp="";
 			for(var j=1;j<inputs.length-1;j++){
-				temp+="<input id = '"+inputs[j].name+"Input"+i+"' class = 'findInput"+j+"' placeholder = '  "+inputs[j].name+"'></input>, ";
+				temp+="<input id = '"+inputs[j].name+"Input"+i+"' class = 'inputField"+j+"' placeholder = '  "+inputs[j].name+"'></input>, ";
 				
 			}
-			temp+="<input id = '"+inputs[inputs.length-1].name+"Input"+i+"' class = 'findInput"+(inputs.length-1)+"' placeholder = '  "+inputs[inputs.length-1].name+"'></input>";
+			temp+="<input id = '"+inputs[inputs.length-1].name+"Input"+i+"' class = 'inputField"+(inputs.length-1)+"' placeholder = '  "+inputs[inputs.length-1].name+"'></input>";
 
 			var findLabel = $("<td class = 'col" + i + "'><span>"+functionName+"("+temp+")</span><button class = 'delete btn btn-danger' style = 'float: right;'>Delete</button></td>");
 			row0.append(findLabel);
@@ -57,7 +80,7 @@ var JUnitTable1 = (function(){
 				
 				/*Labels*/
 				if (c == 0){
-					newCol.append(allRows[r].title);
+					newCol.append("<div>"+allRows[r].title+"</div>");
 				}else{
 					newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><img class = 'mark checkMark' src = 'images/checkMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span>"));
 				}
@@ -68,20 +91,8 @@ var JUnitTable1 = (function(){
 		
 		$(div).append(table, bottomDiv);
 		
-
-		/*Creates Grey bar in middle of table*/
-
-		for (var r = 1; r <= allRows.length-2; r++){
-			for (var c = 0; c < columnsDisplayed.length; c++){
-				if (allRows[r].group < allRows[r+1].group){
-					var cellID = ".row"+r+" .col" + c;
-					$(cellID).css("border-bottom", "3px solid grey")
-
-					var cellID = ".row"+(r+1)+" .col" + c;
-					$(cellID).css("border-top", "3px solid grey")
-				}
-			}
-		}
+		createBar();
+		
 		$("#mainSuccess").hide();
 		$("#mainAlert").hide();
 
@@ -148,10 +159,10 @@ var JUnitTable1 = (function(){
 					/*generate a string for input fields in HTML*/
 					var temp="";
 					for(var j=1;j<inputs.length-1;j++){
-						temp+="<input id = '"+inputs[j].name+"Input"+newNum+"' class = 'findInput"+j+"' placeholder = '  "+inputs[j].name+"'></input>, ";
+						temp+="<input id = '"+inputs[j].name+"Input"+newNum+"' class = 'inputField"+j+"' placeholder = '  "+inputs[j].name+"'></input>, ";
 						
 					}
-					temp+="<input id = '"+inputs[inputs.length-1].name+"Input"+newNum+"' class = 'findInput"+(inputs.length-1)+"' placeholder = '  "+inputs[inputs.length-1].name+"'></input>";
+					temp+="<input id = '"+inputs[inputs.length-1].name+"Input"+newNum+"' class = 'inputField"+(inputs.length-1)+"' placeholder = '  "+inputs[inputs.length-1].name+"'></input>";
 
 					var newFindLabel = $(temp);
 					var newDeleteBtn = $("<button class = 'delete btn btn-danger' style = 'float: right;'>Delete</button>")
@@ -175,19 +186,6 @@ var JUnitTable1 = (function(){
 					});
 					
 				});*/
-
-				
-
-				/*CSS*/
-				if (r == 3){
-					var cellID = ".row3 .col" + newNum;
-					$(cellID).css("border-bottom", "3px solid grey")
-				}
-				if (r == 4){
-					var cellID = ".row4 .col" + newNum;
-					$(cellID).css("border-top", "3px solid grey")
-				}
-				/*Labels*/	
 			}
 
 			$(".delete").on("mouseenter", function(){	
@@ -272,6 +270,8 @@ var JUnitTable1 = (function(){
 				}
 				console.log(columnsDisplayed);
 			})
+
+			createBar();
 		});
 
 		$(".delete").on("click", function(){
@@ -305,17 +305,6 @@ var JUnitTable1 = (function(){
 				console.log("0:2")
 			}
 		})	
-
-
-		/*Find method returns number of times a number was found in an array*/
-
-//Temp just for debuging
-$("#xInput1").val(1)
-$("#xInput2").val(1)
-$("#xInput3").val(1)
-$("#aInput1").val("[]")
-$("#aInput2").val("[1]")
-$("#aInput3").val("[1,1]")
 
 		/*Checks the user inputs when the submit button is pressed*/
 		$("#submit1").on("click", function(){
@@ -379,7 +368,7 @@ $("#aInput3").val("[1,1]")
 				*/
 				var hasShown =false; // whether an error msg has shown.
 				for(var i=1;i<=inputs.length-1;i++){
-					$(".findInput"+i).each(function(){
+					$(".inputField"+i).each(function(){
 						if(typeof(JSON.parse(this.value))!=inputs[i].type){
 							if(inputs[i].type!="object"||!inputs[i].checkObject(JSON.parse(this.value)))
 							{
@@ -415,7 +404,7 @@ $("#aInput3").val("[1,1]")
 				var hasShown=false;
 				var errmsg="The input fields don't make sense.\n";
 				for(var i=1;i<=inputs.length-1;i++){
-					$(".findInput"+i).each(function(){
+					$(".inputField"+i).each(function(){
 						if(this.value==""){
 							$("#mainAlert").show();
 							$("#mainAlert").animate({"opacity": "1"}, 200);
@@ -442,4 +431,14 @@ $(document).ready(function(){
 	$(".JUnitTable1").each(function(){
 		JUnitTable1.setup(this);
 	});
+	//Temp just for debuging
+	$("#xInput1").val(1)
+	$("#xInput2").val(1)
+	$("#xInput3").val(1)
+	$("#yInput1").val(1)
+	$("#yInput2").val(1)
+	$("#yInput3").val(1)
+	$("#zInput1").val(3)
+	$("#zInput2").val(3)
+	$("#zInput3").val(3)
 });
