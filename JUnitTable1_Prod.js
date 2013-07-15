@@ -263,7 +263,7 @@ var JUnitTable1 = (function(){
 								/*var otherGroup = 1;
 								var thisIndex = rowIndex - numGroup1;*/
 							}else if(thisGroup == 1){
-								var otherIndex = i + numGroup2;
+								var otherIndex = i - numGroup2;
 								/*var otherGroup = 2;
 								var thisIndex = rowIndex*/
 							}
@@ -272,11 +272,23 @@ var JUnitTable1 = (function(){
 					console.log("thisIndex: " + thisIndex);
 					console.log("otherIndex: " + otherIndex);
 					if (thisGroup == 1){
-						$("#subRow" + thisIndex + " #infoSubLabel" + otherIndex).animate({backgroundColor: "#33e05e"}, 300);
+						/*$("#subRow" + thisIndex + " #infoSubLabel" + otherIndex).animate({backgroundColor: "#8dd626"}, 300);*/
+						for (var i = 1; i <= numGroup1; i++){
+							if (radioDataProd[i][otherIndex] === true){
+								radioDataProd[i][otherIndex] = false;
+							}
+						}
 						radioDataProd[thisIndex][otherIndex] = true;
+						console.log(radioDataProd);
 					}else if (thisGroup == 2){
-						$("#subRow" + otherIndex + " #infoSubLabel" + thisIndex).animate({backgroundColor: "#33e05e"}, 300);
-						radioDataProd[otherIndex][thisIndex] == true;
+						/*$("#subRow" + otherIndex + " #infoSubLabel" + thisIndex).animate({backgroundColor: "#8dd626"}, 300);*/
+						for (var i = 1; i <= numGroup2; i++){
+							if (radioDataProd[otherIndex][i] === true){
+								radioDataProd[otherIndex][i] = false;
+							}
+						}
+						radioDataProd[otherIndex][thisIndex] = true;
+						console.log(radioDataProd);
 					}
 				/*Fin*/
 
@@ -513,7 +525,8 @@ $("#aInput3").val("[1,1]")
 
 		/*Checks the user inputs when the submit button is pressed*/
 		$("#submit1").on("click", function(){
-
+			console.log("radioData: " , radioData);
+			console.log("radioDataProd: " , radioDataProd)
 			$("#mainAlert").hide();
 			$("#mainSuccess").hide();
 
@@ -523,26 +536,41 @@ $("#aInput3").val("[1,1]")
 			$(".checkMark").animate({"opacity": "0"}, 200);
 			$(".errorMark").animate({"opacity": "0"}, 200);
 
+			$("td").animate({backgroundColor: "white"}, 200);
+
 			for(var i=1;i<=allRows.length-1;i++){
 				$(".row"+i).animate({backgroundColor:"white"},200);
 			}
 
 			try{
+				for (var x = 1; x <= numGroup1; x++){
+					var counter = 0
+					for (var y = 1; y <= numGroup2; y++){
+						if (radioDataProd[x][y] === true){
+							$("#subRow" + x + " #infoSubLabel" + y).animate({backgroundColor: "#8dd626"}, 300);
+							counter++;
+						}
+						if (counter == numGroup2){
+							$("infoTableLable").animate({backgroundColor: "#8dd626"}, 300);
+						}
+					}
+				}
 				/*Displays check and error marks based on user input*/
-				console.log("columnsDisplayed: " + columnsDisplayed)
 				for (var c = columnsDisplayed[1]; c <= columnsDisplayed[columnsDisplayed.length - 1]; c++){
+					console.log("c: " + c)
 					/*for loop stops when it reaches a number in columnsDisplayed that doesn't exist*/
 					if (columnsDisplayed.indexOf(c) == -1){
 						console.log("column does not exist, moving to next column")
 					}else{
 
-						console.log("columnsDisplayed[1]: " + columnsDisplayed[1])
 						var inputArray =[]; 
 						for(var j=1;j<=inputs.length-1;j++){
 							inputArray.push(JSON.parse($("#"+inputs[j].name+"Input" + c).val()));
 						}
-						for(var r=1;r<=allRows.length-1;r++){
+						for(var r=1;r<=allRows.length-2;r++){
+							console.log("checkError marks animate: r: " + r);
 							if(allRows[r].checkMembership.apply(null,inputArray)&& radioData[r][c] == true){
+								console.log("TRUE: r: " + r)
 								$(".row"+r+" .col"+c+" .checkMark").animate({"opacity":"1"},200);
 								$(".row"+r+" .col"+c+" .errorMark").animate({"opacity":"0"},200);
 							}
@@ -553,6 +581,7 @@ $("#aInput3").val("[1,1]")
 							}
 						}
 					}
+					console.log("columnsDisplayed Length: " + columnsDisplayed[columnsDisplayed.length - 1]) 
 				}	
 				
 				/*
@@ -603,7 +632,7 @@ $("#aInput3").val("[1,1]")
 				/*for(var i = 1; i <= radioData.length; i++){
 				}*/
 			}catch(e){
-				console.log("error"+e);				
+				console.log("error: "+e);				
 
 				/*Some error checking*/
 				var hasShown=false;
