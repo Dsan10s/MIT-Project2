@@ -1,10 +1,10 @@
 /*Currently, the table only works with the "find" function*/
 
 var JUnitTable1 = (function(){
-	var columnsDisplayed = [0, 1, 2, 3];
+	
 
 	/*Nulls are placeholders so indexing is easier later*/
-	var radioData = [[null], [null, false, false, false], [null, false, false, false], [null, false, false, false], [null, false, false, false], [null, false, false, false], [null, false, false, false]];
+	
 	var exports = {};
 
 	var setup = function(div){
@@ -25,7 +25,8 @@ var JUnitTable1 = (function(){
 		/*var tableContainer = $("<div class = 'tableContainer' style = 'width: 100%'></div>")*/
 		var tableFixed = $("<table id = 'tablePartitions' class = 'table table-hover table-bordered' style: 'float: left'></table>");
 		var tableContentContainer = $("<div id = 'tableContentCont'></div>");
-		var tableContent = $("<table id = 'tableContent' class = 'table table-hover table-bordered' style: 'float: right'></table>")
+		var tableContent = $("<table id = 'tableContent' class = 'table table-hover table-bordered' style: 'float: left'></table>")
+		var infoTable = $("<table id = 'infoTable' class = 'table table-hover table-bordered' style: 'float: left'></table>")
 		tableContentContainer.append(tableContent);
 
 		/*var table = $("<table id = 'JUnitTable1' class = 'table table-hover table-bordered'></table>");*/
@@ -38,14 +39,14 @@ var JUnitTable1 = (function(){
 		/*Row0*/
 		var row0Fixed = $("<tr class = 'row0'></tr>");
 		var row0Content = $("<tr class = 'row0'></tr>")
-		var emptyLabel = $("<td class = 'col0'><button class = 'plusButton btn btn-info'><b style = 'font-size: 20pt'>+</b></button></td>");
+		var emptyLabel = $("<td class = 'col0'><button class = 'plusButton btn btn-info'>New Column</button></td>");
 
 		row0Fixed.append(emptyLabel);
 
 		/*
 		Add input fields
 		*/
-		for(var i=1;i<=3;i++){
+		for(var i=1;i<=numTestCases;i++){
 			/*generate a string for input fields in HTML*/
 			var temp="";
 			for(var j=1;j<inputs.length-1;j++){
@@ -67,7 +68,7 @@ var JUnitTable1 = (function(){
 			var newRow = $("<tr class = 'row" + r + "'></tr>");
 			for (var c = 0; c < columnsDisplayed.length; c++){
 				var rowClass = ".row" + r;
-				var newCol = $("<td class = 'col" + c + "'></td>");
+				var newCol = $("<td style = 'vertical-align: middle' class = 'col" + c + "'></td>");
 				
 				/*Labels*/
 				if (c == 0){
@@ -108,17 +109,47 @@ var JUnitTable1 = (function(){
 			}
 			
 		}
+
+		/*Table 3*/
+		var numGroup1 = 0;
+		for (var i = 0; i <= allRows.length - 1; i++){
+			if (allRows[i].group == 1){
+				numGroup1++;
+			}
+		}
+		console.log("numGroup1: " + numGroup1)
+		var numGroup2 = 0;
+		for (var i = 0; i <= allRows.length - 1; i++){
+			if (allRows[i].group == 2){
+				numGroup2++;
+			}
+		}
+		console.log("numGroup2: " + numGroup2)
+		for (var i = 1; i <= numGroup1; i++){
+
+			console.log("i: " + i);
+
+			var mainCol = $("<tr><td id = 'infoTableLabel" + i + "' colspan = '" + numGroup2 + "' style = 'font-size: 16pt; text-align: center; vertical-align: middle'>"+ allRows[i].title + "</td></tr>")
+			infoTable.append(mainCol);
+			var subRow = $("<tr id = 'subRow" + i +"'></tr>");
+			for (var n = 1; n <= numGroup2; n++){
+				var subCol = $("<td id = 'infoSubLabel" + n + "' style = 'vertical-align: middle'>" + allRows[n + numGroup1].title + "</td>");
+				subRow.append(subCol)
+			}
+
+			infoTable.append(mainCol, subRow);
+			console.log("mainCol: " + mainCol.html())
+			console.log("subRow: " + subRow.html())
+			console.log("numGroup1: " + numGroup1)
+		}
 		
 		
 
-		$(div).append(tableFixed, tableContentContainer, bottomDiv);
+		$(div).append(tableFixed, tableContentContainer, infoTable, bottomDiv);
 
 		
 
-		$("#tableContentCont").css( "width", ( ( parseFloat($("body").width()) - parseFloat( $("#tablePartitions").width() + 1)) ) );
-		$(window).resize(function(){
-			$("#tableContentCont").width( ( parseFloat($("body").width()) - parseFloat( $("#tablePartitions").width() + 1)) )
-		})
+		
 
 		/*Creates Grey bar in middle of table*/
 
@@ -161,12 +192,14 @@ var JUnitTable1 = (function(){
 		$(".customRadioBorder").on("hover", function(){
 			$(this).css('cursor', 'pointer');
 		})
-		for(var c=1;c<=3;c++){
+		for(var c=1;c<=numTestCases;c++){
 			$(".col"+c+" .customRadioBorder").on("click", function(){
 				var rowClass = $(this).parent('span').parent('td').parent('tr').attr("class");
 				var rowIndex = rowClass[3];
 				var colClass = $(this).parent('span').parent('td').attr("class");
-				var colIndex = colClass.slice(3, colClass.length);;
+				var colIndex = colClass.slice(3, colClass.length);
+
+				console.log(radioData[rowIndex][colIndex]);
 
 				if (radioData[rowIndex][colIndex] === false){
 					console.log("rowClass: " + rowClass + ", colClass: " + colClass)
@@ -174,7 +207,82 @@ var JUnitTable1 = (function(){
 					.attr("r", 20).duration(200)
 					.attr("stroke", "white").duration(200);
 					radioFill = true;
+
+				/*Automatically unchecks previously checked circle in the same group*/
+					var thisGroup = allRows[rowIndex].group;
+					for (var i = 0; i < allRows.length; i++){
+						if (allRows[i].group == thisGroup){
+							var thisGroupStart = i;
+							break;
+						}
+					}
+					for (var i = 0; i < allRows.length; i++){
+						if (allRows[i].group == thisGroup + 1){
+							var thisGroupEnd = i - 1;
+							break;
+						}
+					}
+					for (var i = thisGroupStart; i <= thisGroupEnd; i++){
+						if(radioData[i][colIndex] === true){
+							radioData[i][colIndex] = false;
+							d3.select(".row" + i + " .col" + colIndex + " .circleFill").transition()
+							.attr("r", 0).duration(200)
+							.attr("stroke", "grey").duration(200);
+						}
+					}
+				/*Fin*/
+
 					radioData[rowIndex][colIndex] = true;
+
+				/*Product Mode Checking*/
+					if (thisGroup == 2){
+						var otherGroup = 1;
+						var thisIndex = rowIndex - numGroup1;
+					}else if(thisGroup == 1){
+						var otherGroup = 2;
+						var thisIndex = rowIndex
+					}
+					for (var i = 0; i < allRows.length; i++){
+						if (allRows[i].group == otherGroup){
+							var otherGroupStart = i;
+							break;
+						}
+					}
+					for (var i = 0; i < allRows.length; i++){
+						if (allRows[i].group == otherGroup + 1){
+							var otherGroupEnd = i - 1;
+							break;
+						}
+					}
+					console.log("otherGroupStart: " + otherGroupStart)
+					console.log("otherGroupEnd: " + otherGroupEnd)
+					for (var i = otherGroupStart; i <= otherGroupEnd; i++){
+						if(radioData[i][colIndex] === true){
+							if (thisGroup == 2){
+								var otherIndex = i;
+								/*var otherGroup = 1;
+								var thisIndex = rowIndex - numGroup1;*/
+							}else if(thisGroup == 1){
+								var otherIndex = i + numGroup2;
+								/*var otherGroup = 2;
+								var thisIndex = rowIndex*/
+							}
+						}
+					}
+					console.log("thisIndex: " + thisIndex);
+					console.log("otherIndex: " + otherIndex);
+					if (thisGroup == 1){
+						$("#subRow" + thisIndex + " #infoSubLabel" + otherIndex).animate({backgroundColor: "#33e05e"}, 300);
+						radioDataProd[thisIndex][otherIndex] = true;
+					}else if (thisGroup == 2){
+						$("#subRow" + otherIndex + " #infoSubLabel" + thisIndex).animate({backgroundColor: "#33e05e"}, 300);
+						radioDataProd[otherIndex][thisIndex] == true;
+					}
+				/*Fin*/
+
+					/*radioDataProd[rowIndex][] = true */
+					/*for ()*/
+
 				}else if(radioData[rowIndex][colIndex] === true){
 					d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
 					.attr("r", 0).duration(200)
@@ -241,6 +349,7 @@ var JUnitTable1 = (function(){
 				/*Labels*/	
 			}
 
+
 			$(".delete").on("mouseenter", function(){	
 				var colClass = $(this).parent("td").attr("class");
 				var colNum = parseInt(colClass.slice(3, colClass.length));
@@ -271,6 +380,7 @@ var JUnitTable1 = (function(){
 			.attr("height", "40px")
 			.append("circle").attr("class", "circleFill").attr("cx", 20).attr("cy", 20).attr("r", 0).attr("fill", "#91cfff");
 
+
 			$(".customRadioBorder").on("hover", function(){
 				$(this).css('cursor', 'pointer');
 			})
@@ -298,13 +408,46 @@ var JUnitTable1 = (function(){
 					.attr("r", 20).duration(200)
 					.attr("stroke", "white").duration(200);
 					radioFill = true;
+
+				/*Automatically unchecks previously checked circle in the same group*/
+					var thisGroup = allRows[rowIndex].group;
+					for (var i = 0; i < allRows.length; i++){
+						if (allRows[i].group == thisGroup){
+							var thisGroupStart = i;
+							break;
+						}
+					}
+					for (var i = 0; i < allRows.length; i++){
+						if (allRows[i].group == thisGroup + 1){
+							var thisGroupEnd = i - 1;
+							break;
+						}
+					}
+					console.log("thisGroup: " + thisGroup);
+					console.log("thisGroupStart: " + thisGroupStart);
+					console.log("thisGroupEnd: " + thisGroupEnd);
+
+					for (var i = thisGroupStart; i <= thisGroupEnd; i++){
+						if(radioData[i][colIndex] == true){
+
+							d3.select(".row" + i + " .col" + colIndex + " .circleFill").transition()
+							.attr("r", 0).duration(200)
+							.attr("stroke", "grey").duration(200);
+							radioData[i][colIndex] == false;
+						}
+					}
+
 					radioData[rowIndex][colIndex] = true;
+					var g2StartIndex = 1+numGroup1;
+					/*radioDataProd[rowIndex][] = true */
+					/*for ()*/
 				}else if(radioData[rowIndex][colIndex] === true){
 					d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
 					.attr("r", 0).duration(200)
 					.attr("stroke", "grey").duration(200);
 					radioFill = false;
 					radioData[rowIndex][colIndex] = false;
+					/*for ()*/
 				}
 				
 			})
@@ -315,7 +458,7 @@ var JUnitTable1 = (function(){
 				var deleteColNum = deleteCol.slice(3, deleteCol.length);
 				console.log("deleteCol: " + deleteCol)
 				
-				if(parseInt(deleteColNum)>3){
+				if(parseInt(deleteColNum)>numTestCases){
 					$("." + deleteCol).remove();
 					if(columnsDisplayed.indexOf(parseInt(deleteColNum))!=-1){
 						columnsDisplayed.splice(columnsDisplayed.indexOf(parseInt(deleteColNum)), 1);
@@ -330,7 +473,7 @@ var JUnitTable1 = (function(){
 			var deleteCol = $(this).parent("td").attr("class");
 			var deleteColNum = deleteCol.slice(3, deleteCol.length);
 			console.log("deleteCol: " + deleteCol)
-			if(parseInt(deleteColNum)<=3){
+			if(parseInt(deleteColNum)<=numTestCases){
 				$("." + deleteCol).remove();
 				if(columnsDisplayed.indexOf(parseInt(deleteColNum))!=-1){
 					columnsDisplayed.splice(columnsDisplayed.indexOf(parseInt(deleteColNum)), 1);				
@@ -343,7 +486,7 @@ var JUnitTable1 = (function(){
 		$(".delete").on("mouseenter", function(){			
 			var colClass = $(this).parent("td").attr("class");
 			var colNum = parseInt(colClass.slice(3, colClass.length));
-			if(colNum <= 3){
+			if(colNum <= numTestCases){
 				$(this).animate({"opacity": "1"}, 200);	
 				console.log("1:2")
 			}
@@ -351,7 +494,7 @@ var JUnitTable1 = (function(){
 		$(".delete").on("mouseleave", function(){
 			var colClass = $(this).parent("td").attr("class");
 			var colNum = parseInt(colClass.slice(3, colClass.length));
-			if(colNum  <= 3){
+			if(colNum  <= numTestCases){
 				$(this).animate({"opacity": "0"}, 200);
 				console.log("0:2")
 			}
@@ -496,6 +639,17 @@ $(document).ready(function(){
 
 	$("#tablePartitions tr").height($("#tableContent .row1").height());
 	$(".row0").height($(".row0 .col1").height());
-	$("#tablePartitions .row3").height($("#tableContent .row3").height());
-	$("#tablePartitions .row4").height($("#tableContent .row4").height());
-});
+	for (var i = 1; i <= allRows.length - 2; i++){
+		if (allRows[i].group < allRows[i+1].group){
+			$("#tablePartitions .row" + String(i)).height($("#tableContent .row3").height());
+			$("#tablePartitions .row" + String(i+1)).height($("#tableContent .row4").height());
+		}
+	}
+	
+
+	$("#tableContentCont").width( ( parseFloat($("body").width()) - parseFloat( $("#infoTable").width() )- parseFloat( $("#tablePartitions").width() ) - 8) );
+	$(window).resize(function(){
+		$("#tableContentCont").width( ( parseFloat($("body").width()) - parseFloat( $("#infoTable").width() ) - parseFloat( $("#tablePartitions").width() ) - 8) )
+	});
+	$("#infoTable").height(  $("#tableContentCont").height()  )
+}); 
