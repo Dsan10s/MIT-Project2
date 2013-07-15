@@ -40,7 +40,6 @@ table{
 .checkMark{
 	position: absolute;
 	opacity: 0;
-	overflow: scroll;
 }
 .errorMark{
 	position: absolute;

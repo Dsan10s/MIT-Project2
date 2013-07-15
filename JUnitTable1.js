@@ -19,10 +19,10 @@ var JUnitTable1 = (function(){
 		for (var r = 1; r <= allRows.length-2; r++){
 			for (var c = 0; c < columnsDisplayed.length; c++){
 				if (allRows[r].group < allRows[r+1].group){
-					var cellID = ".row"+r+" .col" + c;
+					var cellID = ".row"+r+" .col" + columnsDisplayed[c];
 					$(cellID).css("border-bottom", "3px solid grey")
 
-					var cellID = ".row"+(r+1)+" .col" + c;
+					var cellID = ".row"+(r+1)+" .col" + columnsDisplayed[c];
 					$(cellID).css("border-top", "3px solid grey")
 				}
 			}
@@ -170,22 +170,8 @@ var JUnitTable1 = (function(){
 				}else{
 					newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><img class = 'mark checkMark' src = 'images/checkMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span>"));
 				}
-				/*$(".col" + newNum).children().css("opacity", 0)
-				$(".col" + newNum).children().hide();*/
 
 				$(rowClass).append(newCol);
-
-				/*var totalPx = parseFloat($("#JUnitTable1").css("width")) - parseFloat($(".col0").css("width"));
-				var newWidth = totalPx/(columnsDisplayed.length + 0.5);
-				console.log("totalPx: " + totalPx)
-				console.log("newWidth: " + newWidth);
-				$(".col" + newNum).animate({"width": newWidth}, 2000,function(){
-					$(".col" + newNum).children().show();
-					$(".col" + newNum).children().animate({"opacity": "1"}, 500, function(){
-						$(".col" + newNum).css("width", "");
-					});
-					
-				});*/
 			}
 
 			$(".delete").on("mouseenter", function(){	

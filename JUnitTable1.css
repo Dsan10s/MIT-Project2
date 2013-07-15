@@ -8,7 +8,7 @@ body{
 
 table{
 	border-radius: 10px;
-	/*overflow: auto;*/
+	overflow: auto;
 }
 input{
 	border: 0px;
