@@ -8,9 +8,28 @@ var JUnitTable1 = (function(){
 	for(var i =0;i<allRows.length-1;i++){
 		radioData.push([null, false, false, false]);
 	}
-	
+
 	var exports = {};
 
+//========================================================================================
+//==Helper Function=======================================================================
+//========================================================================================
+	/*Creates Grey bar in middle of table*/
+	function createBar(){
+		for (var r = 1; r <= allRows.length-2; r++){
+			for (var c = 0; c < columnsDisplayed.length; c++){
+				if (allRows[r].group < allRows[r+1].group){
+					var cellID = ".row"+r+" .col" + c;
+					$(cellID).css("border-bottom", "3px solid grey")
+
+					var cellID = ".row"+(r+1)+" .col" + c;
+					$(cellID).css("border-top", "3px solid grey")
+				}
+			}
+		}
+	}
+//========================================================================================
+	
 	var setup = function(div){
 		/*
 		Sort allRows in grouping sequence first
@@ -72,20 +91,8 @@ var JUnitTable1 = (function(){
 		
 		$(div).append(table, bottomDiv);
 		
-
-		/*Creates Grey bar in middle of table*/
-
-		for (var r = 1; r <= allRows.length-2; r++){
-			for (var c = 0; c < columnsDisplayed.length; c++){
-				if (allRows[r].group < allRows[r+1].group){
-					var cellID = ".row"+r+" .col" + c;
-					$(cellID).css("border-bottom", "3px solid grey")
-
-					var cellID = ".row"+(r+1)+" .col" + c;
-					$(cellID).css("border-top", "3px solid grey")
-				}
-			}
-		}
+		createBar();
+		
 		$("#mainSuccess").hide();
 		$("#mainAlert").hide();
 
@@ -179,19 +186,6 @@ var JUnitTable1 = (function(){
 					});
 					
 				});*/
-
-				
-
-				/*CSS*/
-				if (r == 3){
-					var cellID = ".row3 .col" + newNum;
-					$(cellID).css("border-bottom", "3px solid grey")
-				}
-				if (r == 4){
-					var cellID = ".row4 .col" + newNum;
-					$(cellID).css("border-top", "3px solid grey")
-				}
-				/*Labels*/	
 			}
 
 			$(".delete").on("mouseenter", function(){	
@@ -274,8 +268,9 @@ var JUnitTable1 = (function(){
 						columnsDisplayed.splice(columnsDisplayed.indexOf(parseInt(deleteColNum)), 1);
 					}
 				}
-				console.log(columnsDisplayed);
 			})
+			console.log(columnsDisplayed)
+			createBar();
 		});
 
 		$(".delete").on("click", function(){
@@ -442,4 +437,7 @@ $(document).ready(function(){
 	$("#yInput1").val(1)
 	$("#yInput2").val(1)
 	$("#yInput3").val(1)
+	$("#zInput1").val(3)
+	$("#zInput2").val(3)
+	$("#zInput3").val(3)
 });

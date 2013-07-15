@@ -494,8 +494,8 @@ $(document).ready(function(){
 		JUnitTable1.setup(this);
 	});
 
-	$("#tablePartitions tr").height($("#tableContent .row1").height());
-	$(".row0").height($(".row0 .col1").height());
-	$("#tablePartitions .row3").height($("#tableContent .row3").height());
-	$("#tablePartitions .row4").height($("#tableContent .row4").height());
+	// $("#tablePartitions tr").height($("#tableContent .row1").height());
+	// $(".row0").height($(".row0 .col1").height());
+	// $("#tablePartitions .row3").height($("#tableContent .row3").height());
+	// $("#tablePartitions .row4").height($("#tableContent .row4").height());
 });
