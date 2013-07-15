@@ -1,4 +1,10 @@
 /*
+Allows you to set the initial number of test cases
+*/
+
+var numTestCases = 9;
+
+/*
 Header part for the page
 */
 var header = {title:"Find Function",
@@ -15,7 +21,8 @@ var allRows = ["ph",
 		{group:1,title:"Length of <b>a</b> > 1",checkMembership:function (x,a){return a.length>1}},
 		{group:2,title:"<b>x</b> not in <b>a</b>",checkMembership:function(x,a){return find(x,a)==0}},
 		{group:2,title:"<b>x</b> in <b>a</b> once",checkMembership:function(x,a){return find(x,a)==1}},
-		{group:2,title:"<b>x</b> in <b>a</b> more than once",checkMembership:function(x,a){return find(x,a)>1}}
+		{group:2,title:"<b>x</b> in <b>a</b> more than once",checkMembership:function(x,a){return find(x,a)>1}},
+		{group:3,title:"Impossible"}
 		];
 
 /*
@@ -40,6 +47,57 @@ var code =["ph", "public static int find(int x, int[] a) {\n  for (int i = 0; i 
 //====================================================================================
 //Helper functions for checkMembership
 
+
+var columnsDisplayed = [];
+var radioData = [];
+var radioDataProd = [];
+for (var i = 0; i <= numTestCases; i++){
+	columnsDisplayed.push(i);
+}
+
+var numGroup1 = 0;
+for (var i = 0; i <= allRows.length - 1; i++){
+	if (allRows[i].group == 1){
+		numGroup1++;
+	}
+}
+console.log("numGroup1: " + numGroup1)
+var numGroup2 = 0;
+for (var i = 0; i <= allRows.length - 1; i++){
+	if (allRows[i].group == 2){
+		numGroup2++;
+	}
+}
+console.log("numGroup2: " + numGroup2)
+
+/*Product Mode radioData*/
+
+for (var i = 0; i <= numGroup1; i++){
+	if(i == 0){
+		radioDataProd.push([null]);
+	}else{
+		var newData = [null];
+		for (var n = 1; n <= numGroup2; n++){
+			newData.push(false);
+		}
+		radioDataProd.push(newData);
+	}
+}
+
+/*Sum Mode RadioData*/
+
+for (var i = 0; i < allRows.length; i++){
+	if(i == 0){
+		radioData.push([null]);
+	}else{
+		var newData = [null];
+		for (var x = 1; x <= numTestCases; x++){
+			newData.push(false);
+		}
+		radioData.push(newData);
+	}
+}
+console.log(radioData);
 
 /*Find method returns number of times a number was found in an array*/
 function find(x, a){
