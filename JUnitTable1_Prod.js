@@ -156,10 +156,10 @@ var JUnitTable1 = (function(){
 		for (var r = 1; r <= allRows.length-2; r++){
 			for (var c = 0; c < columnsDisplayed.length; c++){
 				if (allRows[r].group < allRows[r+1].group){
-					var cellID = ".row"+r+" .col" + c;
+					var cellID = ".row"+r+" .col" + columnsDisplayed[c];
 					$(cellID).css("border-bottom", "3px solid grey")
 
-					var cellID = ".row"+(r+1)+" .col" + c;
+					var cellID = ".row"+(r+1)+" .col" + columnsDisplayed[c];
 					$(cellID).css("border-top", "3px solid grey")
 				}
 			}
@@ -199,7 +199,7 @@ var JUnitTable1 = (function(){
 				var colClass = $(this).parent('span').parent('td').attr("class");
 				var colIndex = colClass.slice(3, colClass.length);
 
-				console.log(radioData[rowIndex][colIndex]);
+				
 
 				if (radioData[rowIndex][colIndex] === false){
 					console.log("rowClass: " + rowClass + ", colClass: " + colClass)
@@ -216,12 +216,20 @@ var JUnitTable1 = (function(){
 							break;
 						}
 					}
-					for (var i = 0; i < allRows.length; i++){
-						if (allRows[i].group == thisGroup + 1){
-							var thisGroupEnd = i - 1;
+					if (thisGroup == 1){
+						var thisGroupEnd = thisGroupStart + numGroup1 - 1;
+					}
+					if (thisGroup == 2){
+						var thisGroupEnd = thisGroupStart + numGroup2 - 1;
+					}
+					/*for (var i = 0; i < allRows.length - 1; i++){
+						if (allRows[i + 1].group == thisGroup + 1 || allRows[i + 1].group === undefined){
+							var thisGroupEnd = i;
 							break;
 						}
-					}
+					}*/
+					console.log("thisGroupStart: " + thisGroupStart);
+					console.log("thisGroupEnd: " + thisGroupEnd);
 					for (var i = thisGroupStart; i <= thisGroupEnd; i++){
 						if(radioData[i][colIndex] === true){
 							radioData[i][colIndex] = false;
@@ -234,67 +242,6 @@ var JUnitTable1 = (function(){
 
 					radioData[rowIndex][colIndex] = true;
 
-				/*Product Mode Checking*/
-					if (thisGroup == 2){
-						var otherGroup = 1;
-						var thisIndex = rowIndex - numGroup1;
-					}else if(thisGroup == 1){
-						var otherGroup = 2;
-						var thisIndex = rowIndex
-					}
-					for (var i = 0; i < allRows.length; i++){
-						if (allRows[i].group == otherGroup){
-							var otherGroupStart = i;
-							break;
-						}
-					}
-					for (var i = 0; i < allRows.length; i++){
-						if (allRows[i].group == otherGroup + 1){
-							var otherGroupEnd = i - 1;
-							break;
-						}
-					}
-					console.log("otherGroupStart: " + otherGroupStart)
-					console.log("otherGroupEnd: " + otherGroupEnd)
-					for (var i = otherGroupStart; i <= otherGroupEnd; i++){
-						if(radioData[i][colIndex] === true){
-							if (thisGroup == 2){
-								var otherIndex = i;
-								/*var otherGroup = 1;
-								var thisIndex = rowIndex - numGroup1;*/
-							}else if(thisGroup == 1){
-								var otherIndex = i - numGroup2;
-								/*var otherGroup = 2;
-								var thisIndex = rowIndex*/
-							}
-						}
-					}
-					console.log("thisIndex: " + thisIndex);
-					console.log("otherIndex: " + otherIndex);
-					if (thisGroup == 1){
-						/*$("#subRow" + thisIndex + " #infoSubLabel" + otherIndex).animate({backgroundColor: "#8dd626"}, 300);*/
-						for (var i = 1; i <= numGroup1; i++){
-							if (radioDataProd[i][otherIndex] === true){
-								radioDataProd[i][otherIndex] = false;
-							}
-						}
-						radioDataProd[thisIndex][otherIndex] = true;
-						console.log(radioDataProd);
-					}else if (thisGroup == 2){
-						/*$("#subRow" + otherIndex + " #infoSubLabel" + thisIndex).animate({backgroundColor: "#8dd626"}, 300);*/
-						for (var i = 1; i <= numGroup2; i++){
-							if (radioDataProd[otherIndex][i] === true){
-								radioDataProd[otherIndex][i] = false;
-							}
-						}
-						radioDataProd[otherIndex][thisIndex] = true;
-						console.log(radioDataProd);
-					}
-				/*Fin*/
-
-					/*radioDataProd[rowIndex][] = true */
-					/*for ()*/
-
 				}else if(radioData[rowIndex][colIndex] === true){
 					d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
 					.attr("r", 0).duration(200)
@@ -302,7 +249,61 @@ var JUnitTable1 = (function(){
 					radioFill = false;
 					radioData[rowIndex][colIndex] = false;
 				}
-				
+
+			/*Product Mode Checking*/	
+				radioDataProd = [];
+				for (var i = 0; i <= numGroup1; i++){
+					if(i == 0){
+						radioDataProd.push([null]);
+					}else{
+						var newData = [null];
+						for (var n = 1; n <= numGroup2; n++){
+							newData.push(false);
+						}
+						radioDataProd.push(newData);
+					}
+				}
+			
+				for(var c = 1; c<= columnsDisplayed.length-1; c++){
+					var temp1=false, temp2=false;
+					for(var r = 1; r<=numGroup1;r++){
+						if(radioData[r][c]==true){
+							var inputArray = [];
+							for(var j=1; j<inputs.length;j++){
+								inputArray.push(JSON.parse($("#"+inputs[j].name+"Input"+columnsDisplayed[c]).val()));
+							}
+							temp1=allRows[r].checkMembership.apply(null,inputArray);
+							ind1= r;
+							console.log("temp1 = "+temp1+", ind1 = "+ind1);
+							break;
+						}
+					}	
+
+					for(var r = numGroup1+1; r <= numGroup1+numGroup2; r++){
+						if(radioData[r][c]==true){
+							var inputArray = [];
+							for(var j=1; j<inputs.length;j++){
+								inputArray.push(JSON.parse($("#"+inputs[j].name+"Input"+columnsDisplayed[c]).val()));
+							}
+							temp2=allRows[r].checkMembership.apply(null,inputArray);
+							ind2=r-numGroup1;
+							console.log("temp2 = "+temp2+", ind2 = "+ind2);
+							break;
+						}
+					}
+					if(temp1&&temp2){
+						radioDataProd[ind1][ind2]=true;
+					}
+				}
+			/*End*/
+
+				/*for(var i = 1;i<=columnsDisplayed.length-1;i++){
+					for(var c = 1; c<= numGroup1+numGroup2;c++)
+						console.log(radioData[i][c]);
+				}*/
+
+				console.log(JSON.stringify(radioData));
+				console.log(JSON.stringify(radioDataProd));
 			})
 		}
 
@@ -328,7 +329,7 @@ var JUnitTable1 = (function(){
 					var newDeleteBtn = $("<button class = 'delete btn btn-danger' style = 'float: right;'>Delete</button>")
 					newCol.append("<span>Find(", newFindLabel, ")</span>", newDeleteBtn);
 				}else{
-					newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><img class = 'mark checkMark' src = 'images/checkMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span>"));
+					newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'relative'><span class = 'customRadioFill'></span></span></span><span class = 'relative'><img class = 'mark checkMark' src = 'images/checkMark.png'/></span><span class = 'relative'><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span></span>"));
 				}
 				/*$(".col" + newNum).children().css("opacity", 0)
 				$(".col" + newNum).children().hide();*/
@@ -348,16 +349,6 @@ var JUnitTable1 = (function(){
 				});*/
 
 				
-
-				/*CSS*/
-				if (r == 3){
-					var cellID = ".row3 .col" + newNum;
-					$(cellID).css("border-bottom", "3px solid grey")
-				}
-				if (r == 4){
-					var cellID = ".row4 .col" + newNum;
-					$(cellID).css("border-top", "3px solid grey")
-				}
 				/*Labels*/	
 			}
 
@@ -405,6 +396,18 @@ var JUnitTable1 = (function(){
 			}
 			console.log(radioData)
 
+			for (var r = 1; r <= allRows.length-2; r++){
+				for (var c = 0; c < columnsDisplayed.length; c++){
+					if (allRows[r].group < allRows[r+1].group){
+						var cellID = ".row"+r+" .col" + columnsDisplayed[c];
+						$(cellID).css("border-bottom", "3px solid grey")
+
+						var cellID = ".row"+(r+1)+" .col" + columnsDisplayed[c];
+						$(cellID).css("border-top", "3px solid grey")
+					}
+				}
+			}
+
 			var radioFill = false;
 
 			
@@ -429,26 +432,29 @@ var JUnitTable1 = (function(){
 							break;
 						}
 					}
-					for (var i = 0; i < allRows.length; i++){
-						if (allRows[i].group == thisGroup + 1){
-							var thisGroupEnd = i - 1;
+					if (thisGroup == 1){
+						var thisGroupEnd = thisGroupStart + numGroup1 - 1;
+					}
+					if (thisGroup == 2){
+						var thisGroupEnd = thisGroupStart + numGroup2 - 1;
+					}
+					/*for (var i = 0; i < allRows.length - 1; i++){
+						if (allRows[i + 1].group == thisGroup + 1 || allRows[i + 1].group === undefined){
+							var thisGroupEnd = i;
 							break;
 						}
-					}
-					console.log("thisGroup: " + thisGroup);
+					}*/
 					console.log("thisGroupStart: " + thisGroupStart);
 					console.log("thisGroupEnd: " + thisGroupEnd);
-
 					for (var i = thisGroupStart; i <= thisGroupEnd; i++){
-						if(radioData[i][colIndex] == true){
-
+						if(radioData[i][colIndex] === true){
+							radioData[i][colIndex] = false;
 							d3.select(".row" + i + " .col" + colIndex + " .circleFill").transition()
 							.attr("r", 0).duration(200)
 							.attr("stroke", "grey").duration(200);
-							radioData[i][colIndex] == false;
 						}
 					}
-
+				/*Fin*/
 					radioData[rowIndex][colIndex] = true;
 					var g2StartIndex = 1+numGroup1;
 					/*radioDataProd[rowIndex][] = true */
@@ -461,6 +467,54 @@ var JUnitTable1 = (function(){
 					radioData[rowIndex][colIndex] = false;
 					/*for ()*/
 				}
+
+				/*Product Mode Checking*/	
+				radioDataProd = [];
+				for (var i = 0; i <= numGroup1; i++){
+					if(i == 0){
+						radioDataProd.push([null]);
+					}else{
+						var newData = [null];
+						for (var n = 1; n <= numGroup2; n++){
+							newData.push(false);
+						}
+						radioDataProd.push(newData);
+					}
+				}
+			
+				for(var c = 1; c<= columnsDisplayed.length-1; c++){
+					var temp1=false, temp2=false;
+					for(var r = 1; r<=numGroup1;r++){
+						if(radioData[r][c]==true){
+							var inputArray = [];
+							for(var j=1; j<inputs.length;j++){
+								inputArray.push(JSON.parse($("#"+inputs[j].name+"Input"+columnsDisplayed[c]).val()));
+							}
+							temp1=allRows[r].checkMembership.apply(null,inputArray);
+							ind1= r;
+							console.log("temp1 = "+temp1+", ind1 = "+ind1);
+							break;
+						}
+					}	
+
+					for(var r = numGroup1+1; r <= numGroup1+numGroup2; r++){
+						if(radioData[r][c]==true){
+							var inputArray = [];
+							for(var j=1; j<inputs.length;j++){
+								inputArray.push(JSON.parse($("#"+inputs[j].name+"Input"+columnsDisplayed[c]).val()));
+							}
+							temp2=allRows[r].checkMembership.apply(null,inputArray);
+							ind2=r-numGroup1;
+							console.log("temp2 = "+temp2+", ind2 = "+ind2);
+							break;
+						}
+					}
+					if(temp1&&temp2){
+						radioDataProd[ind1][ind2]=true;
+					}
+				}
+			/*End*/
+
 				
 			})
 			console.log("radiobutton clicked")
@@ -477,7 +531,10 @@ var JUnitTable1 = (function(){
 					}
 				}
 				console.log(columnsDisplayed);
+				$("#infoTable").height(  $("#tableContentCont").height()  )
 			})
+
+			$("#infoTable").height(  $("#tableContentCont").height()  )
 		});
 
 		$(".delete").on("click", function(){
@@ -493,6 +550,7 @@ var JUnitTable1 = (function(){
 			}
 
 			console.log(columnsDisplayed);
+			$("#infoTable").height(  $("#tableContentCont").height()  )
 		});
 
 		$(".delete").on("mouseenter", function(){			
@@ -526,7 +584,7 @@ $("#aInput3").val("[1,1]")
 		/*Checks the user inputs when the submit button is pressed*/
 		$("#submit1").on("click", function(){
 			console.log("radioData: " , radioData);
-			console.log("radioDataProd: " , radioDataProd)
+			console.log("radioDataProd: " , JSON.stringify(radioDataProd));
 			$("#mainAlert").hide();
 			$("#mainSuccess").hide();
 
@@ -551,7 +609,7 @@ $("#aInput3").val("[1,1]")
 							counter++;
 						}
 						if (counter == numGroup2){
-							$("infoTableLable").animate({backgroundColor: "#8dd626"}, 300);
+							$("#infoTableLabel" + x).animate({backgroundColor: "#8dd626"}, 300);
 						}
 					}
 				}
@@ -567,7 +625,7 @@ $("#aInput3").val("[1,1]")
 						for(var j=1;j<=inputs.length-1;j++){
 							inputArray.push(JSON.parse($("#"+inputs[j].name+"Input" + c).val()));
 						}
-						for(var r=1;r<=allRows.length-2;r++){
+						for(var r=1;r<=allRows.length-1;r++){
 							console.log("checkError marks animate: r: " + r);
 							if(allRows[r].checkMembership.apply(null,inputArray)&& radioData[r][c] == true){
 								console.log("TRUE: r: " + r)
@@ -617,7 +675,7 @@ $("#aInput3").val("[1,1]")
 				};
 
 				/*Turns a row red if there is no button clicked*/
-				if(!hasShown){
+				/*if(!hasShown){
 					for(var r=1;r<=allRows.length-1;r++){
 						if(find(true,radioData[r])<1){
 							$(".row"+r).animate({backgroundColor: "#ffc4c4"}, 200);
@@ -626,7 +684,7 @@ $("#aInput3").val("[1,1]")
 							$("#mainAlert").html("Make sure you have an answer for every row")
 						}
 					}
-				}
+				}*/
 				
 				/*Checks if all answers are correct*/
 				/*for(var i = 1; i <= radioData.length; i++){

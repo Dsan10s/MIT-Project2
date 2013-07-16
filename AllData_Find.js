@@ -2,7 +2,7 @@
 Allows you to set the initial number of test cases
 */
 
-var numTestCases = 9;
+var numTestCases = 3;
 
 /*
 Header part for the page
@@ -21,8 +21,8 @@ var allRows = ["ph",
 		{group:1,title:"Length of <b>a</b> > 1",checkMembership:function (x,a){return a.length>1}},
 		{group:2,title:"<b>x</b> not in <b>a</b>",checkMembership:function(x,a){return find(x,a)==0}},
 		{group:2,title:"<b>x</b> in <b>a</b> once",checkMembership:function(x,a){return find(x,a)==1}},
-		{group:2,title:"<b>x</b> in <b>a</b> more than once",checkMembership:function(x,a){return find(x,a)>1}},
-		{group:3,title:"Impossible"}
+		{group:2,title:"<b>x</b> in <b>a</b> more than once",checkMembership:function(x,a){return find(x,a)>1}}/*,
+		{group:3,title:"Impossible"}*/
 		];
 
 /*
