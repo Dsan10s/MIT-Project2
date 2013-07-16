@@ -236,7 +236,7 @@ var JUnitTable1 = (function(){
 			}	
 		});
 		
-		
+	/*For code review*/
 		for(var c=1;c<=numTestCases;c++){
 			$(".col"+c+" .customRadioBorder").on("click", function(){
 				var rowClass = $(this).parent('span').parent('td').parent('tr').attr("class");
@@ -266,12 +266,7 @@ var JUnitTable1 = (function(){
 					if (thisGroup == 2){
 						var thisGroupEnd = thisGroupStart + numGroup2 - 1;
 					}
-					/*for (var i = 0; i < allRows.length - 1; i++){
-						if (allRows[i + 1].group == thisGroup + 1 || allRows[i + 1].group === undefined){
-							var thisGroupEnd = i;
-							break;
-						}
-					}*/
+
 					console.log("thisGroupStart: " + thisGroupStart);
 					console.log("thisGroupEnd: " + thisGroupEnd);
 					for (var i = thisGroupStart; i <= thisGroupEnd; i++){
@@ -282,7 +277,7 @@ var JUnitTable1 = (function(){
 							.attr("stroke", "grey").duration(200);
 						}
 					}
-				/*Fin*/
+				/*End*/
 
 					radioData[rowIndex][colIndex] = true;
 
@@ -350,7 +345,7 @@ var JUnitTable1 = (function(){
 				console.log(JSON.stringify(radioDataProd));
 			})
 		}
-
+	/*End*/
 
 		$(".plusButton").on("click", function(){
 			var lastNumber = columnsDisplayed[columnsDisplayed.length - 1];
@@ -498,7 +493,7 @@ var JUnitTable1 = (function(){
 							.attr("stroke", "grey").duration(200);
 						}
 					}
-				/*Fin*/
+				/*End*/
 					radioData[rowIndex][colIndex] = true;
 					var g2StartIndex = 1+numGroup1;
 					/*radioDataProd[rowIndex][] = true */
@@ -512,7 +507,7 @@ var JUnitTable1 = (function(){
 					/*for ()*/
 				}
 
-				/*Product Mode Checking*/	
+			/*Product Mode Checking*/	
 				radioDataProd = [];
 				for (var i = 0; i <= numGroup1; i++){
 					if(i == 0){
