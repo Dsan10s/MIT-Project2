@@ -2,6 +2,56 @@
 
 var JUnitTable1 = (function(){
 	
+	var columnsDisplayed = [];
+	var radioData = [];
+	var radioDataProd = [];
+	for (var i = 0; i <= numTestCases; i++){
+		columnsDisplayed.push(i);
+	}
+
+	var numGroup1 = 0;
+	for (var i = 0; i <= allRows.length - 1; i++){
+		if (allRows[i].group == 1){
+			numGroup1++;
+		}
+	}
+	console.log("numGroup1: " + numGroup1)
+	var numGroup2 = 0;
+	for (var i = 0; i <= allRows.length - 1; i++){
+		if (allRows[i].group == 2){
+			numGroup2++;
+		}
+	}
+	console.log("numGroup2: " + numGroup2)
+
+	/*Product Mode radioData*/
+
+	for (var i = 0; i <= numGroup1; i++){
+		if(i == 0){
+			radioDataProd.push([null]);
+		}else{
+			var newData = [null];
+			for (var n = 1; n <= numGroup2; n++){
+				newData.push(false);
+			}
+			radioDataProd.push(newData);
+		}
+	}
+
+	/*Sum Mode RadioData*/
+
+	for (var i = 0; i < allRows.length; i++){
+		if(i == 0){
+			radioData.push([null]);
+		}else{
+			var newData = [null];
+			for (var x = 1; x <= numTestCases; x++){
+				newData.push(false);
+			}
+			radioData.push(newData);
+		}
+	}
+	console.log(radioData);
 
 	/*Nulls are placeholders so indexing is easier later*/
 	
@@ -26,7 +76,7 @@ var JUnitTable1 = (function(){
 		var tableFixed = $("<table id = 'tablePartitions' class = 'table table-hover table-bordered' style: 'float: left'></table>");
 		var tableContentContainer = $("<div id = 'tableContentCont'></div>");
 		var tableContent = $("<table id = 'tableContent' class = 'table table-hover table-bordered' style: 'float: left'></table>")
-		var infoTable = $("<table id = 'infoTable' class = 'table table-hover table-bordered' style: 'float: left'></table>")
+		var infoDiv = $("<div id = 'infoDiv' class = 'table table-hover table-bordered' style: 'float: left'><legend><h3 style = 'text-align: center' >Test Cases to Check</h3></legend></div>")
 		tableContentContainer.append(tableContent);
 
 		/*var table = $("<table id = 'JUnitTable1' class = 'table table-hover table-bordered'></table>");*/
@@ -55,7 +105,7 @@ var JUnitTable1 = (function(){
 			}
 			temp+="<input id = '"+inputs[inputs.length-1].name+"Input"+i+"' class = 'findInput"+(inputs.length-1)+"' placeholder = '  "+inputs[inputs.length-1].name+"'></input>";
 
-			var findLabel = $("<td class = 'col" + i + "'><span>"+functionName+"("+temp+")</span><button class = 'delete btn btn-danger' style = 'float: right;'>Delete</button></td>");
+			var findLabel = $("<td id = 'inputs' class = 'col" + i + "'><span>"+functionName+"("+temp+")</span><button class = 'delete btn btn-danger' style = 'float: right;'>&times;</button></td>");
 			row0Content.append(findLabel);
 		}
 
@@ -63,7 +113,7 @@ var JUnitTable1 = (function(){
 		tableContent.append(row0Content);
 
 
-		/*Table1*/
+	/*Table1*/
 		for (var r = 1; r <= allRows.length-1; r++){
 			var newRow = $("<tr class = 'row" + r + "'></tr>");
 			for (var c = 0; c < columnsDisplayed.length; c++){
@@ -86,8 +136,9 @@ var JUnitTable1 = (function(){
 			}
 			
 		}
+	/*End*/
 
-		/*Table 2*/
+	/*Table 2*/
 
 		for (var r = 1; r <= allRows.length-1; r++){
 			var newRow = $("<tr class = 'row" + r + "'></tr>");
@@ -109,43 +160,41 @@ var JUnitTable1 = (function(){
 			}
 			
 		}
+	/*End*/
 
-		/*Table 3*/
+	/*Table 3*/
 		var numGroup1 = 0;
 		for (var i = 0; i <= allRows.length - 1; i++){
 			if (allRows[i].group == 1){
 				numGroup1++;
 			}
-		}
-		console.log("numGroup1: " + numGroup1)
+		}		
 		var numGroup2 = 0;
 		for (var i = 0; i <= allRows.length - 1; i++){
 			if (allRows[i].group == 2){
 				numGroup2++;
 			}
-		}
-		console.log("numGroup2: " + numGroup2)
+		}		
+		var infoList = $("<ul id = 'infoList'></ul>");
 		for (var i = 1; i <= numGroup1; i++){
+			
 
-			console.log("i: " + i);
-
-			var mainCol = $("<tr><td id = 'infoTableLabel" + i + "' colspan = '" + numGroup2 + "' style = 'font-size: 16pt; text-align: center; vertical-align: middle'>"+ allRows[i].title + "</td></tr>")
-			infoTable.append(mainCol);
+/*			var mainCol = $("<li id = 'infoDivLabel" + i + "' colspan = '" + numGroup2 + "' style = 'font-size: 16pt; text-align: center; vertical-align: middle'>"+ allRows[i].title + "<li>")
+			infoDiv.append(mainCol);*/
 			var subRow = $("<tr id = 'subRow" + i +"'></tr>");
 			for (var n = 1; n <= numGroup2; n++){
-				var subCol = $("<td class = 'subLabel' id = 'infoSubLabel" + n + "' style = 'vertical-align: middle'>" + allRows[n + numGroup1].title + "</td>");
-				subRow.append(subCol)
+				var newListItem = $("<li id = 'mainPartition" + i + "' class = 'subPartition" + n + " testCases' style = 'font-size: 14pt; margin-bottom: 3px;'>" + allRows[i].title + ", " + allRows[n + numGroup1].title + "</li>")
+				var subCol = $("<td class = 'subLabel' id = 'infoSubLabel" + n + "' style = 'vertical-align: middle; font-size: 14pt'>" + allRows[n + numGroup1].title + "</td>");
+				infoList.append(newListItem)
 			}
 
-			infoTable.append(mainCol, subRow);
-			console.log("mainCol: " + mainCol.html())
-			console.log("subRow: " + subRow.html())
-			console.log("numGroup1: " + numGroup1)
+			infoDiv.append(infoList);
 		}
+	/*End*/
 		
 		
 
-		$(div).append(tableFixed, tableContentContainer, infoTable, bottomDiv);
+		$(div).append(tableFixed, tableContentContainer, infoDiv, bottomDiv);
 
 		
 
@@ -200,13 +249,11 @@ var JUnitTable1 = (function(){
 			var subColNum = parseInt(subColId.slice(12, subColId.length));
 
 			if (subLabelClicked[mainRowNum][subColNum] === false){
-				subLabelClicked[mainRowNum][subColNum] = true
-				console.log("newSubLabelClicked: " + subLabelClicked);
+				subLabelClicked[mainRowNum][subColNum] = true				
 				$(this).html("Impossible");
 				$(this).animate({backgroundColor: "#8cfbff"}, 200);
 			}else if(subLabelClicked[mainRowNum][subColNum] === true){
-				subLabelClicked[mainRowNum][subColNum] = false
-				console.log("newSubLabelClicked: " + subLabelClicked);
+				subLabelClicked[mainRowNum][subColNum] = false				
 				var subColId = $(this).attr("id");
 				var subColNum = parseInt(subColId.slice(12, subColId.length));
 				$(this).html(allRows[subColNum + numGroup1].title);
@@ -245,8 +292,7 @@ var JUnitTable1 = (function(){
 				var colIndex = colClass.slice(3, colClass.length);
 				
 
-				if (radioData[rowIndex][colIndex] === false){
-					console.log("rowClass: " + rowClass + ", colClass: " + colClass)
+				if (radioData[rowIndex][colIndex] === false){					
 					d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
 					.attr("r", 20).duration(200)
 					.attr("stroke", "white").duration(200);
@@ -266,9 +312,7 @@ var JUnitTable1 = (function(){
 					if (thisGroup == 2){
 						var thisGroupEnd = thisGroupStart + numGroup2 - 1;
 					}
-
-					console.log("thisGroupStart: " + thisGroupStart);
-					console.log("thisGroupEnd: " + thisGroupEnd);
+										
 					for (var i = thisGroupStart; i <= thisGroupEnd; i++){
 						if(radioData[i][colIndex] === true){
 							radioData[i][colIndex] = false;
@@ -312,8 +356,7 @@ var JUnitTable1 = (function(){
 								inputArray.push(JSON.parse($("#"+inputs[j].name+"Input"+columnsDisplayed[c]).val()));
 							}
 							temp1=allRows[r].checkMembership.apply(null,inputArray);
-							ind1= r;
-							console.log("temp1 = "+temp1+", ind1 = "+ind1);
+							ind1= r;							
 							break;
 						}
 					}	
@@ -325,8 +368,7 @@ var JUnitTable1 = (function(){
 								inputArray.push(JSON.parse($("#"+inputs[j].name+"Input"+columnsDisplayed[c]).val()));
 							}
 							temp2=allRows[r].checkMembership.apply(null,inputArray);
-							ind2=r-numGroup1;
-							console.log("temp2 = "+temp2+", ind2 = "+ind2);
+							ind2=r-numGroup1;							
 							break;
 						}
 					}
@@ -337,12 +379,9 @@ var JUnitTable1 = (function(){
 			/*End*/
 
 				/*for(var i = 1;i<=columnsDisplayed.length-1;i++){
-					for(var c = 1; c<= numGroup1+numGroup2;c++)
-						console.log(radioData[i][c]);
+					for(var c = 1; c<= numGroup1+numGroup2;c++)						
 				}*/
-
-				console.log(JSON.stringify(radioData));
-				console.log(JSON.stringify(radioDataProd));
+								
 			})
 		}
 	/*End*/
@@ -353,7 +392,7 @@ var JUnitTable1 = (function(){
 			for (var r = 0; r <= allRows.length-1; r++){
 				
 				var rowClass = ".row" + r;
-				var newCol = $("<td class = 'col" + newNum + "' style = 'width: 0px'></td>");
+				var newCol = $("<td id = 'inputs' class = 'col" + newNum + "' style = 'width: 0px'></td>");
 
 				if (r == 0){
 					/*generate a string for input fields in HTML*/
@@ -365,7 +404,7 @@ var JUnitTable1 = (function(){
 					temp+="<input id = '"+inputs[inputs.length-1].name+"Input"+newNum+"' class = 'findInput"+(inputs.length-1)+"' placeholder = '  "+inputs[inputs.length-1].name+"'></input>";
 
 					var newFindLabel = $(temp);
-					var newDeleteBtn = $("<button class = 'delete btn btn-danger' style = 'float: right;'>Delete</button>")
+					var newDeleteBtn = $("<button class = 'delete btn btn-danger' style = 'float: right;'>&times;</button>")
 					newCol.append("<span>Find(", newFindLabel, ")</span>", newDeleteBtn);
 				}else{
 					newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'relative'><span class = 'customRadioFill'></span></span></span><span class = 'relative'><img class = 'mark checkMark' src = 'images/checkMark.png'/></span><span class = 'relative'><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span></span>"));
@@ -376,9 +415,7 @@ var JUnitTable1 = (function(){
 				$("#tableContent " + rowClass).append(newCol);
 
 				/*var totalPx = parseFloat($("#JUnitTable1").css("width")) - parseFloat($(".col0").css("width"));
-				var newWidth = totalPx/(columnsDisplayed.length + 0.5);
-				console.log("totalPx: " + totalPx)
-				console.log("newWidth: " + newWidth);
+				var newWidth = totalPx/(columnsDisplayed.length + 0.5);								
 				$(".col" + newNum).animate({"width": newWidth}, 2000,function(){
 					$(".col" + newNum).children().show();
 					$(".col" + newNum).children().animate({"opacity": "1"}, 500, function(){
@@ -396,16 +433,14 @@ var JUnitTable1 = (function(){
 				var colClass = $(this).parent("td").attr("class");
 				var colNum = parseInt(colClass.slice(3, colClass.length));
 				if(colNum > 3){
-					$(this).animate({"opacity": "1"}, 200);
-					console.log("1:1")	
+					$(this).animate({"opacity": "1"}, 200);					
 				}
 			});
 			$(".delete").on("mouseleave", function(){
 				var colClass = $(this).parent("td").attr("class");
 				var colNum = parseInt(colClass.slice(3, colClass.length));
 				if(colNum  > 3){
-					$(this).animate({"opacity": "0"}, 200);
-					console.log("0:1")
+					$(this).animate({"opacity": "0"}, 200);					
 				}
 			})	
 			
@@ -555,57 +590,51 @@ var JUnitTable1 = (function(){
 			/*End*/
 
 				
-			})
-			console.log("radiobutton clicked")
-			$(".delete").on("click", function(){
-				console.log("delete clicked")
+			})			
+			$(".delete").on("click", function(){				
 				var deleteCol = $(this).parent("td").attr("class");
-				var deleteColNum = deleteCol.slice(3, deleteCol.length);
-				console.log("deleteCol: " + deleteCol)
+				var deleteColNum = deleteCol.slice(3, deleteCol.length);				
 				
 				if(parseInt(deleteColNum)>numTestCases){
 					$("." + deleteCol).remove();
 					if(columnsDisplayed.indexOf(parseInt(deleteColNum))!=-1){
 						columnsDisplayed.splice(columnsDisplayed.indexOf(parseInt(deleteColNum)), 1);
 					}
-				}
-				console.log(columnsDisplayed);
-				$("#infoTable").height(  $("#tableContentCont").height()  )
+				}				
+				$("#infoDiv").height(  $("#tableContentCont").height()  )
 			})
 
-			$("#infoTable").height(  $("#tableContentCont").height()  )
+			$("#infoDiv").height(  $("#tableContentCont").height()  )
 		});
 
-		$(".delete").on("click", function(){
-			console.log("delete clicked")
+		$(".delete").on("click", function(){			
 			var deleteCol = $(this).parent("td").attr("class");
-			var deleteColNum = deleteCol.slice(3, deleteCol.length);
-			console.log("deleteCol: " + deleteCol)
+			var deleteColNum = deleteCol.slice(3, deleteCol.length);			
 			if(parseInt(deleteColNum)<=numTestCases){
 				$("." + deleteCol).remove();
 				if(columnsDisplayed.indexOf(parseInt(deleteColNum))!=-1){
 					columnsDisplayed.splice(columnsDisplayed.indexOf(parseInt(deleteColNum)), 1);				
 				}
 			}
-
-			console.log(columnsDisplayed);
-			$("#infoTable").height(  $("#tableContentCont").height()  )
+			
+			$("#infoDiv").height(  $("#tableContentCont").height()  )
 		});
 
-		$(".delete").on("mouseenter", function(){			
+		$(".delete").on("mouseenter", function(){		
 			var colClass = $(this).parent("td").attr("class");
 			var colNum = parseInt(colClass.slice(3, colClass.length));
+			console.log("colNum: " + colNum);
+			console.log("numTestCases: " + numTestCases);
 			if(colNum <= numTestCases){
-				$(this).animate({"opacity": "1"}, 200);	
-				console.log("1:2")
+				console.log("opacity: " + $(this).css("opacity"));
+				$(this).animate({"opacity": "1"}, 200);					
 			}
 		});
 		$(".delete").on("mouseleave", function(){
 			var colClass = $(this).parent("td").attr("class");
 			var colNum = parseInt(colClass.slice(3, colClass.length));
 			if(colNum  <= numTestCases){
-				$(this).animate({"opacity": "0"}, 200);
-				console.log("0:2")
+				$(this).animate({"opacity": "0"}, 200);				
 			}
 		})	
 
@@ -621,9 +650,7 @@ $("#aInput2").val("[1]")
 $("#aInput3").val("[1,1]")
 
 		/*Checks the user inputs when the submit button is pressed*/
-		$("#submit1").on("click", function(){
-			console.log("radioData: " , radioData);
-			console.log("radioDataProd: " , JSON.stringify(radioDataProd));
+		$("#submit1").on("click", function(){						
 			$("#mainAlert").hide();
 			$("#mainSuccess").hide();
 
@@ -648,13 +675,12 @@ $("#aInput3").val("[1,1]")
 							counter++;
 						}
 						if (counter == numGroup2){
-							$("#infoTableLabel" + x).animate({backgroundColor: "#8dd626"}, 300);
+							$("#infoDivLabel" + x).animate({backgroundColor: "#8dd626"}, 300);
 						}
 					}
 				}
 				/*Displays check and error marks based on user input*/
-				for (var c = columnsDisplayed[1]; c <= columnsDisplayed[columnsDisplayed.length - 1]; c++){
-					console.log("c: " + c)
+				for (var c = columnsDisplayed[1]; c <= columnsDisplayed[columnsDisplayed.length - 1]; c++){					
 					/*for loop stops when it reaches a number in columnsDisplayed that doesn't exist*/
 					if (columnsDisplayed.indexOf(c) == -1){
 						console.log("column does not exist, moving to next column")
@@ -664,10 +690,8 @@ $("#aInput3").val("[1,1]")
 						for(var j=1;j<=inputs.length-1;j++){
 							inputArray.push(JSON.parse($("#"+inputs[j].name+"Input" + c).val()));
 						}
-						for(var r=1;r<=allRows.length-1;r++){
-							console.log("checkError marks animate: r: " + r);
-							if(allRows[r].checkMembership.apply(null,inputArray)&& radioData[r][c] == true){
-								console.log("TRUE: r: " + r)
+						for(var r=1;r<=allRows.length-1;r++){							
+							if(allRows[r].checkMembership.apply(null,inputArray)&& radioData[r][c] == true){								
 								$(".row"+r+" .col"+c+" .checkMark").animate({"opacity":"1"},200);
 								$(".row"+r+" .col"+c+" .errorMark").animate({"opacity":"0"},200);
 							}
@@ -677,8 +701,7 @@ $("#aInput3").val("[1,1]")
 								$(".row"+r+" .col"+c+" .errorMark").animate({"opacity": "1"}, 200);
 							}
 						}
-					}
-					console.log("columnsDisplayed Length: " + columnsDisplayed[columnsDisplayed.length - 1]) 
+					}					
 				}	
 				
 				/*
@@ -705,8 +728,7 @@ $("#aInput3").val("[1,1]")
 							{
 								$("#mainAlert").show();
 								$("#mainAlert").animate({"opacity": "1"}, 200);
-								$("#mainAlert").html(inputs[i].name+" has to be "+inputs[i].display);
-								console.log(this.value,inputs[i].name,i)
+								$("#mainAlert").html(inputs[i].name+" has to be "+inputs[i].display);								
 								hasShown=true;
 							}
 						}
@@ -728,8 +750,7 @@ $("#aInput3").val("[1,1]")
 				/*Checks if all answers are correct*/
 				/*for(var i = 1; i <= radioData.length; i++){
 				}*/
-			}catch(e){
-				console.log("error: "+e);				
+			}catch(e){				
 
 				/*Some error checking*/
 				var hasShown=false;
@@ -773,9 +794,9 @@ $(document).ready(function(){
 	}
 	
 
-	$("#tableContentCont").width( ( parseFloat($("body").width()) - parseFloat( $("#infoTable").width() )- parseFloat( $("#tablePartitions").width() ) - 8) );
+	$("#tableContentCont").width( ( parseFloat($("body").width()) - parseFloat( $("#infoDiv").width() )- parseFloat( $("#tablePartitions").width() ) - 8) );
 	$(window).resize(function(){
-		$("#tableContentCont").width( ( parseFloat($("body").width()) - parseFloat( $("#infoTable").width() ) - parseFloat( $("#tablePartitions").width() ) - 8) )
+		$("#tableContentCont").width( ( parseFloat($("body").width()) - parseFloat( $("#infoDiv").width() ) - parseFloat( $("#tablePartitions").width() ) - 8) )
 	});
-	$("#infoTable").height(  $("#tableContentCont").height()  )
+	$("#infoDiv").height(  $("#tableContentCont").height()  )
 }); 
