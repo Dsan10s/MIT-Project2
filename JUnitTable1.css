@@ -5,7 +5,6 @@ body{
 }
 
 /*For implementation*/
-
 table{
 	border-radius: 10px;
 	overflow: auto;
@@ -16,15 +15,20 @@ input{
 	border-bottom: 1px solid black;
 	width: 30px;
 }
-.customRadio{
-	
+.customRadioBorder{
+	position: relative;
 }
 .customRadioFill{
 	position: absolute;
+	
+}
+.relative{
+	position: relative;
 }
 .mark{
 	margin-left: 10px;
 	height: 40px;
+	position: relative;
 }
 .checkMark{
 	position: absolute;
@@ -55,9 +59,22 @@ input{
 	float: right;
 	opacity: 0.5;
 }
+#tableFixed{
+	width: 200px;
+	float: left;
+	margin: 0px;
+}
+#tableContentDiv{
+	border-right: 6px solid grey;
+	overflow: auto;
+	float: left;
+}
+#tableContent{
+	margin: 0px;
+}
 .plusButton{
 	color: white;
-	width: 50px;
+	width: 60px;
 	/*font-size: 20pt;*/
 }
 .col0{
@@ -67,6 +84,10 @@ input{
 	opacity: 0;
 }
 td{
+	white-space: nowrap;
+	text-align: center;
+	vertical-align: middle;
+	height: 60;
 	min-width: 300px;
 	max-width: 520px;
 }

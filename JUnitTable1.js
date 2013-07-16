@@ -39,22 +39,27 @@ var JUnitTable1 = (function(){
 		/*
 		Define table here
 		*/
-		var table = $("<table id = 'JUnitTable1' class = 'table table-hover table-bordered'></table>");
+		var tableFixed = $("<table id = 'tableFixed' class = 'table table-hover table-bordered' style = 'float: left'></table>");
+ 		var tableContent = $("<table id = 'tableContent' class = 'table table-hover table-bordered' style = 'float: left'></table>");
+ 		var tableContentDiv = $('<div id = "tableContentDiv"></div>');
 		var bottomDiv = $("<div style = 'width: 100%'></div>")
 		var submit = $("<button id = 'submit1' class = 'btn btn-success btn-large' style = 'float: left'>Submit</button>")
 		var alert = $("<div id = 'mainAlert' class = 'alert alert-error'>Test</div>")
 		var success = $("<div id = 'mainSuccess' class = 'alert alert-success'>Test</div>")
 		bottomDiv.append(submit, alert, success);
+		tableContentDiv.append(tableContent);
 
 		/*Row0*/
-		var row0 = $("<tr class = 'row0'></tr>");
+		var plusRow = $("<tr class = 'row0'></tr>");
 		var emptyLabel = $("<td class = 'col0'><button class = 'plusButton btn btn-info'><b style = 'font-size: 20pt'>+</b></button></td>");
 
-		row0.append(emptyLabel);
+		plusRow.append(emptyLabel);
+		tableFixed.append(plusRow);
 
 		/*
 		Add input fields
 		*/
+		var row0=$("<tr class = 'row0'></tr>");                        
 		for(var i=1;i<=3;i++){
 			/*generate a string for input fields in HTML*/
 			var temp="";
@@ -68,28 +73,31 @@ var JUnitTable1 = (function(){
 			row0.append(findLabel);
 		}
 
-		table.append(row0);
+		tableContent.append(row0);
 
 
 		/*Table Content*/
 		for (var r = 1; r <= allRows.length-1; r++){
 			var newRow = $("<tr class = 'row" + r + "'></tr>");
-			for (var c = 0; c < columnsDisplayed.length; c++){
+			for (var c = 1; c < columnsDisplayed.length; c++){
 				var rowClass = ".row" + r;
-				var newCol = $("<td class = 'col" + c + "'></td>");
+				var newCol = $("<td class = 'col" + columnsDisplayed[c] + "'></td>");
 				
 				/*Labels*/
-				if (c == 0){
-					newCol.append("<div>"+allRows[r].title+"</div>");
-				}else{
-					newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><img class = 'mark checkMark' src = 'images/checkMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span>"));
-				}
+				newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><span class = relative><img class = 'mark checkMark' src = 'images/checkMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span></span>"));
+			
 				newRow.append(newCol);
 			}
-			table.append(newRow);
+			var newRowInfo = $("<tr class = 'row" + r + "'></tr>");
+			var newColInfo = $("<td class = 'col" + 0 + "'></td>");
+			newColInfo.append("<div>"+allRows[r].title+"</div>");
+			newRowInfo.append(newColInfo);
+
+			tableContent.append(newRow);
+			tableFixed.append(newRowInfo);
 		}
 		
-		$(div).append(table, bottomDiv);
+		$(div).append(tableFixed,tableContentDiv, bottomDiv);
 		
 		createBar();
 		
@@ -111,10 +119,7 @@ var JUnitTable1 = (function(){
 		.attr("height", "40px")
 		.append("circle").attr("class", "circleFill").attr("cx", 20).attr("cy", 20).attr("r", 0).attr("fill", "#91cfff");
 		
-		var radioFill = false;
-
 		/*Adds another column to the table when the plus button is pressed*/
-		
 		var lastNumber = columnsDisplayed[columnsDisplayed.length - 1];
 		var newNum = lastNumber + 1;
 
@@ -129,30 +134,45 @@ var JUnitTable1 = (function(){
 				var colIndex = colClass.slice(3, colClass.length);;
 
 				if (radioData[rowIndex][colIndex] === false){
-					console.log("rowClass: " + rowClass + ", colClass: " + colClass)
 					d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
 					.attr("r", 20).duration(200)
 					.attr("stroke", "white").duration(200);
-					radioFill = true;
 					radioData[rowIndex][colIndex] = true;
+
+					/*
+					Uncheck the previous one in the same group
+					*/
+					for(var i=1;i<=allRows.length-1;i++){
+						if(i!=rowIndex&&radioData[i][colIndex]&&allRows[i].group==allRows[rowIndex].group){
+							d3.select(".row"+i + " " + "." + colClass + " .circleFill").transition()
+							.attr("r", 0).duration(200)
+							.attr("stroke", "grey").duration(200);
+							radioData[i][colIndex] = false;
+						}
+					}
 				}else if(radioData[rowIndex][colIndex] === true){
 					d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
 					.attr("r", 0).duration(200)
 					.attr("stroke", "grey").duration(200);
-					radioFill = false;
 					radioData[rowIndex][colIndex] = false;
 				}
 				
 			})
 		}
 
-
+		/*
+		plus button listener
+		*/
 		$(".plusButton").on("click", function(){
 			var lastNumber = columnsDisplayed[columnsDisplayed.length - 1];
 			var newNum = lastNumber + 1;
+
+			/*
+			Adding a new column
+			*/
 			for (var r = 0; r <= allRows.length-1; r++){
 				
-				var rowClass = ".row" + r;
+				var rowClass = "#tableContent .row" + r;
 				var newCol = $("<td class = 'col" + newNum + "' style = 'width: 0px'></td>");
 
 				if (r == 0){
@@ -166,28 +186,32 @@ var JUnitTable1 = (function(){
 
 					var newFindLabel = $(temp);
 					var newDeleteBtn = $("<button class = 'delete btn btn-danger' style = 'float: right;'>Delete</button>")
-					newCol.append("<span>Find(", newFindLabel, ")</span>", newDeleteBtn);
+					newCol.append("<span>"+functionName+"(", newFindLabel, ")</span>", newDeleteBtn);
 				}else{
-					newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><img class = 'mark checkMark' src = 'images/checkMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span>"));
+					newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><span class='relative'><img class = 'mark checkMark' src = 'images/checkMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span></span>"));
 				}
 
 				$(rowClass).append(newCol);
 			}
 
+			/*
+			Show delete button for new columns
+			*/
 			$(".delete").on("mouseenter", function(){	
 				var colClass = $(this).parent("td").attr("class");
 				var colNum = parseInt(colClass.slice(3, colClass.length));
 				if(colNum > 3){
 					$(this).animate({"opacity": "1"}, 200);
-					console.log("1:1")	
 				}
 			});
+			/*
+			Hide delete button for new columns
+			*/
 			$(".delete").on("mouseleave", function(){
 				var colClass = $(this).parent("td").attr("class");
 				var colNum = parseInt(colClass.slice(3, colClass.length));
 				if(colNum  > 3){
 					$(this).animate({"opacity": "0"}, 200);
-					console.log("0:1")
 				}
 			})	
 			
@@ -210,43 +234,47 @@ var JUnitTable1 = (function(){
 			
 			/*Adds new column to columnsDisplayed array, and new unclicked radio Buttons to radioData array*/
 			columnsDisplayed.push(newNum);
-			console.log("columnsDisplayed: " + columnsDisplayed)
 			for (var i = 1; i < radioData.length; i++){
 				radioData[i].push(false);
 			}
-			console.log(radioData)
 
-			var radioFill = false;
-
-			
 			$(".col"+newNum+" .customRadioBorder").on("click", function(){
 				var rowClass = $(this).parent('span').parent('td').parent('tr').attr("class");
 				var rowIndex = rowClass[3];
 				var colClass = $(this).parent('span').parent('td').attr("class");
 				var colIndex = colClass.slice(3, colClass.length);
-				if (radioData[rowIndex][colIndex] === false){
-					console.log("button will fill")
-					console.log("rowClass: " + rowClass + ", colClass: " + colClass)
+				if (!radioData[rowIndex][colIndex]){
 					d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
 					.attr("r", 20).duration(200)
 					.attr("stroke", "white").duration(200);
-					radioFill = true;
 					radioData[rowIndex][colIndex] = true;
-				}else if(radioData[rowIndex][colIndex] === true){
+
+					/*
+					Uncheck the previous one in the same group
+					*/
+					for(var i=1;i<=allRows.length-1;i++){
+						if(i!=rowIndex&&radioData[i][colIndex]&&allRows[i].group==allRows[rowIndex].group){
+							d3.select(".row"+i + " " + "." + colClass + " .circleFill").transition()
+							.attr("r", 0).duration(200)
+							.attr("stroke", "grey").duration(200);
+							radioData[i][colIndex] = false;
+						}
+					}
+				}else{
 					d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
 					.attr("r", 0).duration(200)
 					.attr("stroke", "grey").duration(200);
-					radioFill = false;
 					radioData[rowIndex][colIndex] = false;
 				}
 				
 			})
-			console.log("radiobutton clicked")
+
+			/*
+			Turn on delete button for new columns
+			*/
 			$(".delete").on("click", function(){
-				console.log("delete clicked")
 				var deleteCol = $(this).parent("td").attr("class");
 				var deleteColNum = deleteCol.slice(3, deleteCol.length);
-				console.log("deleteCol: " + deleteCol)
 				
 				if(parseInt(deleteColNum)>3){
 					$("." + deleteCol).remove();
@@ -255,39 +283,39 @@ var JUnitTable1 = (function(){
 					}
 				}
 			})
-			console.log(columnsDisplayed)
 			createBar();
 		});
 
+
+		/*
+		Delete button listener
+		*/
 		$(".delete").on("click", function(){
-			console.log("delete clicked")
 			var deleteCol = $(this).parent("td").attr("class");
 			var deleteColNum = deleteCol.slice(3, deleteCol.length);
-			console.log("deleteCol: " + deleteCol)
 			if(parseInt(deleteColNum)<=3){
 				$("." + deleteCol).remove();
 				if(columnsDisplayed.indexOf(parseInt(deleteColNum))!=-1){
 					columnsDisplayed.splice(columnsDisplayed.indexOf(parseInt(deleteColNum)), 1);				
 				}
 			}
-
-			console.log(columnsDisplayed);
 		});
 
+		/*apper only when mouse hovering over*/
 		$(".delete").on("mouseenter", function(){			
 			var colClass = $(this).parent("td").attr("class");
 			var colNum = parseInt(colClass.slice(3, colClass.length));
 			if(colNum <= 3){
 				$(this).animate({"opacity": "1"}, 200);	
-				console.log("1:2")
 			}
 		});
+
+		/*disappear when mouse leaves*/
 		$(".delete").on("mouseleave", function(){
 			var colClass = $(this).parent("td").attr("class");
 			var colNum = parseInt(colClass.slice(3, colClass.length));
 			if(colNum  <= 3){
 				$(this).animate({"opacity": "0"}, 200);
-				console.log("0:2")
 			}
 		})	
 
@@ -309,14 +337,11 @@ var JUnitTable1 = (function(){
 
 			try{
 				/*Displays check and error marks based on user input*/
-				console.log("columnsDisplayed: " + columnsDisplayed)
 				for (var c = columnsDisplayed[1]; c <= columnsDisplayed[columnsDisplayed.length - 1]; c++){
 					/*for loop stops when it reaches a number in columnsDisplayed that doesn't exist*/
 					if (columnsDisplayed.indexOf(c) == -1){
-						console.log("column does not exist, moving to next column")
 					}else{
 
-						console.log("columnsDisplayed[1]: " + columnsDisplayed[1])
 						var inputArray =[]; 
 						for(var j=1;j<=inputs.length-1;j++){
 							inputArray.push(JSON.parse($("#"+inputs[j].name+"Input" + c).val()));
@@ -360,7 +385,6 @@ var JUnitTable1 = (function(){
 								$("#mainAlert").show();
 								$("#mainAlert").animate({"opacity": "1"}, 200);
 								$("#mainAlert").html(inputs[i].name+" has to be "+inputs[i].display);
-								console.log(this.value,inputs[i].name,i)
 								hasShown=true;
 							}
 						}
@@ -426,4 +450,12 @@ $(document).ready(function(){
 	$("#zInput1").val(3)
 	$("#zInput2").val(3)
 	$("#zInput3").val(3)
+
+	//Resize the table
+	$("#tableContentDiv").width( ( parseFloat($("body").width()) - parseFloat( $("#tableFixed").width() ) - 8) );
+	$(window).resize(function(){
+		$("#tableContentDiv").width( ( parseFloat($("body").width())  - parseFloat( $("#tableFixed").width() ) - 8) )
+	});
+	$("#tableFixed").height(  $("#tableContentDiv").height()  )
+
 });
