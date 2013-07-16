@@ -47,58 +47,6 @@ var code =["ph", "public static int find(int x, int[] a) {\n  for (int i = 0; i 
 //====================================================================================
 //Helper functions for checkMembership
 
-
-var columnsDisplayed = [];
-var radioData = [];
-var radioDataProd = [];
-for (var i = 0; i <= numTestCases; i++){
-	columnsDisplayed.push(i);
-}
-
-var numGroup1 = 0;
-for (var i = 0; i <= allRows.length - 1; i++){
-	if (allRows[i].group == 1){
-		numGroup1++;
-	}
-}
-console.log("numGroup1: " + numGroup1)
-var numGroup2 = 0;
-for (var i = 0; i <= allRows.length - 1; i++){
-	if (allRows[i].group == 2){
-		numGroup2++;
-	}
-}
-console.log("numGroup2: " + numGroup2)
-
-/*Product Mode radioData*/
-
-for (var i = 0; i <= numGroup1; i++){
-	if(i == 0){
-		radioDataProd.push([null]);
-	}else{
-		var newData = [null];
-		for (var n = 1; n <= numGroup2; n++){
-			newData.push(false);
-		}
-		radioDataProd.push(newData);
-	}
-}
-
-/*Sum Mode RadioData*/
-
-for (var i = 0; i < allRows.length; i++){
-	if(i == 0){
-		radioData.push([null]);
-	}else{
-		var newData = [null];
-		for (var x = 1; x <= numTestCases; x++){
-			newData.push(false);
-		}
-		radioData.push(newData);
-	}
-}
-console.log(radioData);
-
 /*Find method returns number of times a number was found in an array*/
 function find(x, a){
 	var instances = 0;
