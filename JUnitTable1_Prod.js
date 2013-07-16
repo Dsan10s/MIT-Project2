@@ -133,7 +133,7 @@ var JUnitTable1 = (function(){
 			infoTable.append(mainCol);
 			var subRow = $("<tr id = 'subRow" + i +"'></tr>");
 			for (var n = 1; n <= numGroup2; n++){
-				var subCol = $("<td id = 'infoSubLabel" + n + "' style = 'vertical-align: middle'>" + allRows[n + numGroup1].title + "</td>");
+				var subCol = $("<td class = 'subLabel' id = 'infoSubLabel" + n + "' style = 'vertical-align: middle'>" + allRows[n + numGroup1].title + "</td>");
 				subRow.append(subCol)
 			}
 
@@ -192,13 +192,57 @@ var JUnitTable1 = (function(){
 		$(".customRadioBorder").on("hover", function(){
 			$(this).css('cursor', 'pointer');
 		})
+		var subLabelClicked = [[null], [null, false, false, false], [null, false, false, false], [null, false, false, false]];
+		$(".subLabel").on("click", function(){
+			var mainRowId = $(this).parent("tr").attr("id");
+			var mainRowNum = parseInt(mainRowId.slice(6, mainRowId.length));
+			var subColId = $(this).attr("id");
+			var subColNum = parseInt(subColId.slice(12, subColId.length));
+
+			if (subLabelClicked[mainRowNum][subColNum] === false){
+				subLabelClicked[mainRowNum][subColNum] = true
+				console.log("newSubLabelClicked: " + subLabelClicked);
+				$(this).html("Impossible");
+				$(this).animate({backgroundColor: "#8cfbff"}, 200);
+			}else if(subLabelClicked[mainRowNum][subColNum] === true){
+				subLabelClicked[mainRowNum][subColNum] = false
+				console.log("newSubLabelClicked: " + subLabelClicked);
+				var subColId = $(this).attr("id");
+				var subColNum = parseInt(subColId.slice(12, subColId.length));
+				$(this).html(allRows[subColNum + numGroup1].title);
+				$(this).animate({backgroundColor: "#FFFFFF"}, 200);
+			}
+		})
+		
+		$(".subLabel").on("mouseenter", function(){
+			var mainRowId = $(this).parent("tr").attr("id");
+			var mainRowNum = parseInt(mainRowId.slice(6, mainRowId.length));
+			var subColId = $(this).attr("id");
+			var subColNum = parseInt(subColId.slice(12, subColId.length));
+			if (subLabelClicked[mainRowNum][subColNum] === false){
+				$(this).html("Impossible");
+				$(this).css('cursor', 'pointer');
+				$(this).animate({backgroundColor: "#c1fffc"}, 200);
+			}
+		});
+		$(".subLabel").on("mouseleave", function(){
+			var mainRowId = $(this).parent("tr").attr("id");
+			var mainRowNum = parseInt(mainRowId.slice(6, mainRowId.length));
+			var subColId = $(this).attr("id");
+			var subColNum = parseInt(subColId.slice(12, subColId.length));
+			if (subLabelClicked[mainRowNum][subColNum] === false){
+				$(this).html(allRows[subColNum + numGroup1].title);
+				$(this).animate({backgroundColor: "#FFFFFF"}, 200);
+			}	
+		});
+		
+		
 		for(var c=1;c<=numTestCases;c++){
 			$(".col"+c+" .customRadioBorder").on("click", function(){
 				var rowClass = $(this).parent('span').parent('td').parent('tr').attr("class");
 				var rowIndex = rowClass[3];
 				var colClass = $(this).parent('span').parent('td').attr("class");
 				var colIndex = colClass.slice(3, colClass.length);
-
 				
 
 				if (radioData[rowIndex][colIndex] === false){

@@ -100,3 +100,6 @@ td{
 	width: 100px;
 	/*white-space: nowrap;*/
 }
+.subLabel{
+	min-width: 92px;
+}
