@@ -16,7 +16,7 @@ var JUnitTable2 = (function(){
 		Define table here
 		*/
 		var tableFixed = $("<table id = 'tableFixed' class = 'table table-bordered' style = 'float: left'></table>");
- 		var tableContent = $("<table id = 'tableContent' class = 'table table-hover table-bordered' style = 'float: left'></table>");
+ 		var tableContent = $("<table id = 'tableContent' class = 'table table-bordered' style = 'float: left'></table>");
  		var tableContentDiv = $('<div id = "tableContentDiv"></div>');
 		var bottomDiv = $("<div style = 'width: 100%'></div>")
 		var submit = $("<button id = 'submit1' class = 'btn btn-success btn-large' style = 'float: left'>Submit</button>")
@@ -24,10 +24,9 @@ var JUnitTable2 = (function(){
 		var success = $("<div id = 'mainSuccess' class = 'alert alert-success'>Test</div>")
 		bottomDiv.append(submit, alert, success);
 		tableContentDiv.append(tableContent);
-		bottomDiv.css('margin','5px');
 		/*Row0*/
 		var plusRow = $("<tr class = 'row0'></tr>");
-		var emptyLabel = $("<td class = 'col0'><button class = 'plusButton btn btn-info'><b style = 'font-size: 20pt'>+</b></button><font face='verdana' color='grey'>  Click codes that you think it's correct!</font></td>");
+		var emptyLabel = $("<td class = 'col0'><button class = 'plusButton btn btn-info'><b style = 'font-size: 20pt'>+</b></button><font face='verdana' color='grey'>  Click codes that you think they're correct!</font></td>");
 
 		plusRow.append(emptyLabel);
 		tableFixed.append(plusRow);
@@ -90,7 +89,7 @@ var JUnitTable2 = (function(){
 		.attr("class", "customRadioFill")
 		.attr("width", "40px")
 		.attr("height", "40px")
-		.append("circle").attr("class", "circleFill").attr("cx", 20).attr("cy", 20).attr("r", 0).attr("fill", "#91cfff");
+		.append("circle").attr("class", "circleFill").attr("cx", 20).attr("cy", 20).attr("r", 0).attr("fill", "#B40000");
 		
 		/*Adds another column to the table when the plus button is pressed*/
 		var lastNumber = columnsDisplayed[columnsDisplayed.length - 1];
@@ -111,45 +110,44 @@ var JUnitTable2 = (function(){
 					.attr("r", 20).duration(200)
 					.attr("stroke", "white").duration(200);
 					radioData[rowIndex][colIndex] = true;
-
-					/*
-					Uncheck the previous one in the same group
-					*/
-					for(var i=1;i<=code.length-1;i++){
-						if(i!=rowIndex&&radioData[i][colIndex]&&code[i].group==code[rowIndex].group){
-							d3.select(".row"+i + " " + "." + colClass + " .circleFill").transition()
-							.attr("r", 0).duration(200)
-							.attr("stroke", "grey").duration(200);
-							radioData[i][colIndex] = false;
-						}
-					}
+					codeCorrect[rowIndex]=false;
+					//Turn background pink
+					$(".JUnitTable2 .row"+rowIndex).animate({backgroundColor:"#F8CFD7"},200);
 				}else if(radioData[rowIndex][colIndex] === true){
 					d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
 					.attr("r", 0).duration(200)
 					.attr("stroke", "grey").duration(200);
 					radioData[rowIndex][colIndex] = false;
-				}
-				
+					//Turn background pink
+					$(".JUnitTable2 .row"+rowIndex).animate({backgroundColor:"white"},200);
+				}				
 			})
 		}
 
 		/*
-		first column on click
+		Check the correct codes. First column on click
 		*/
-		codeChecked=[null];
+		codeCorrect=[null];
 		for(var i=0;i<code.length-1;i++){
-			codeChecked.push(false);
+			codeCorrect.push(false);
 		}
 		$("#tableFixed .col0").on('click',function(){
 			var rowClass = $(this).parent('tr').attr("class");
 			var rowIndex = rowClass[3];
 				if(rowIndex>0){
-				if(codeChecked[rowIndex]){
-					$("#tableFixed .row"+rowIndex).animate({backgroundColor:"white"},200);
-					codeChecked[rowIndex]=false;
+				if(codeCorrect[rowIndex]){
+					$(".JUnitTable2 .row"+rowIndex).animate({backgroundColor:"white"},200);
+					codeCorrect[rowIndex]=false;
 				}else{
-					$("#tableFixed .row"+rowIndex).animate({backgroundColor:"#00710D"},200);
-					codeChecked[rowIndex]=true;
+					$(".JUnitTable2 .row"+rowIndex).animate({backgroundColor:"#DFF5DE"},200);
+					codeCorrect[rowIndex]=true;
+					//Make all radio buttons green
+					d3.selectAll(".row" + rowIndex + " .circleFill").transition()
+					.attr("r", 0).duration(200)
+					.attr("stroke", "grey").duration(200);
+					for(i=1;i<columnsDisplayed.length;i++){
+						radioData[rowIndex][columnsDisplayed[i]]=false;
+					}
 				}
 			}
 		})
@@ -219,7 +217,7 @@ var JUnitTable2 = (function(){
 			.attr("class", "customRadioFill")
 			.attr("width", "40px")
 			.attr("height", "40px")
-			.append("circle").attr("class", "circleFill").attr("cx", 20).attr("cy", 20).attr("r", 0).attr("fill", "#91cfff");
+			.append("circle").attr("class", "circleFill").attr("cx", 20).attr("cy", 20).attr("r", 0).attr("fill", "#B40000");
 
 			$(".customRadioBorder").on("hover", function(){
 				$(this).css('cursor', 'pointer');
@@ -241,23 +239,16 @@ var JUnitTable2 = (function(){
 					.attr("r", 20).duration(200)
 					.attr("stroke", "white").duration(200);
 					radioData[rowIndex][colIndex] = true;
-
-					/*
-					Uncheck the previous one in the same group
-					*/
-					for(var i=1;i<=code.length-1;i++){
-						if(i!=rowIndex&&radioData[i][colIndex]&&code[i].group==code[rowIndex].group){
-							d3.select(".row"+i + " " + "." + colClass + " .circleFill").transition()
-							.attr("r", 0).duration(200)
-							.attr("stroke", "grey").duration(200);
-							radioData[i][colIndex] = false;
-						}
-					}
+					codeCorrect[rowIndex]=false;
+					//Turn background pink
+					$(".JUnitTable2 .row"+rowIndex).animate({backgroundColor:"#F8CFD7"},200);
 				}else{
 					d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
 					.attr("r", 0).duration(200)
 					.attr("stroke", "grey").duration(200);
 					radioData[rowIndex][colIndex] = false;
+					//Turn background pink
+					$(".JUnitTable2 .row"+rowIndex).animate({backgroundColor:"white"},200);
 				}
 				
 			})
@@ -436,12 +427,10 @@ $(document).ready(function(){
 	$("#xInput1").val(1)
 	$("#xInput2").val(1)
 	$("#xInput3").val(1)
-	$("#yInput1").val(1)
-	$("#yInput2").val(1)
-	$("#yInput3").val(1)
-	$("#zInput1").val(3)
-	$("#zInput2").val(3)
-	$("#zInput3").val(3)
+	$("#aInput1").val('[]')
+	$("#aInput2").val('[1]')
+	$("#aInput3").val('[1,1]')
+
 
 	//Resize the table
 	$("#tableContentDiv").width( ( parseFloat($("body").width()) - parseFloat( $("#tableFixed").width() ) - 20) );
