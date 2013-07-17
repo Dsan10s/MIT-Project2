@@ -39,14 +39,22 @@ var inputs=["ph",
 
 
 /*
-Implementations for the second table's rows. 
+Implementations for the second table's rows, and checking function.
 */
-var code =["ph", "public static int find(int x, int[] a) {\n  for (int i = 0; i < a.length; i++) {\n    if (x == a[i]) {\n      return i;\n    }\n  }\n  return -1;\n}\n", "public static int find(int x, int[] a){\n  int i=0;\n  while (i<a.length){\n    if(x != a[i]){\n      i++;\n    }else{\n      return i;\n    }\n  }\n  return -1;\n}\n", "public static int find(int x, int[] a){\n  int i=0;\n  while (i<a.length && x != a[i]){\n    i++;\n  }\n  return i;\n}\n", "public static int find(int x, int[] a) {\nfor (int i = a.length-1; i >-1 ; i--) {\n  if (x == a[i]) {\n    return i;\n  }\n}\n  return -1;\n}\n", "public static int find(int x, int[] a){\n  int i=a.length-1;\n  while (i>=0 && x != a[i]){\n    i--;\n  }\n  return i;\n}\n", "public static int find(int x, int[] a){\n  if(a.length==0){\n    return -1;\n  }else if(x!=a[0]){\n    //A copied version of a without the first element\n    int[] copyA = new int[a.length-1];\n    System.arraycopy(a, 1, copyA, 0,a.length-1);\n    return 1+find(x,copyA);\n  }else{\n    return 0;\n  }\n}\n", "public static int find(int x,int[] a){\n  if(a.length==0){\n    return -1;\n  }else if(x==a[0]){\n    return 0;\n  }\n}\n"];
-
+var code =["ph", 
+			{jv:"public static int find(int x, int[] a) {\n  for (int i = 0; i < a.length; i++) {\n    if (x == a[i]) {\n      return i;\n    }\n  }\n  return -1;\n}\n",js:A}, 
+			{jv:"public static int find(int x, int[] a){\n  int i=0;\n  while (i < a.length){\n    if(x != a[i]){\n      i++;\n    }else{\n      return i;\n    }\n  }\n  return -1;\n}\n",js:B}, 
+			{jv:"public static int find(int x, int[] a){\n  int i=0;\n  while (i < a.length && x != a[i]){\n    i++;\n  }\n  return i;\n}\n",js:C}, 
+			{jv:"public static int find(int x, int[] a) {\nfor (int i = a.length-1; i >-1 ; i--) {\n  if (x == a[i]) {\n    return i;\n  }\n}\n  return -1;\n}\n",js:D}, 
+			{jv:"public static int find(int x, int[] a){\n  int i=a.length-1;\n  while (i>=0 && x != a[i]){\n    i--;\n  }\n  return i;\n}\n",js:E}, 
+			{jv:"public static int find(int x, int[] a){\n  if(a.length==0){\n    return -1;\n  }else if(x!=a[0]){\n    int[] copyA = new int[a.length-1];\n    System.arraycopy(a,1,copyA,0,a.length-1);\n    return 1+find(x,copyA);\n  }else{\n    return 0;\n  }\n}\n",js:F}, 
+			{jv:"public static int find(int x,int[] a){\n  if(a.length==0){\n    return -1;\n  }else if(x==a[0]){\n    return 0;\n  }\n}\n",js:G}];
+//A good code that we can compare answers with.
+var goodFunction = A;
 
 //====================================================================================
-//Helper functions for checkMembership
 
+//Helper functions for checkMembership
 /*Find method returns number of times a number was found in an array*/
 function find(x, a){
 	var instances = 0;
@@ -56,4 +64,68 @@ function find(x, a){
 		}
 	}
 	return instances;
+}
+
+/*For verifying good and bad codes*/
+var A= function(x,a){
+	for(i=0;i<a.length;i++){
+		if(x==a[i]){
+			return i;
+		}
+	}
+	return -1;
+}
+
+var B= function(x,a){
+	var i=0;
+	while (i<a.length){
+		if(x!=a[i]){
+			i++;
+		}else{
+			return i;
+		}
+	}
+	return -1;
+}
+
+var C=function(x,a){
+	var i=0;
+	while(i<a.length && x !=a[i]){
+		i++;
+	}
+	return i;
+}
+
+var D = function(x,a){
+	for(var i = a.length-1;i>-1;i--){
+		return i;
+
+	}
+	return -1;
+}
+
+var E = function(x,a){
+	var i = a.length-1;
+	while (i>=0 && x!=a[0]){
+		i--;
+	}
+	return i;
+}
+
+var F = function (x,a) {
+	if(a.length==0){
+		return -1;
+	}else if (x!=a[0]){
+		var coppyA = a.slice(1);
+		return 1+find(x,copyA); 
+	}else{
+		return 0;
+	}
+}
+var G = function (x,a){
+	if(a.length==0){
+		return -1;
+	}else if(x==a[0]){
+		return 0;
+	}
 }

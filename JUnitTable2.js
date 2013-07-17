@@ -1,45 +1,21 @@
 /*Currently, the table only works with the "find" function*/
 
-var JUnitTable1 = (function(){
+var JUnitTable2 = (function(){
 	var columnsDisplayed = [0, 1, 2, 3];
 
 	/*Nulls are placeholders so indexing is easier later*/
 	var radioData = [[null]];
-	for(var i =0;i<allRows.length-1;i++){
+	for(var i =0;i<code.length-1;i++){
 		radioData.push([null, false, false, false]);
 	}
 
 	var exports = {};
-
-//========================================================================================
-//==Helper Function=======================================================================
-//========================================================================================
-	/*Creates Grey bar in middle of table*/
-	function createBar(){
-		for (var r = 1; r <= allRows.length-2; r++){
-			for (var c = 0; c < columnsDisplayed.length; c++){
-				if (allRows[r].group < allRows[r+1].group){
-					var cellID = ".row"+r+" .col" + columnsDisplayed[c];
-					$(cellID).css("border-bottom", "3px solid grey")
-
-					var cellID = ".row"+(r+1)+" .col" + columnsDisplayed[c];
-					$(cellID).css("border-top", "3px solid grey")
-				}
-			}
-		}
-	}
-//========================================================================================
 	
 	var setup = function(div){
 		/*
-		Sort allRows in grouping sequence first
-		*/
-		allRows=["ph"].concat(allRows.slice(1).sort(function(a,b){return a.group>b.group;}));
-
-		/*
 		Define table here
 		*/
-		var tableFixed = $("<table id = 'tableFixed' class = 'table table-hover table-bordered' style = 'float: left'></table>");
+		var tableFixed = $("<table id = 'tableFixed' class = 'table table-bordered' style = 'float: left'></table>");
  		var tableContent = $("<table id = 'tableContent' class = 'table table-hover table-bordered' style = 'float: left'></table>");
  		var tableContentDiv = $('<div id = "tableContentDiv"></div>');
 		var bottomDiv = $("<div style = 'width: 100%'></div>")
@@ -48,10 +24,10 @@ var JUnitTable1 = (function(){
 		var success = $("<div id = 'mainSuccess' class = 'alert alert-success'>Test</div>")
 		bottomDiv.append(submit, alert, success);
 		tableContentDiv.append(tableContent);
-
+		bottomDiv.css('margin','5px');
 		/*Row0*/
 		var plusRow = $("<tr class = 'row0'></tr>");
-		var emptyLabel = $("<td class = 'col0'><button class = 'plusButton btn btn-info'><b style = 'font-size: 20pt'>+</b></button></td>");
+		var emptyLabel = $("<td class = 'col0'><button class = 'plusButton btn btn-info'><b style = 'font-size: 20pt'>+</b></button><font face='verdana' color='grey'>  Click codes that you think it's correct!</font></td>");
 
 		plusRow.append(emptyLabel);
 		tableFixed.append(plusRow);
@@ -69,7 +45,7 @@ var JUnitTable1 = (function(){
 			}
 			temp+="<input id = '"+inputs[inputs.length-1].name+"Input"+i+"' class = 'inputField"+(inputs.length-1)+"' placeholder = '  "+inputs[inputs.length-1].name+"'></input>";
 
-			var findLabel = $("<td class = 'col" + i + "'><span>"+functionName+"("+temp+")</span><button class = 'delete btn btn-danger' style = 'float: right;'>Delete</button></td>");
+			var findLabel = $("<td class = 'col" + i + "'><span>"+functionName+"("+temp+")</span><button class = 'delete btn btn-danger' style = 'float: right;'>&times;</button></td>");
 			row0.append(findLabel);
 		}
 
@@ -77,7 +53,7 @@ var JUnitTable1 = (function(){
 
 
 		/*Table Content*/
-		for (var r = 1; r <= allRows.length-1; r++){
+		for (var r = 1; r <= code.length-1; r++){
 			var newRow = $("<tr class = 'row" + r + "'></tr>");
 			for (var c = 1; c < columnsDisplayed.length; c++){
 				var rowClass = ".row" + r;
@@ -90,17 +66,14 @@ var JUnitTable1 = (function(){
 			}
 			var newRowInfo = $("<tr class = 'row" + r + "'></tr>");
 			var newColInfo = $("<td class = 'col" + 0 + "'></td>");
-			newColInfo.append("<div>"+allRows[r].title+"</div>");
+			newColInfo.append("<pre class='prettyprint linenums'>"+code[r].jv+"</pre>");
 			newRowInfo.append(newColInfo);
-
 			tableContent.append(newRow);
 			tableFixed.append(newRowInfo);
 		}
 		
 		$(div).append(tableFixed,tableContentDiv, bottomDiv);
-		
-		createBar();
-		
+				
 		$("#mainSuccess").hide();
 		$("#mainAlert").hide();
 
@@ -142,8 +115,8 @@ var JUnitTable1 = (function(){
 					/*
 					Uncheck the previous one in the same group
 					*/
-					for(var i=1;i<=allRows.length-1;i++){
-						if(i!=rowIndex&&radioData[i][colIndex]&&allRows[i].group==allRows[rowIndex].group){
+					for(var i=1;i<=code.length-1;i++){
+						if(i!=rowIndex&&radioData[i][colIndex]&&code[i].group==code[rowIndex].group){
 							d3.select(".row"+i + " " + "." + colClass + " .circleFill").transition()
 							.attr("r", 0).duration(200)
 							.attr("stroke", "grey").duration(200);
@@ -161,6 +134,26 @@ var JUnitTable1 = (function(){
 		}
 
 		/*
+		first column on click
+		*/
+		codeChecked=[null];
+		for(var i=0;i<code.length-1;i++){
+			codeChecked.push(false);
+		}
+		$("#tableFixed .col0").on('click',function(){
+			var rowClass = $(this).parent('tr').attr("class");
+			var rowIndex = rowClass[3];
+				if(rowIndex>0){
+				if(codeChecked[rowIndex]){
+					$("#tableFixed .row"+rowIndex).animate({backgroundColor:"white"},200);
+					codeChecked[rowIndex]=false;
+				}else{
+					$("#tableFixed .row"+rowIndex).animate({backgroundColor:"#00710D"},200);
+					codeChecked[rowIndex]=true;
+				}
+			}
+		})
+		/*
 		plus button listener
 		*/
 		$(".plusButton").on("click", function(){
@@ -170,7 +163,7 @@ var JUnitTable1 = (function(){
 			/*
 			Adding a new column
 			*/
-			for (var r = 0; r <= allRows.length-1; r++){
+			for (var r = 0; r <= code.length-1; r++){
 				
 				var rowClass = "#tableContent .row" + r;
 				var newCol = $("<td class = 'col" + newNum + "' style = 'width: 0px'></td>");
@@ -185,7 +178,7 @@ var JUnitTable1 = (function(){
 					temp+="<input id = '"+inputs[inputs.length-1].name+"Input"+newNum+"' class = 'inputField"+(inputs.length-1)+"' placeholder = '  "+inputs[inputs.length-1].name+"'></input>";
 
 					var newFindLabel = $(temp);
-					var newDeleteBtn = $("<button class = 'delete btn btn-danger' style = 'float: right;'>Delete</button>")
+					var newDeleteBtn = $("<button class = 'delete btn btn-danger' style = 'float: right;'>&times;</button>")
 					newCol.append("<span>"+functionName+"(", newFindLabel, ")</span>", newDeleteBtn);
 				}else{
 					newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><span class='relative'><img class = 'mark checkMark' src = 'images/checkMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span></span>"));
@@ -252,8 +245,8 @@ var JUnitTable1 = (function(){
 					/*
 					Uncheck the previous one in the same group
 					*/
-					for(var i=1;i<=allRows.length-1;i++){
-						if(i!=rowIndex&&radioData[i][colIndex]&&allRows[i].group==allRows[rowIndex].group){
+					for(var i=1;i<=code.length-1;i++){
+						if(i!=rowIndex&&radioData[i][colIndex]&&code[i].group==code[rowIndex].group){
 							d3.select(".row"+i + " " + "." + colClass + " .circleFill").transition()
 							.attr("r", 0).duration(200)
 							.attr("stroke", "grey").duration(200);
@@ -283,7 +276,6 @@ var JUnitTable1 = (function(){
 					}
 				}
 			})
-			createBar();
 		});
 
 
@@ -331,7 +323,7 @@ var JUnitTable1 = (function(){
 			$(".checkMark").animate({"opacity": "0"}, 200);
 			$(".errorMark").animate({"opacity": "0"}, 200);
 
-			for(var i=1;i<=allRows.length-1;i++){
+			for(var i=1;i<=code.length-1;i++){
 				$(".row"+i).animate({backgroundColor:"white"},200);
 			}
 
@@ -346,12 +338,12 @@ var JUnitTable1 = (function(){
 						for(var j=1;j<=inputs.length-1;j++){
 							inputArray.push(JSON.parse($("#"+inputs[j].name+"Input" + c).val()));
 						}
-						for(var r=1;r<=allRows.length-1;r++){
-							if(allRows[r].checkMembership.apply(null,inputArray)&& radioData[r][c] == true){
+						for(var r=1;r<=code.length-1;r++){
+							if(code[r].js.apply(null,inputArray)!==goodFunction.apply(null,inputArray)&& radioData[r][c] == true){
 								$(".row"+r+" .col"+c+" .checkMark").animate({"opacity":"1"},200);
 								$(".row"+r+" .col"+c+" .errorMark").animate({"opacity":"0"},200);
 							}
-							if(!(allRows[r].checkMembership.apply(null,inputArray))&& radioData[r][c] == true){
+							if(code[r].js.apply(null,inputArray)===goodFunction.apply(null,inputArray)&& radioData[r][c] == true){
 
 								$(".row"+r+" .col"+c+" .checkMark").animate({"opacity": "0"}, 200);
 								$(".row"+r+" .col"+c+" .errorMark").animate({"opacity": "1"}, 200);
@@ -393,12 +385,12 @@ var JUnitTable1 = (function(){
 
 				/*Turns a row red if there is no button clicked*/
 				if(!hasShown){
-					for(var r=1;r<=allRows.length-1;r++){
+					for(var r=1;r<=code.length-1;r++){
 						if(find(true,radioData[r])<1){
 							$(".row"+r).animate({backgroundColor: "#ffc4c4"}, 200);
 							$("#mainAlert").show();
 							$("#mainAlert").animate({"opacity": "1"}, 200);
-							$("#mainAlert").html("Make sure you have an answer for every row")
+							$("#mainAlert").html("Make sure you have covered every row")
 						}
 					}
 				}
@@ -437,8 +429,8 @@ var JUnitTable1 = (function(){
 }());
 
 $(document).ready(function(){
-	$(".JUnitTable1").each(function(){
-		JUnitTable1.setup(this);
+	$(".JUnitTable2").each(function(){
+		JUnitTable2.setup(this);
 	});
 	//Temp just for debuging
 	$("#xInput1").val(1)
@@ -452,10 +444,13 @@ $(document).ready(function(){
 	$("#zInput3").val(3)
 
 	//Resize the table
-	$("#tableContentDiv").width( ( parseFloat($("body").width()) - parseFloat( $("#tableFixed").width() ) - 8) );
+	$("#tableContentDiv").width( ( parseFloat($("body").width()) - parseFloat( $("#tableFixed").width() ) - 20) );
 	$(window).resize(function(){
-		$("#tableContentDiv").width( ( parseFloat($("body").width())  - parseFloat( $("#tableFixed").width() ) - 8) )
+		$("#tableContentDiv").width( ( parseFloat($("body").width())  - parseFloat( $("#tableFixed").width() ) - 20) )
 	});
-	$("#tableFixed").height(  $("#tableContentDiv").height()  )
+	$("#tableContentDiv").height(  $("#tableFixed").height())
+	for(r=0;r<code.length;r++){
+		$("#tableContentDiv .row"+r).height($("#tableFixed .row"+r).height())
+	}
 
 });
