@@ -1,12 +1,42 @@
 /*Currently, the table only works with the "find" function*/
 
 var JUnitTable1 = (function(){
-	
+	/*var debugLog = function(varName){
+		var varName = varName;
+		var obj = {};
+		obj.varName = varName;
+		for (var name in obj){
+			var debugString = name;
+			var debugValue = obj[name];
+			console.log(debugString + ": " + debugValue);
+		}
+
+	}*/
 	var columnsDisplayed = [];
 	var radioData = [];
 	var radioDataProd = [];
+	var impossibleArray = [];
+	var groupsArray = ["ph"];
 	for (var i = 0; i <= numTestCases; i++){
 		columnsDisplayed.push(i);
+	}
+
+	var numGroups = 1;
+	for (var i = 1; i <= allRows.length - 2; i++){
+		if (allRows[i + 1].group == allRows[i].group + 1){
+			numGroups++;
+		}
+	}
+	console.log("numGroups: " + numGroups);
+
+	for (var i = 1; i <= numGroups; i++){
+		for (var j = 1; j <= allRows.length - 1; j++){
+			var counter = 0;
+			if (allRows[j].group == i){
+				counter++;
+			}
+		}
+		groupsArray.push(counter);
 	}
 
 	var numGroup1 = 0;
@@ -25,16 +55,37 @@ var JUnitTable1 = (function(){
 	console.log("numGroup2: " + numGroup2)
 
 	/*Product Mode radioData*/
+	/*groupArray = [3, 3, 3];*/
+
+	/*radioData = ['ph',  [ [], ['ph', val, val, val], [], [] ],  [],  []  ];*/
+	/*var newArray = [];
+	for (var i = 1; i <= groupArray.length - 1; i++){
+		if (radioDataProd.length == 0){
+			var oldArray = radioDataProd;
+			oldArray.push("ph");
+			for (var j = 1; j <= groupArray[1]; j++){
+				oldArray.push(newArray);
+			}
+		}else{
+			var oldArray = newArray;
+			var newArray = 
+			for (var j = 1; j <= subArray.length; j++){
+
+			}
+		}
+	}*/
 
 	for (var i = 0; i <= numGroup1; i++){
 		if(i == 0){
-			radioDataProd.push([null]);
+			radioDataProd.push(["ph"]);
+			impossibleArray.push(["ph"]);
 		}else{
-			var newData = [null];
+			var newData = ["ph"];
 			for (var n = 1; n <= numGroup2; n++){
 				newData.push(false);
 			}
 			radioDataProd.push(newData);
+			impossibleArray.push(newData);
 		}
 	}
 
@@ -42,9 +93,9 @@ var JUnitTable1 = (function(){
 
 	for (var i = 0; i < allRows.length; i++){
 		if(i == 0){
-			radioData.push([null]);
+			radioData.push(["ph"]);
 		}else{
-			var newData = [null];
+			var newData = ["ph"];
 			for (var x = 1; x <= numTestCases; x++){
 				newData.push(false);
 			}
@@ -53,7 +104,7 @@ var JUnitTable1 = (function(){
 	}
 	console.log(radioData);
 
-	/*Nulls are placeholders so indexing is easier later*/
+	/*"ph"s are placeholders so indexing is easier later*/
 	
 	var exports = {};
 
@@ -175,16 +226,38 @@ var JUnitTable1 = (function(){
 				numGroup2++;
 			}
 		}		
-		var infoList = $("<ul id = 'infoList'></ul>");
+		var infoList = $("<div><ul id = 'infoList'></ul></div>");
+		var markImpossible = $("<div class = 'markImpossible'><span><i class = 'icon-arrow-down style = 'float: left'></i></span><span><h4 class = 'impossibleText'>Mark as Impossible</h4></span></div>");
+		infoList.append(markImpossible);
 		for (var i = 1; i <= numGroup1; i++){
 			
 
-/*			var mainCol = $("<li id = 'infoDivLabel" + i + "' colspan = '" + numGroup2 + "' style = 'font-size: 16pt; text-align: center; vertical-align: middle'>"+ allRows[i].title + "<li>")
+			/*var mainCol = $("<li id = 'infoDivLabel" + i + "' colspan = '" + numGroup2 + "' style = 'font-size: 16pt; text-align: center; vertical-align: middle'>"+ allRows[i].title + "<li>")
 			infoDiv.append(mainCol);*/
 			var subRow = $("<tr id = 'subRow" + i +"'></tr>");
 			for (var n = 1; n <= numGroup2; n++){
-				var newListItem = $("<li id = 'mainPartition" + i + "' class = 'subPartition" + n + " testCases' style = 'font-size: 14pt; margin-bottom: 3px;'>" + allRows[i].title + ", " + allRows[n + numGroup1].title + "</li>")
-				var subCol = $("<td class = 'subLabel' id = 'infoSubLabel" + n + "' style = 'vertical-align: middle; font-size: 14pt'>" + allRows[n + numGroup1].title + "</td>");
+				var newListItem = $(
+					"<div id = 'mainDivPartition' class = 'mainDivPartition" + i + "'>"
+						+ "<span class = 'subDivPartition" + n + "'>"
+							+ "<span = style = ' float: left; margin-right: 40px;' class = 'relative'>"
+								+ "<img class = 'mark checkMark' style = 'height: 30px; margin-top: 4px' src = 'images/checkMark.png'/>"
+							+ "</span>"
+							+ "<span style = ' float: left;' class = 'relative'>"
+								+ "<img class = 'mark errorMark' style = 'height: 30px; margin-top: 4px' src = 'images/ErrorMark.png'/>"
+							+ "</span>"
+							+ "<span style = 'margin-left: 40' class = 'cellContentMini'>"
+								+ "<span class = 'customRadioBorderMini'>"
+									+ "<span class = 'relative'>"
+										+ "<span class = 'customRadioFillMini'></span>"
+									+ "</span>"
+								+ "</span>"
+							+ "</span>"
+							+ "<span id = 'mainPartition" + i + "' class = 'subPartition" + n + " testCases' style = 'font-size: 14pt; margin-bottom: 3px; margin-left: 10px;'>"
+								+ allRows[i].title + ", " + allRows[n + numGroup1].title 
+							+ "</span>"
+						+ "</span>"
+					+ "</div>")
+				/*var subCol = $("<td class = 'subLabel' id = 'infoSubLabel" + n + "' style = 'vertical-align: middle; font-size: 14pt'>" + allRows[n + numGroup1].title + "</td>");*/
 				infoList.append(newListItem)
 			}
 
@@ -192,16 +265,9 @@ var JUnitTable1 = (function(){
 		}
 	/*End*/
 		
-		
-
 		$(div).append(tableFixed, tableContentContainer, infoDiv, bottomDiv);
 
-		
-
-		
-
-		/*Creates Grey bar in middle of table*/
-
+	/*Creates Grey bar in middle of table*/
 		for (var r = 1; r <= allRows.length-2; r++){
 			for (var c = 0; c < columnsDisplayed.length; c++){
 				if (allRows[r].group < allRows[r+1].group){
@@ -213,12 +279,17 @@ var JUnitTable1 = (function(){
 				}
 			}
 		}
+	/*End*/
+
 		$("#mainSuccess").hide();
 		$("#mainAlert").hide();
 
-		/*Allows us to animate backgroundColor (copied from stackOverflow)*/
-		(function(d){d.each(["backgroundColor","borderBottomColor","borderLeftColor","borderRightColor","borderTopColor","color","outlineColor"],function(f,e){d.fx.step[e]=function(g){if(!g.colorInit){g.start=c(g.elem,e);g.end=b(g.end);g.colorInit=true}g.elem.style[e]="rgb("+[Math.max(Math.min(parseInt((g.pos*(g.end[0]-g.start[0]))+g.start[0]),255),0),Math.max(Math.min(parseInt((g.pos*(g.end[1]-g.start[1]))+g.start[1]),255),0),Math.max(Math.min(parseInt((g.pos*(g.end[2]-g.start[2]))+g.start[2]),255),0)].join(",")+")"}});function b(f){var e;if(f&&f.constructor==Array&&f.length==3){return f}if(e=/rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)/.exec(f)){return[parseInt(e[1]),parseInt(e[2]),parseInt(e[3])]}if(e=/rgb\(\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*\)/.exec(f)){return[parseFloat(e[1])*2.55,parseFloat(e[2])*2.55,parseFloat(e[3])*2.55]}if(e=/#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})/.exec(f)){return[parseInt(e[1],16),parseInt(e[2],16),parseInt(e[3],16)]}if(e=/#([a-fA-F0-9])([a-fA-F0-9])([a-fA-F0-9])/.exec(f)){return[parseInt(e[1]+e[1],16),parseInt(e[2]+e[2],16),parseInt(e[3]+e[3],16)]}if(e=/rgba\(0, 0, 0, 0\)/.exec(f)){return a.transparent}return a[d.trim(f).toLowerCase()]}function c(g,e){var f;do{f=d.css(g,e);if(f!=""&&f!="transparent"||d.nodeName(g,"body")){break}e="backgroundColor"}while(g=g.parentNode);return b(f)}var a={aqua:[0,255,255],azure:[240,255,255],beige:[245,245,220],black:[0,0,0],blue:[0,0,255],brown:[165,42,42],cyan:[0,255,255],darkblue:[0,0,139],darkcyan:[0,139,139],darkgrey:[169,169,169],darkgreen:[0,100,0],darkkhaki:[189,183,107],darkmagenta:[139,0,139],darkolivegreen:[85,107,47],darkorange:[255,140,0],darkorchid:[153,50,204],darkred:[139,0,0],darksalmon:[233,150,122],darkviolet:[148,0,211],fuchsia:[255,0,255],gold:[255,215,0],green:[0,128,0],indigo:[75,0,130],khaki:[240,230,140],lightblue:[173,216,230],lightcyan:[224,255,255],lightgreen:[144,238,144],lightgrey:[211,211,211],lightpink:[255,182,193],lightyellow:[255,255,224],lime:[0,255,0],magenta:[255,0,255],maroon:[128,0,0],navy:[0,0,128],olive:[128,128,0],orange:[255,165,0],pink:[255,192,203],purple:[128,0,128],violet:[128,0,128],red:[255,0,0],silver:[192,192,192],white:[255,255,255],yellow:[255,255,0],transparent:[255,255,255]}})(jQuery);
+	/*Allows us to animate backgroundColor (copied from stackOverflow)*/
 
+		(function(d){d.each(["backgroundColor","borderBottomColor","borderLeftColor","borderRightColor","borderTopColor","color","outlineColor"],function(f,e){d.fx.step[e]=function(g){if(!g.colorInit){g.start=c(g.elem,e);g.end=b(g.end);g.colorInit=true}g.elem.style[e]="rgb("+[Math.max(Math.min(parseInt((g.pos*(g.end[0]-g.start[0]))+g.start[0]),255),0),Math.max(Math.min(parseInt((g.pos*(g.end[1]-g.start[1]))+g.start[1]),255),0),Math.max(Math.min(parseInt((g.pos*(g.end[2]-g.start[2]))+g.start[2]),255),0)].join(",")+")"}});function b(f){var e;if(f&&f.constructor==Array&&f.length==3){return f}if(e=/rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)/.exec(f)){return[parseInt(e[1]),parseInt(e[2]),parseInt(e[3])]}if(e=/rgb\(\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*\)/.exec(f)){return[parseFloat(e[1])*2.55,parseFloat(e[2])*2.55,parseFloat(e[3])*2.55]}if(e=/#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})/.exec(f)){return[parseInt(e[1],16),parseInt(e[2],16),parseInt(e[3],16)]}if(e=/#([a-fA-F0-9])([a-fA-F0-9])([a-fA-F0-9])/.exec(f)){return[parseInt(e[1]+e[1],16),parseInt(e[2]+e[2],16),parseInt(e[3]+e[3],16)]}if(e=/rgba\(0, 0, 0, 0\)/.exec(f)){return a.transparent}return a[d.trim(f).toLowerCase()]}function c(g,e){var f;do{f=d.css(g,e);if(f!=""&&f!="transparent"||d.nodeName(g,"body")){break}e="backgroundColor"}while(g=g.parentNode);return b(f)}var a={aqua:[0,255,255],azure:[240,255,255],beige:[245,245,220],black:[0,0,0],blue:[0,0,255],brown:[165,42,42],cyan:[0,255,255],darkblue:[0,0,139],darkcyan:[0,139,139],darkgrey:[169,169,169],darkgreen:[0,100,0],darkkhaki:[189,183,107],darkmagenta:[139,0,139],darkolivegreen:[85,107,47],darkorange:[255,140,0],darkorchid:[153,50,204],darkred:[139,0,0],darksalmon:[233,150,122],darkviolet:[148,0,211],fuchsia:[255,0,255],gold:[255,215,0],green:[0,128,0],indigo:[75,0,130],khaki:[240,230,140],lightblue:[173,216,230],lightcyan:[224,255,255],lightgreen:[144,238,144],lightgrey:[211,211,211],lightpink:[255,182,193],lightyellow:[255,255,224],lime:[0,255,0],magenta:[255,0,255],maroon:[128,0,0],navy:[0,0,128],olive:[128,128,0],orange:[255,165,0],pink:[255,192,203],purple:[128,0,128],violet:[128,0,128],red:[255,0,0],silver:[192,192,192],white:[255,255,255],yellow:[255,255,0],transparent:[255,255,255]}})(jQuery);
+	/*End*/
+
+	/*Big radio buttons*/	
 		var customRadioBorder = d3.selectAll(".customRadioBorder").append("svg")
 		.attr("class", "customRadio")
 		.attr("width", "40px")
@@ -229,19 +300,39 @@ var JUnitTable1 = (function(){
 		.attr("class", "customRadioFill")
 		.attr("width", "40px")
 		.attr("height", "40px")
-		.append("circle").attr("class", "circleFill").attr("cx", 20).attr("cy", 20).attr("r", 0).attr("fill", "#91cfff");
-		
-		var radioFill = false;
+		.append("circle").attr("class", "circleFill").attr("cx", 20).attr("cy", 20).attr("r", 0).attr("fill", "#8bede5");
+	/*End*/
 
-		/*Adds another column to the table when the plus button is pressed*/
+	/*Little Radio Buttons*/
+		var customRadioBorderMini = d3.selectAll(".customRadioBorderMini").append("svg")
+		.attr("class", "customRadioMini")
+		.attr("width", "22px")
+		.attr("height", "22px")
+		.append("circle").attr("cx", 12).attr("cy", 12).attr("r", 9).attr("stroke", "grey").attr("stroke-width", "1px").attr("fill", "white");
+
+		var customRadioFillMini = d3.selectAll(".customRadioFillMini").append("svg")
+		.attr("class", "customRadioFillMini")
+		.attr("width", "20px")
+		.attr("height", "20px")
+		.append("circle").attr("class", "circleFillMini").attr("cx", 10).attr("cy", 10).attr("r", 0).attr("fill", "#e87878");	
+	/*End*/
+
+		var radioFill = false;
 		
 		var lastNumber = columnsDisplayed[columnsDisplayed.length - 1];
 		var newNum = lastNumber + 1;
 
+	/*Radio button hover leads to cursor change*/	
 		$(".customRadioBorder").on("hover", function(){
 			$(this).css('cursor', 'pointer');
 		})
-		var subLabelClicked = [[null], [null, false, false, false], [null, false, false, false], [null, false, false, false]];
+		$(".customRadioBorderMini").on("hover", function(){
+			$(this).css('cursor', 'pointer');
+		})
+	/*End*/
+		
+	/*Code from Previous infoTable*/	
+		var subLabelClicked = [["ph"], ["ph", false, false, false], ["ph", false, false, false], ["ph", false, false, false]];
 		$(".subLabel").on("click", function(){
 			var mainRowId = $(this).parent("tr").attr("id");
 			var mainRowNum = parseInt(mainRowId.slice(6, mainRowId.length));
@@ -260,7 +351,6 @@ var JUnitTable1 = (function(){
 				$(this).animate({backgroundColor: "#FFFFFF"}, 200);
 			}
 		})
-		
 		$(".subLabel").on("mouseenter", function(){
 			var mainRowId = $(this).parent("tr").attr("id");
 			var mainRowNum = parseInt(mainRowId.slice(6, mainRowId.length));
@@ -282,17 +372,128 @@ var JUnitTable1 = (function(){
 				$(this).animate({backgroundColor: "#FFFFFF"}, 200);
 			}	
 		});
+	/*End*/
 		
-	/*For code review*/
+		$(".customRadioBorderMini").on("mouseenter", function(){
+			var miniMainClass = $(this).parent("span").parent("span").parent("div").attr("class");
+			var miniMainIndex = miniMainClass.slice(16, miniMainClass.length);
+			var miniSubClass = $(this).parent("span").parent("span").attr("class");
+			var miniSubIndex = miniSubClass.slice(15, miniSubClass.length);
+			$(".mainDivPartition" + miniMainIndex + " .subPartition" + miniSubIndex).html("Mark as impossible");
+		})
+		$(".customRadioBorderMini").on("mouseleave", function(){
+			var miniMainClass = $(this).parent("span").parent("span").parent("div").attr("class");
+			var miniMainIndex = miniMainClass.slice(16, miniMainClass.length);
+			var miniSubClass = $(this).parent("span").parent("span").attr("class");
+			var miniSubIndex = miniSubClass.slice(15, miniSubClass.length);
+			$(".mainDivPartition" + miniMainIndex + " .subPartition" + miniSubIndex).html(allRows[miniMainIndex].title + ", " + allRows[parseInt(miniSubIndex) + parseInt(numGroup1)].title);
+		})
+		$(".customRadioBorderMini").on("click", function(){
+			var miniMainClass = $(this).parent("span").parent("span").parent("div").attr("class");
+			var miniMainIndex = miniMainClass.slice(16, miniMainClass.length);
+			var miniSubClass = $(this).parent("span").parent("span").attr("class");
+			var miniSubIndex = miniSubClass.slice(15, miniSubClass.length);
+			console.log("miniMainIndex: " + miniMainIndex);
+			console.log("miniSubIndex: " + miniSubIndex);
+			console.log(impossibleArray)
+
+			if(radioDataProd[miniMainIndex][miniSubIndex] === true){
+				
+			/*Checks for the column that contains data for radioDataProd*/
+
+				for (var c = 1; c <= columnsDisplayed[columnsDisplayed.length - 1]; c++){
+					var clickedData = ["ph"];
+					for (var r = 1; r <= allRows.length - 1; r++){
+
+						if (radioData[r][c] == true){
+							clickedData.push(allRows[r].index);
+						}
+					}
+					if (clickedData.length == numGroups + 1){
+						$("#mainAlert").html("You marked this case as possible");
+						$("#mainAlert").show();
+						$("#mainAlert").animate({"opacity": 1}, 200, function(){
+							$("#mainAlert").animate({"opacity": 1}, 5000, function(){
+								$("#mainAlert").animate({"opacity": 0}, 200);
+							})
+						})
+						
+						/*for (var i = 0; i < impossibleCases.length; i++){
+							if (impossibleCases[i] == clickedData){
+								console.log("You marked this case as possible");
+								for (var r = 1; r <= allRows.length - 1; r++){
+									if (radioData[r][c] == true){
+										radioData[r][c] = false;
+										d3.select(".row" + r + " " + ".col" + c + " .circleFill").transition()
+										.attr("r", 0).duration(200)
+										.attr("stroke", "grey").duration(200);
+									}
+								}
+							}
+						}*/
+					}				
+				}
+
+				/*radioDataProd[miniMainIndex][miniSubIndex] = false;
+				$(this).parent("span").parent("span").parent("div").animate({backgroundColor: "#f2f7f6"}, 200)*/
+			}else if(impossibleArray[miniMainIndex][miniSubIndex] === false){
+				console.log("mini clicked")
+				d3.select(".mainDivPartition" + miniMainIndex + " .subDivPartition" + miniSubIndex + " .circleFillMini").transition()
+				.attr("r", 10).duration(200)
+				.attr("stroke", "#ffcece").duration(200);
+				
+				/*for (var c = 1; c <= columnsDisplayed[columnsDisplayed.length - 1]; c++){
+					var clickedData = ["ph"];
+					for (var r = 1; r <= allRows.length - 1; r++){
+
+						if (radioData[r][c] == true){
+							clickedData.push(allRows[r].index);
+						}
+					}
+					if (clickedData.length == numGroups){
+						for (var i = 0; i < impossibleCases.length; i++){
+							if (impossibleCases[i] == clickedData){
+								for (var r = 1; r <= allRows.length - 1; r++){
+									if (radioData[r][c] == true){
+										radioData[r][c] = false;
+										d3.select(".row" + r + " " + ".col" + c + " .circleFill").transition()
+										.attr("r", 0).duration(200)
+										.attr("stroke", "grey").duration(200);
+									}
+								}
+							}
+						}
+					}			
+				}*/
+				impossibleArray[miniMainIndex][miniSubIndex] = "impossible";
+
+				$(this).parent("span").parent("span").parent("div").animate({backgroundColor: "#ffcece"}, 200);
+			}else if(impossibleArray[miniMainIndex][miniSubIndex] == "impossible"){
+				console.log("mini clicked")
+				d3.select(".mainDivPartition" + miniMainIndex + " .subDivPartition" + miniSubIndex + " .circleFillMini").transition()
+				.attr("r", 0).duration(200)
+				.attr("stroke", "grey").duration(200);
+
+				impossibleArray[miniMainIndex][miniSubIndex] = false;
+				$(this).parent("span").parent("span").parent("div").animate({backgroundColor: "#f2f7f6"}, 200)
+			}
+			console.log(radioDataProd);
+		})
+	/*Clicking on main radio buttons*/
 		for(var c=1;c<=numTestCases;c++){
+
 			$(".col"+c+" .customRadioBorder").on("click", function(){
+
 				var rowClass = $(this).parent('span').parent('td').parent('tr').attr("class");
 				var rowIndex = rowClass[3];
 				var colClass = $(this).parent('span').parent('td').attr("class");
 				var colIndex = colClass.slice(3, colClass.length);
 				
 
-				if (radioData[rowIndex][colIndex] === false){					
+				if (radioData[rowIndex][colIndex] === false){
+					/*for (var r = 1; r < allRows.length; r++){
+						var thisGroup = allRows[r].group;
+					}*/
 					d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
 					.attr("r", 20).duration(200)
 					.attr("stroke", "white").duration(200);
@@ -337,15 +538,16 @@ var JUnitTable1 = (function(){
 				radioDataProd = [];
 				for (var i = 0; i <= numGroup1; i++){
 					if(i == 0){
-						radioDataProd.push([null]);
+						radioDataProd.push(["ph"]);
 					}else{
-						var newData = [null];
+						var newData = ["ph"];
 						for (var n = 1; n <= numGroup2; n++){
 							newData.push(false);
 						}
 						radioDataProd.push(newData);
 					}
 				}
+
 			
 				for(var c = 1; c<= columnsDisplayed.length-1; c++){
 					var temp1=false, temp2=false;
@@ -355,7 +557,7 @@ var JUnitTable1 = (function(){
 							for(var j=1; j<inputs.length;j++){
 								inputArray.push(JSON.parse($("#"+inputs[j].name+"Input"+columnsDisplayed[c]).val()));
 							}
-							temp1=allRows[r].checkMembership.apply(null,inputArray);
+							temp1=allRows[r].checkMembership.apply("ph",inputArray);
 							ind1= r;							
 							break;
 						}
@@ -367,7 +569,7 @@ var JUnitTable1 = (function(){
 							for(var j=1; j<inputs.length;j++){
 								inputArray.push(JSON.parse($("#"+inputs[j].name+"Input"+columnsDisplayed[c]).val()));
 							}
-							temp2=allRows[r].checkMembership.apply(null,inputArray);
+							temp2=allRows[r].checkMembership.apply("ph",inputArray);
 							ind2=r-numGroup1;							
 							break;
 						}
@@ -376,6 +578,7 @@ var JUnitTable1 = (function(){
 						radioDataProd[ind1][ind2]=true;
 					}
 				}
+				console.log("radioDataProd: " + JSON.stringify(radioDataProd));
 			/*End*/
 
 				/*for(var i = 1;i<=columnsDisplayed.length-1;i++){
@@ -385,7 +588,7 @@ var JUnitTable1 = (function(){
 			})
 		}
 	/*End*/
-
+	/*Adding a new column*/
 		$(".plusButton").on("click", function(){
 			var lastNumber = columnsDisplayed[columnsDisplayed.length - 1];
 			var newNum = lastNumber + 1;
@@ -455,7 +658,7 @@ var JUnitTable1 = (function(){
 			.attr("class", "customRadioFill")
 			.attr("width", "40px")
 			.attr("height", "40px")
-			.append("circle").attr("class", "circleFill").attr("cx", 20).attr("cy", 20).attr("r", 0).attr("fill", "#91cfff");
+			.append("circle").attr("class", "circleFill").attr("cx", 20).attr("cy", 20).attr("r", 0).attr("fill", "#8bede5");
 
 
 			$(".customRadioBorder").on("hover", function(){
@@ -546,9 +749,9 @@ var JUnitTable1 = (function(){
 				radioDataProd = [];
 				for (var i = 0; i <= numGroup1; i++){
 					if(i == 0){
-						radioDataProd.push([null]);
+						radioDataProd.push(["ph"]);
 					}else{
-						var newData = [null];
+						var newData = ["ph"];
 						for (var n = 1; n <= numGroup2; n++){
 							newData.push(false);
 						}
@@ -564,7 +767,7 @@ var JUnitTable1 = (function(){
 							for(var j=1; j<inputs.length;j++){
 								inputArray.push(JSON.parse($("#"+inputs[j].name+"Input"+columnsDisplayed[c]).val()));
 							}
-							temp1=allRows[r].checkMembership.apply(null,inputArray);
+							temp1=allRows[r].checkMembership.apply("ph",inputArray);
 							ind1= r;
 							console.log("temp1 = "+temp1+", ind1 = "+ind1);
 							break;
@@ -577,7 +780,7 @@ var JUnitTable1 = (function(){
 							for(var j=1; j<inputs.length;j++){
 								inputArray.push(JSON.parse($("#"+inputs[j].name+"Input"+columnsDisplayed[c]).val()));
 							}
-							temp2=allRows[r].checkMembership.apply(null,inputArray);
+							temp2=allRows[r].checkMembership.apply("ph",inputArray);
 							ind2=r-numGroup1;
 							console.log("temp2 = "+temp2+", ind2 = "+ind2);
 							break;
@@ -606,7 +809,7 @@ var JUnitTable1 = (function(){
 
 			$("#infoDiv").height(  $("#tableContentCont").height()  )
 		});
-
+	/*End*/
 		$(".delete").on("click", function(){			
 			var deleteCol = $(this).parent("td").attr("class");
 			var deleteColNum = deleteCol.slice(3, deleteCol.length);			
@@ -667,6 +870,7 @@ $("#aInput3").val("[1,1]")
 			}
 
 			try{
+			/*Code for previous table*/
 				for (var x = 1; x <= numGroup1; x++){
 					var counter = 0
 					for (var y = 1; y <= numGroup2; y++){
@@ -679,7 +883,9 @@ $("#aInput3").val("[1,1]")
 						}
 					}
 				}
-				/*Displays check and error marks based on user input*/
+			/*End*/
+
+			/*Displays check and error marks based on user input*/
 				for (var c = columnsDisplayed[1]; c <= columnsDisplayed[columnsDisplayed.length - 1]; c++){					
 					/*for loop stops when it reaches a number in columnsDisplayed that doesn't exist*/
 					if (columnsDisplayed.indexOf(c) == -1){
@@ -691,19 +897,63 @@ $("#aInput3").val("[1,1]")
 							inputArray.push(JSON.parse($("#"+inputs[j].name+"Input" + c).val()));
 						}
 						for(var r=1;r<=allRows.length-1;r++){							
-							if(allRows[r].checkMembership.apply(null,inputArray)&& radioData[r][c] == true){								
+							if(allRows[r].checkMembership.apply("ph",inputArray)&& radioData[r][c] == true){								
 								$(".row"+r+" .col"+c+" .checkMark").animate({"opacity":"1"},200);
 								$(".row"+r+" .col"+c+" .errorMark").animate({"opacity":"0"},200);
 							}
-							if(!(allRows[r].checkMembership.apply(null,inputArray))&& radioData[r][c] == true){
+							if(!(allRows[r].checkMembership.apply("ph",inputArray))&& radioData[r][c] == true){
 
 								$(".row"+r+" .col"+c+" .checkMark").animate({"opacity": "0"}, 200);
 								$(".row"+r+" .col"+c+" .errorMark").animate({"opacity": "1"}, 200);
 							}
 						}
 					}					
-				}	
+				}
+			/*End*/	
+
+			/*Displays check and error marks in the info Div*/
+				loop1:
+				for (var i = 1; i < impossibleArray.length; i++){
+
+					loop2:
+					for (var j = 1; j < impossibleArray[i].length; j++){
+						
+						if (impossibleArray[i][j] == "impossible"){
+							var dataCheck = ["ph", i, j];
+							console.log("dataCheck: " + dataCheck);
+							var rowCorrect = false;
+							loop3:
+							for (var n = 0; n < impossibleCases.length; n++){
+								console.log(impossibleCases[n]);
+								if (JSON.stringify(impossibleCases[n]) == JSON.stringify(dataCheck)){
+									$(".mainDivPartition" + i + " .subDivPartition" + j + " .cellContentMini").parent("span").parent("div").animate({backgroundColor: "#b0fc71"}, 200)
+									$(".mainDivPartition" + i + " .subDivPartition" + j + " .checkMark").animate({"opacity": "1"}, 200);
+									d3.select(".mainDivPartition" + i + " .subDivPartition" + j + " .circleFillMini").transition()
+									.attr("fill", "#00c403")
+									rowCorrect = true;
+									break loop3;
+								}
+
+							}
+							if (rowCorrect == false){
+								$(".mainDivPartition" + i + " .subDivPartition" + j + " .errorMark").animate({"opacity": "1"}, 200);
+							}
+						}
+					}
+				}
+			/*End*/
 				
+			/*Highlights table depending on radio buttons in main table	*/
+				for (var i = 1; i < radioDataProd.length; i++){
+					for (var j = 1; j < radioDataProd[i].length; j++){
+						if (radioDataProd[i][j] == true && impossibleArray[i][j] !== "impossible"){
+							$(".mainDivPartition" + i + " .subDivPartition" + j).parent("div").animate({backgroundColor: "#b0fc71"}, 300);
+						}else if(radioDataProd[i][j] == false && impossibleArray[i][j] !== "impossible"){
+							$(".mainDivPartition" + i + " .subDivPartition" + j).parent("div").animate({backgroundColor: "#e87878"}, 300);
+						}
+					}
+				}
+			/*End*/
 				/*
 				Helper function
 				*/

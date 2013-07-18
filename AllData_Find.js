@@ -16,15 +16,17 @@ All rows with their properties.
 (Used mode when instructor give input partions)
 */
 var allRows = ["ph",
-		{group:1,title:"<b>a</b> empty",checkMembership:function (x,a){return a.length==0}},
-		{group:1,title:"Length of <b>a</b> = 1",checkMembership:function (x,a){return a.length==1}},
-		{group:1,title:"Length of <b>a</b> > 1",checkMembership:function (x,a){return a.length>1}},
-		{group:2,title:"<b>x</b> not in <b>a</b>",checkMembership:function(x,a){return find(x,a)==0}},
-		{group:2,title:"<b>x</b> in <b>a</b> once",checkMembership:function(x,a){return find(x,a)==1}},
-		{group:2,title:"<b>x</b> in <b>a</b> more than once",checkMembership:function(x,a){return find(x,a)>1}}/*,
+		{group:1,title:"<b>a</b> empty",checkMembership:function (x,a){return a.length==0}, index: 1},
+		{group:1,title:"Length of <b>a</b> = 1",checkMembership:function (x,a){return a.length==1}, index: 2},
+		{group:1,title:"Length of <b>a</b> > 1",checkMembership:function (x,a){return a.length>1}, index: 3},
+		{group:2,title:"<b>x</b> not in <b>a</b>",checkMembership:function(x,a){return find(x,a)==0}, index: 1},
+		{group:2,title:"<b>x</b> in <b>a</b> once",checkMembership:function(x,a){return find(x,a)==1}, index: 2},
+		{group:2,title:"<b>x</b> in <b>a</b> more than once",checkMembership:function(x,a){return find(x,a)>1}, index: 3}/*,
 		{group:3,title:"Impossible"}*/
 		];
 
+/*impossibleCases array: number at index 1 corresponds to index within group 1, number at index 2 corresponds to index within group 2, ect.*/
+var impossibleCases = [["ph", 1,2], ["ph", 1, 3], ["ph", 2, 3]];
 /*
 Function Name for the input fields
 */
