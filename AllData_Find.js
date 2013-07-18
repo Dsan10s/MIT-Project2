@@ -62,7 +62,7 @@ var F = function (x,a) {
 	if(a.length==0){
 		return -1;
 	}else if (x!=a[0]){
-		var coppyA = a.slice(1);
+		var copyA = a.slice(1);
 		return 1+find(x,copyA); 
 	}else{
 		return 0;
@@ -121,13 +121,13 @@ var inputs=["ph",
 Implementations for the second table's rows, and checking function.
 */
 var code =["ph", 
-			{jv:"public static int find(int x, int[] a) {\n  for (int i = 0; i < a.length; i++) {\n    if (x == a[i]) {\n      return i;\n    }\n  }\n  return -1;\n}\n",js:A}, 
-			{jv:"public static int find(int x, int[] a){\n  int i=0;\n  while (i < a.length){\n    if(x != a[i]){\n      i++;\n    }else{\n      return i;\n    }\n  }\n  return -1;\n}\n",js:B}, 
-			{jv:"public static int find(int x, int[] a){\n  int i=0;\n  while (i < a.length && x != a[i]){\n    i++;\n  }\n  return i;\n}\n",js:C}, 
-			{jv:"public static int find(int x, int[] a) {\nfor (int i = a.length-1; i >-1 ; i--) {\n  if (x == a[i]) {\n    return i;\n  }\n}\n  return -1;\n}\n",js:D}, 
-			{jv:"public static int find(int x, int[] a){\n  int i=a.length-1;\n  while (i>=0 && x != a[i]){\n    i--;\n  }\n  return i;\n}\n",js:E}, 
-			{jv:"public static int find(int x, int[] a){\n  if(a.length==0){\n    return -1;\n  }else if(x!=a[0]){\n    int[] copyA = new int[a.length-1];\n    System.arraycopy(a,1,copyA,0,a.length-1);\n    return 1+find(x,copyA);\n  }else{\n    return 0;\n  }\n}\n",js:F}, 
-			{jv:"public static int find(int x,int[] a){\n  if(a.length==0){\n    return -1;\n  }else if(x==a[0]){\n    return 0;\n  }\n}\n",js:G}];
-//A good code that we can compare answers with.
+			{jv:"public static int find(int x, int[] a) {\n  for (int i = 0; i < a.length; i++) {\n    if (x == a[i]) {\n      return i;\n    }\n  }\n  return -1;\n}\n",js:A,isGood: true}, 
+			{jv:"public static int find(int x, int[] a){\n  int i=0;\n  while (i < a.length){\n    if(x != a[i]){\n      i++;\n    }else{\n      return i;\n    }\n  }\n  return -1;\n}\n",js:B, isGood:true}, 
+			{jv:"public static int find(int x, int[] a){\n  int i=0;\n  while (i < a.length && x != a[i]){\n    i++;\n  }\n  return i;\n}\n",js:C, isGood : false}, 
+			{jv:"public static int find(int x, int[] a) {\nfor (int i = a.length-1; i >-1 ; i--) {\n  if (x == a[i]) {\n    return i;\n  }\n}\n  return -1;\n}\n",js:D, isGood:false}, 
+			{jv:"public static int find(int x, int[] a){\n  int i=a.length-1;\n  while (i>=0 && x != a[i]){\n    i--;\n  }\n  return i;\n}\n",js:E, isGood:false}, 
+			{jv:"public static int find(int x, int[] a){\n  if(a.length==0){\n    return -1;\n  }else if(x!=a[0]){\n    int[] copyA = new int[a.length-1];\n    System.arraycopy(a,1,copyA,0,a.length-1);\n    return 1+find(x,copyA);\n  }else{\n    return 0;\n  }\n}\n",js:F,isGood: false}, 
+			{jv:"public static int find(int x,int[] a){\n  if(a.length==0){\n    return -1;\n  }else if(x==a[0]){\n    return 0;\n  }\n}\n",js:G, isGood :false}];
+//A good code that we want to compare answers with.
 var goodFunction = A;
 

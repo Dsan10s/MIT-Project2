@@ -7,7 +7,7 @@ public class Implementation{
 	* @return lowest i such that a[i]==x, or -1 if x not found in a. 
 	*/
 
-	//Good 
+	//A Good 
 	public static int find(int x, int[] a) {
 		for (int i = 0; i < a.length; i++) {
 			if (x == a[i]) {
@@ -17,7 +17,7 @@ public class Implementation{
 		return -1;
 	}
 
-	//Good
+	//B Good
 	public static int find(int x, int[] a){
 		int i=0;
 		while (i<a.length){
@@ -30,7 +30,7 @@ public class Implementation{
 		return -1;
 	}
 
-	//Bad if x not in a or a empty
+	//C Bad if x not in a or a empty
 	public static int find(int x, int[] a){
 		int i=0;
 		while (i<a.length && x != a[i]){
@@ -39,7 +39,7 @@ public class Implementation{
 		return i;
 	}
 
-	//Bad if x in a more than once
+	//D Bad if x in a more than once
 	public static int find(int x, int[] a) {
 	for (int i = a.length-1; i >-1 ; i--) {
 		if (x == a[i]) {
@@ -49,7 +49,7 @@ public class Implementation{
 		return -1;
 	}
 
-	//Bad if x in a more than once
+	//E Bad if x in a more than once
 	public static int find(int x, int[] a){
 		int i=a.length-1;
 		while (i>=0 && x != a[i]){
@@ -58,7 +58,7 @@ public class Implementation{
 		return i;
 	}
 
-	//Bad if x not in a but work if a empty
+	//F Bad if x not in a but work if a empty
 	public static int find(int x, int[] a){
 		if(a.length==0){
 			return -1;
@@ -72,7 +72,7 @@ public class Implementation{
 		}
 	}
 
-	//Bad if a.length>1
+	//G Bad if a.length>1
 	public static int find(int x,int[] a){
 		if(a.length==0){
 			return -1;

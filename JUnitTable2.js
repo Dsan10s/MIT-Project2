@@ -89,7 +89,7 @@ var JUnitTable2 = (function(){
 		.attr("class", "customRadioFill")
 		.attr("width", "40px")
 		.attr("height", "40px")
-		.append("circle").attr("class", "circleFill").attr("cx", 20).attr("cy", 20).attr("r", 0).attr("fill", "#B40000");
+		.append("circle").attr("class", "circleFill").attr("cx", 20).attr("cy", 20).attr("r", 0);
 		
 		/*Adds another column to the table when the plus button is pressed*/
 		var lastNumber = columnsDisplayed[columnsDisplayed.length - 1];
@@ -108,18 +108,22 @@ var JUnitTable2 = (function(){
 				if (radioData[rowIndex][colIndex] === false){
 					d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
 					.attr("r", 20).duration(200)
-					.attr("stroke", "white").duration(200);
+					.attr("stroke", "white").duration(200)
+					.attr("fill", "#FFAF47");
 					radioData[rowIndex][colIndex] = true;
-					codeCorrect[rowIndex]=false;
-					//Turn background pink
-					$(".JUnitTable2 .row"+rowIndex).animate({backgroundColor:"#F8CFD7"},200);
+					isCodeChecked[rowIndex]=false;
+					//Turn background orange
+					$(".JUnitTable2 .row"+rowIndex).animate({backgroundColor:"#FFDCAF"},200);
 				}else if(radioData[rowIndex][colIndex] === true){
 					d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
 					.attr("r", 0).duration(200)
-					.attr("stroke", "grey").duration(200);
+					.attr("stroke", "grey").duration(200)
+					.attr("fill", "#FFAF47");
 					radioData[rowIndex][colIndex] = false;
-					//Turn background pink
-					$(".JUnitTable2 .row"+rowIndex).animate({backgroundColor:"white"},200);
+					//Turn background white
+					if(find(true,radioData[rowIndex])==0){
+						$(".JUnitTable2 .row"+rowIndex).animate({backgroundColor:"white"},200);
+					}
 				}				
 			})
 		}
@@ -127,21 +131,21 @@ var JUnitTable2 = (function(){
 		/*
 		Check the correct codes. First column on click
 		*/
-		codeCorrect=[null];
+		isCodeChecked=[null];
 		for(var i=0;i<code.length-1;i++){
-			codeCorrect.push(false);
+			isCodeChecked.push(false);
 		}
 		$("#tableFixed .col0").on('click',function(){
 			var rowClass = $(this).parent('tr').attr("class");
 			var rowIndex = rowClass[3];
 				if(rowIndex>0){
-				if(codeCorrect[rowIndex]){
+				if(isCodeChecked[rowIndex]){
 					$(".JUnitTable2 .row"+rowIndex).animate({backgroundColor:"white"},200);
-					codeCorrect[rowIndex]=false;
+					isCodeChecked[rowIndex]=false;
 				}else{
-					$(".JUnitTable2 .row"+rowIndex).animate({backgroundColor:"#DFF5DE"},200);
-					codeCorrect[rowIndex]=true;
-					//Make all radio buttons green
+					$(".JUnitTable2 .row"+rowIndex).animate({backgroundColor:"#ccf6fc"},200);
+					isCodeChecked[rowIndex]=true;
+					//Make all radio buttons white
 					d3.selectAll(".row" + rowIndex + " .circleFill").transition()
 					.attr("r", 0).duration(200)
 					.attr("stroke", "grey").duration(200);
@@ -217,7 +221,7 @@ var JUnitTable2 = (function(){
 			.attr("class", "customRadioFill")
 			.attr("width", "40px")
 			.attr("height", "40px")
-			.append("circle").attr("class", "circleFill").attr("cx", 20).attr("cy", 20).attr("r", 0).attr("fill", "#B40000");
+			.append("circle").attr("class", "circleFill").attr("cx", 20).attr("cy", 20).attr("r", 0);
 
 			$(".customRadioBorder").on("hover", function(){
 				$(this).css('cursor', 'pointer');
@@ -237,18 +241,22 @@ var JUnitTable2 = (function(){
 				if (!radioData[rowIndex][colIndex]){
 					d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
 					.attr("r", 20).duration(200)
-					.attr("stroke", "white").duration(200);
+					.attr("stroke", "white").duration(200)
+					.attr("fill","#FFAF47");
 					radioData[rowIndex][colIndex] = true;
-					codeCorrect[rowIndex]=false;
-					//Turn background pink
-					$(".JUnitTable2 .row"+rowIndex).animate({backgroundColor:"#F8CFD7"},200);
+					isCodeChecked[rowIndex]=false;
+					//Turn background orange
+					$(".JUnitTable2 .row"+rowIndex).animate({backgroundColor:"#FFDCAF"},200);
 				}else{
 					d3.select("." + rowClass + " " + "." + colClass + " .circleFill").transition()
 					.attr("r", 0).duration(200)
-					.attr("stroke", "grey").duration(200);
+					.attr("stroke", "grey").duration(200)
+					.attr("fill", "#FFAF47");
 					radioData[rowIndex][colIndex] = false;
-					//Turn background pink
-					$(".JUnitTable2 .row"+rowIndex).animate({backgroundColor:"white"},200);
+					//Turn background white
+					if(find(true,radioData[rowIndex])==0){
+						$(".JUnitTable2 .row"+rowIndex).animate({backgroundColor:"white"},200);
+					}
 				}
 				
 			})
@@ -314,34 +322,76 @@ var JUnitTable2 = (function(){
 			$(".checkMark").animate({"opacity": "0"}, 200);
 			$(".errorMark").animate({"opacity": "0"}, 200);
 
-			for(var i=1;i<=code.length-1;i++){
-				$(".row"+i).animate({backgroundColor:"white"},200);
-			}
-
+			// for(var i=1;i<=code.length-1;i++){
+			// 	$(".row"+i).animate({backgroundColor:"white"},200);
+			// }
+			
 			try{
+				//check rows that are incorrect. The rest are true.
+				isRowCorrect=[null];
+				for(var r=1;r<=code.length-1;r++){
+					isRowCorrect.push(true);
+				}
 				/*Displays check and error marks based on user input*/
-				for (var c = columnsDisplayed[1]; c <= columnsDisplayed[columnsDisplayed.length - 1]; c++){
+				for (var cc = 1; cc <= columnsDisplayed.length - 1; cc++){
+					var c=columnsDisplayed[cc];
 					/*for loop stops when it reaches a number in columnsDisplayed that doesn't exist*/
-					if (columnsDisplayed.indexOf(c) == -1){
-					}else{
-
-						var inputArray =[]; 
-						for(var j=1;j<=inputs.length-1;j++){
-							inputArray.push(JSON.parse($("#"+inputs[j].name+"Input" + c).val()));
+					var inputArray =[]; 
+					for(var j=1;j<=inputs.length-1;j++){
+						inputArray.push(JSON.parse($("#"+inputs[j].name+"Input" + c).val()));
+					}
+					for(var r=1;r<=code.length-1;r++){
+						if(code[r].js.apply(null,inputArray)!==goodFunction.apply(null,inputArray)&& radioData[r][c] == true){
+							$(".row"+r+" .col"+c+" .checkMark").animate({"opacity":"1"},200);
+							$(".row"+r+" .col"+c+" .errorMark").animate({"opacity":"0"},200);
 						}
-						for(var r=1;r<=code.length-1;r++){
-							if(code[r].js.apply(null,inputArray)!==goodFunction.apply(null,inputArray)&& radioData[r][c] == true){
-								$(".row"+r+" .col"+c+" .checkMark").animate({"opacity":"1"},200);
-								$(".row"+r+" .col"+c+" .errorMark").animate({"opacity":"0"},200);
-							}
-							if(code[r].js.apply(null,inputArray)===goodFunction.apply(null,inputArray)&& radioData[r][c] == true){
+						if(code[r].js.apply(null,inputArray)===goodFunction.apply(null,inputArray)&& radioData[r][c] == true){
 
-								$(".row"+r+" .col"+c+" .checkMark").animate({"opacity": "0"}, 200);
-								$(".row"+r+" .col"+c+" .errorMark").animate({"opacity": "1"}, 200);
-							}
+							$(".row"+r+" .col"+c+" .checkMark").animate({"opacity": "0"}, 200);
+							$(".row"+r+" .col"+c+" .errorMark").animate({"opacity": "1"}, 200);
+							isRowCorrect[r]=false;
 						}
 					}
 				}	
+
+				for(var r=1;r<=code.length-1;r++){
+					if(isCodeChecked[r]){
+						//This case there are no radio buttons clicked.
+						if(code[r].isGood){
+							//that is correct
+							$(".JUnitTable2 .row"+r).animate({backgroundColor:"#dcffce"},200);
+						}else{
+							//that is incorrect
+							$(".JUnitTable2 .row"+r).animate({backgroundColor:"#ff7a7a"},200);
+						}
+					}else if(find(true,radioData[r])>=1){
+						if(!isRowCorrect[r]){
+							//that is incorrect
+							$(".JUnitTable2 .row"+r).animate({backgroundColor:"#ff7a7a"},200);
+							for(var cc=1;cc<=columnsDisplayed.length-1;cc++){
+								var c=columnsDisplayed[cc];
+								if(radioData[r][c]){
+									console.log(r,c)
+									d3.select(".row"+r+ " .col" +c+ " .circleFill").transition()
+									.attr("stroke", "grey").duration(200)
+									.attr("fill", "#c40003");
+								}
+							}
+						}else{
+							//the rest must be correct
+							$(".JUnitTable2 .row"+r).animate({backgroundColor:"#dcffce"},200);
+							for(var cc=1;cc<=columnsDisplayed.length-1;cc++){
+								var c=columnsDisplayed[cc];
+								if(radioData[r][c]){
+									console.log(r,c)
+									d3.select(".row"+r+ " .col" +c+ " .circleFill").transition()
+									.attr("stroke", "grey").duration(200)
+									.attr("fill", "#00c403");
+								}
+							}
+						}
+					}
+				}
 				
 				/*
 				Helper function
@@ -377,8 +427,8 @@ var JUnitTable2 = (function(){
 				/*Turns a row red if there is no button clicked*/
 				if(!hasShown){
 					for(var r=1;r<=code.length-1;r++){
-						if(find(true,radioData[r])<1){
-							$(".row"+r).animate({backgroundColor: "#ffc4c4"}, 200);
+						if(!isCodeChecked[r]&&find(true,radioData[r])<1){
+							$(".row"+r).animate({backgroundColor: "#FFCECE"}, 200);
 							$("#mainAlert").show();
 							$("#mainAlert").animate({"opacity": "1"}, 200);
 							$("#mainAlert").html("Make sure you have covered every row")
