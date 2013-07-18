@@ -1,89 +1,89 @@
 /*For testing*/
 
-body{
+/*body{
 	margin: 10px;
-}
+}*/
 
 /*For implementation*/
-table{
+.JUnitTable1 table{
 	border-radius: 10px;
 	overflow: auto;
 }
-input{
+.JUnitTable1 input{
 	border: 0px;
 	border-radius: 4px;
 	border-bottom: 1px solid black;
 	width: 30px;
 }
-.customRadioBorder{
+.JUnitTable1 .customRadioBorder{
 	position: relative;
 }
-.customRadioFill{
+.JUnitTable1 .customRadioFill{
 	position: absolute;
 	
 }
-.relative{
+.JUnitTable1 .relative{
 	position: relative;
 }
-.mark{
+.JUnitTable1 .mark{
 	margin-left: 10px;
 	height: 40px;
 	position: relative;
 }
-.checkMark{
+.JUnitTable1 .checkMark{
 	position: absolute;
 	opacity: 0;
 }
-.errorMark{
+.JUnitTable1 .errorMark{
 	position: absolute;
 	opacity: 0;
 }
-.cellContent{
+.JUnitTable1 .cellContent{
 	margin-left: auto;
 	margin-right: auto;
 	display: table;
 }
 
-.popover {
+.JUnitTable1 .popover {
 	width: 1000px;
 }
 
-#submit1{
+.JUnitTable1 #submit1{
 	float: left;
 }
-#mainAlert{
+.JUnitTable1 #mainAlert{
 	float: right;
 	opacity: 0.5;
 }
-#mainSuccess{
+.JUnitTable1 #mainSuccess{
 	float: right;
 	opacity: 0.5;
 }
-#tableFixed{
+.JUnitTable1 #tableFixed{
 	width: 200px;
 	float: left;
 	margin: 0px;
 }
-#tableContentDiv{
-	border-right: 6px solid grey;
+.JUnitTable1 #tableContentDiv{
+	border-right: 1px solid lightgrey;
 	overflow: auto;
 	float: left;
 }
-#tableContent{
+.JUnitTable1 #tableContent{
 	margin: 0px;
 }
-.plusButton{
+.JUnitTable1 .plusButton{
 	color: white;
 	width: 60px;
 	/*font-size: 20pt;*/
 }
-.col0{
+.JUnitTable1 .col0{
 	width: 200px;
 }
-.delete{
+.JUnitTable1 .delete{
 	opacity: 0;
 }
-td{
+.JUnitTable1 td{
 	white-space: nowrap;
 	text-align: center;
 	vertical-align: middle;

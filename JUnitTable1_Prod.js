@@ -1,6 +1,6 @@
 /*Currently, the table only works with the "find" function*/
 
-var JUnitTable1 = (function(){
+var JUnitTable1Prod = (function(){
 	/*var debugLog = function(varName){
 		var varName = varName;
 		var obj = {};
@@ -929,7 +929,7 @@ $("#aInput3").val("[1,1]")
 									$(".mainDivPartition" + i + " .subDivPartition" + j + " .cellContentMini").parent("span").parent("div").animate({backgroundColor: "#b0fc71"}, 200)
 									$(".mainDivPartition" + i + " .subDivPartition" + j + " .checkMark").animate({"opacity": "1"}, 200);
 									d3.select(".mainDivPartition" + i + " .subDivPartition" + j + " .circleFillMini").transition()
-									.attr("fill", "#00c403")
+									.attr("fill", "#00c403").attr("stroke", "#b0fc71");
 									rowCorrect = true;
 									break loop3;
 								}
@@ -1030,8 +1030,8 @@ $("#aInput3").val("[1,1]")
 }());
 
 $(document).ready(function(){
-	$(".JUnitTable1").each(function(){
-		JUnitTable1.setup(this);
+	$(".JUnitTable1Prod").each(function(){
+		JUnitTable1Prod.setup(this);
 	});
 	
 	$("#tablePartitions tr").height($("#tableContent .row1").height());

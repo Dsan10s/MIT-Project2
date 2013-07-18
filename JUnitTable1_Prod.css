@@ -1,151 +1,145 @@
 /*For testing*/
 
-body{
+/*body{
 	margin: 10px;
-}
+}*/
 
 /*For implementation*/
 
-table{
+.JUnitTable1Prod table{
 	border-radius: 10px;
 	margin: 0px;
 	/*overflow: auto;*/
 }
-#inputs{
+.JUnitTable1Prod #inputs{
 	font-size: 16pt;
 	font-weight: bolder;
 	vertical-align: middle;
 }
-.findInput1{
+.JUnitTable1Prod .findInput1{
 	font-size: 12pt;
 	border: 0px;
 	border-radius: 4px;
 	border-bottom: 1px solid black;
 	width: 30px;
 }
-.findInput2{
+.JUnitTable1Prod .findInput2{
 	font-size: 12pt;
 	border: 0px;
 	border-radius: 4px;
 	border-bottom: 1px solid black;
 	width: 60px;
 }
-.customRadio{
+.JUnitTable1Prod .customRadio{
 	
 }
-.customRadioFill{
+.JUnitTable1Prod .customRadioFill{
 	position: absolute;
 	
 }
-.customRadioFillMini{
+.JUnitTable1Prod .customRadioFillMini{
 	position: absolute;
 }
-.mark{
+.JUnitTable1Prod .mark{
 	margin-left: 10px;
 	height: 40px;
 }
-.relative{
+.JUnitTable1Prod .relative{
 	position: relative;
 }
-.checkMark{
+.JUnitTable1Prod .checkMark{
 	position: absolute;
 	opacity: 0;
 }
-.errorMark{
+.JUnitTable1Prod .errorMark{
 	position: absolute;
 	opacity: 0;
 }
-.cellContent{
+.JUnitTable1Prod .cellContent{
 	margin-left: auto;
 	margin-right: auto;
 	display: table;
 }
-.cellContentMini{
+.JUnitTable1Prod .cellContentMini{
 	margin-top: 2px;
 }
-
-.popover {
-	width: 1000px;
-}
-
-#submit1{
+.JUnitTable1Prod #submit1{
 	float: left;
 }
-#mainAlert{
+.JUnitTable1Prod #mainAlert{
 	float: right;
 	opacity: 0;
 }
-#mainSuccess{
+.JUnitTable1Prod #mainSuccess{
 	float: right;
 	opacity: 0;
 }
-.plusButton{
+.JUnitTable1Prod .plusButton{
 	color: white;
 	/*font-size: 20pt;*/
 }
-
-.delete{
+.JUnitTable1Prod .delete{
 	font-size: 20px;
 	opacity: 0;
 	margin-left: 10px;
 }
-td{
+.JUnitTable1Prod td{
 	white-space: nowrap;
 	text-align: center;
 	vertical-align: middle;
 }
-#tablePartitions{
+.JUnitTable1Prod #tablePartitions{
 	width: 200px;
 	float: left;
 	margin: 0px;
 }
-#tableContentCont{
+.JUnitTable1Prod #tableContentCont{
 	border-right: 6px solid grey;
 	overflow: auto;
 	float: left;
 }
-#tableContent{
+.JUnitTable1Prod #tableContent{
 	margin: 0px;
 }
-.col0{
+.JUnitTable1Prod .col0{
 
 }
-#infoDiv{
+.JUnitTable1Prod #infoDiv{
 	float: left;
 	width: 450px;
 	overflow: auto;
 	/*white-space: nowrap;*/
 }
-.subLabel{
+.JUnitTable1Prod .subLabel{
 	min-width: 92px;
 }
-.testCases{
+.JUnitTable1Prod .testCases{
 	border-radius: 5px;
 
 }
-.testCases b{
+.JUnitTable1Prod .testCases b{
 
 }
-#mainDivPartition{
+.JUnitTable1Prod #mainDivPartition{
 	height: 43px;
 	width: 100%;
 	background-color: #f2f7f6;
 }
-.icon-arrow-down{
+.JUnitTable1Prod .icon-arrow-down{
 	margin-left: 3px;
 }
-.impossibleText{
+.JUnitTable1Prod .impossibleText{
 	margin-left: 10px;
 	display: inherit;
 }
-.markImpossible{
+.JUnitTable1Prod .markImpossible{
 	margin-left: 42px;
 	margin-bottom: 5px;
 }
-.customRadioBorderMini .customRadioMini{
+.JUnitTable1Prod .customRadioBorderMini .customRadioMini{
 	margin-top: 8px;
 }
-.customRadioFillMini .customRadioFillMini{
+.JUnitTable1Prod .customRadioFillMini .customRadioFillMini{
 	margin-top: 10px;
 	margin-left: 2px;
 }

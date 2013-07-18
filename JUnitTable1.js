@@ -440,22 +440,11 @@ $(document).ready(function(){
 	$(".JUnitTable1").each(function(){
 		JUnitTable1.setup(this);
 	});
-	//Temp just for debuging
-	$("#xInput1").val(1)
-	$("#xInput2").val(1)
-	$("#xInput3").val(1)
-	$("#yInput1").val(1)
-	$("#yInput2").val(1)
-	$("#yInput3").val(1)
-	$("#zInput1").val(3)
-	$("#zInput2").val(3)
-	$("#zInput3").val(3)
 
 	//Resize the table
 	$("#tableContentDiv").width( ( parseFloat($("body").width()) - parseFloat( $("#tableFixed").width() ) - 8) );
 	$(window).resize(function(){
 		$("#tableContentDiv").width( ( parseFloat($("body").width())  - parseFloat( $("#tableFixed").width() ) - 8) )
 	});
-	$("#tableFixed").height(  $("#tableContentDiv").height()  )
-
+	$("#tableFixed").height($("#tableContent").height())
 });

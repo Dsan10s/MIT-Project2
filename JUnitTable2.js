@@ -473,13 +473,6 @@ $(document).ready(function(){
 	$(".JUnitTable2").each(function(){
 		JUnitTable2.setup(this);
 	});
-	//Temp just for debuging
-	$("#xInput1").val(1)
-	$("#xInput2").val(1)
-	$("#xInput3").val(1)
-	$("#aInput1").val('[]')
-	$("#aInput2").val('[1]')
-	$("#aInput3").val('[1,1]')
 
 
 	//Resize the table
@@ -487,9 +480,11 @@ $(document).ready(function(){
 	$(window).resize(function(){
 		$("#tableContentDiv").width( ( parseFloat($("body").width())  - parseFloat( $("#tableFixed").width() ) - 20) )
 	});
-	$("#tableContentDiv").height(  $("#tableFixed").height())
+	
+	
 	for(r=0;r<code.length;r++){
 		$("#tableContentDiv .row"+r).height($("#tableFixed .row"+r).height())
 	}
-
+	console.log($("#tableContentDiv").height());
+	$("#tableFixed").height(  $("#tableContent").height());
 });
