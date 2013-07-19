@@ -1,12 +1,12 @@
 /*Currently, the table only works with the "find" function*/
 
 var JUnitTable2 = (function(){
-	var columnsDisplayed = [0, 1, 2, 3];
+	var columnsDisplayed = [0, 1];
 
 	/*Nulls are placeholders so indexing is easier later*/
 	var radioData = [[null]];
 	for(var i =0;i<code.length-1;i++){
-		radioData.push([null, false, false, false]);
+		radioData.push([null, false]);
 	}
 
 	var exports = {};
@@ -35,7 +35,7 @@ var JUnitTable2 = (function(){
 		Add input fields
 		*/
 		var row0=$("<tr class = 'row0'></tr>");                        
-		for(var i=1;i<=3;i++){
+		for(var i=1;i<=1;i++){
 			/*generate a string for input fields in HTML*/
 			var temp="";
 			for(var j=1;j<inputs.length-1;j++){
@@ -98,7 +98,7 @@ var JUnitTable2 = (function(){
 		$(".JUnitTable2 .customRadioBorder").on("hover", function(){
 			$(this).css('cursor', 'pointer');
 		})
-		for(var c=1;c<=3;c++){
+		for(var c=1;c<=1;c++){
 			$(".JUnitTable2 .col"+c+" .customRadioBorder").on("click", function(){
 				var rowClass = $(this).parent('span').parent('td').parent('tr').attr("class");
 				var rowIndex = rowClass[3];
@@ -195,7 +195,7 @@ var JUnitTable2 = (function(){
 			$(".JUnitTable2 .delete").on("mouseenter", function(){	
 				var colClass = $(this).parent("td").attr("class");
 				var colNum = parseInt(colClass.slice(3, colClass.length));
-				if(colNum > 3){
+				if(colNum > 1){
 					$(this).animate({"opacity": "1"}, 200);
 				}
 			});
@@ -205,7 +205,7 @@ var JUnitTable2 = (function(){
 			$(".JUnitTable2 .delete").on("mouseleave", function(){
 				var colClass = $(this).parent("td").attr("class");
 				var colNum = parseInt(colClass.slice(3, colClass.length));
-				if(colNum  > 3){
+				if(colNum  > 1){
 					$(this).animate({"opacity": "0"}, 200);
 				}
 			})	
@@ -268,7 +268,7 @@ var JUnitTable2 = (function(){
 				var deleteCol = $(this).parent("td").attr("class");
 				var deleteColNum = deleteCol.slice(3, deleteCol.length);
 				
-				if(parseInt(deleteColNum)>3){
+				if(parseInt(deleteColNum)>1){
 					$(".JUnitTable2 ." + deleteCol).remove();
 					if(columnsDisplayed.indexOf(parseInt(deleteColNum))!=-1){
 						columnsDisplayed.splice(columnsDisplayed.indexOf(parseInt(deleteColNum)), 1);
@@ -284,7 +284,7 @@ var JUnitTable2 = (function(){
 		$(".JUnitTable2 .delete").on("click", function(){
 			var deleteCol = $(this).parent("td").attr("class");
 			var deleteColNum = deleteCol.slice(3, deleteCol.length);
-			if(parseInt(deleteColNum)<=3){
+			if(parseInt(deleteColNum)<=1){
 				$(".JUnitTable2 ." + deleteCol).remove();
 				if(columnsDisplayed.indexOf(parseInt(deleteColNum))!=-1){
 					columnsDisplayed.splice(columnsDisplayed.indexOf(parseInt(deleteColNum)), 1);				
@@ -296,7 +296,7 @@ var JUnitTable2 = (function(){
 		$(".JUnitTable2 .delete").on("mouseenter", function(){			
 			var colClass = $(this).parent("td").attr("class");
 			var colNum = parseInt(colClass.slice(3, colClass.length));
-			if(colNum <= 3){
+			if(colNum <= 1){
 				$(this).animate({"opacity": "1"}, 200);	
 			}
 		});
@@ -305,7 +305,7 @@ var JUnitTable2 = (function(){
 		$(".JUnitTable2 .delete").on("mouseleave", function(){
 			var colClass = $(this).parent("td").attr("class");
 			var colNum = parseInt(colClass.slice(3, colClass.length));
-			if(colNum  <= 3){
+			if(colNum  <= 1){
 				$(this).animate({"opacity": "0"}, 200);
 			}
 		})	
@@ -477,9 +477,9 @@ $(document).ready(function(){
 
 
 	//Resize the table
-	$(".JUnitTable2 #tableContentDiv").width( ( parseFloat($(".JUnitTable2").parent().width()) - parseFloat( $(".JUnitTable2 #tableFixed").width() ) - 20) );
+	$(".JUnitTable2 #tableContentDiv").width( ( parseFloat($(".JUnitTable2").parent().width()) - parseFloat( $(".JUnitTable2 #tableFixed").width() ) - 8) );
 	$(window).resize(function(){
-		$(".JUnitTable2 #tableContentDiv").width( ( parseFloat($(".JUnitTable2").parent().width())  - parseFloat( $(".JUnitTable2 #tableFixed").width() ) - 20) )
+		$(".JUnitTable2 #tableContentDiv").width( ( parseFloat($(".JUnitTable2").parent().width())  - parseFloat( $(".JUnitTable2 #tableFixed").width() ) - 8) )
 	});
 	
 	
