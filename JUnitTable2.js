@@ -168,7 +168,7 @@ var JUnitTable2 = (function(){
 			for (var r = 0; r <= code.length-1; r++){
 				
 				var rowClass = ".JUnitTable2 #tableContent .row" + r;
-				var newCol = $("<td class = 'col" + newNum + "' style = 'width: 0px'></td>");
+				var newCol = $("<td class = 'col" + newNum + "' id=inputs></td>");
 
 				if (r == 0){
 					/*generate a string for input fields in HTML*/
@@ -338,7 +338,7 @@ var JUnitTable2 = (function(){
 					/*for loop stops when it reaches a number in columnsDisplayed that doesn't exist*/
 					var inputArray =[]; 
 					for(var j=1;j<=inputs.length-1;j++){
-						inputArray.push(JSON.parse($("#"+inputs[j].name+"Input" + c).val()));
+						inputArray.push(JSON.parse($(".JUnitTable2 #"+inputs[j].name+"Input" + c).val()));
 					}
 					for(var r=1;r<=code.length-1;r++){
 						if(code[r].js.apply(null,inputArray)!==goodFunction.apply(null,inputArray)&& radioData[r][c] == true){
