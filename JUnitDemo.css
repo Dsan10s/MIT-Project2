@@ -4,3 +4,17 @@
 .JUnitTable1Prod{
 	margin-top: 10px;
 }
+.tableHeader{
+	display: inline-block;
+}
+.help{
+	font-size: 12pt;
+	margin: 0 0 10 10;
+	display: inline-block;
+	vertical-align: middle;
+}
+/*legend .popover-content{
+	font-size: 12pt;
+	max-height: 40px;
+	max-width: 740px;
+}*/

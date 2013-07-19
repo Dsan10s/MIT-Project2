@@ -558,11 +558,10 @@ var JUnitTable1Prod = (function(){
 							
 							var inputArray = [];
 							for(var j=1; j<inputs.length;j++){
-								inputArray.push(JSON.parse($("#"+inputs[j].name+"Input"+columnsDisplayed[c]).val()));
+								inputArray.push(JSON.parse($(".JUnitTable1Prod #"+inputs[j].name+"Input"+columnsDisplayed[c]).val()));
 							}
 							temp1=allRows[r].checkMembership.apply("ph",inputArray);
 							ind1= r;
-							console.log("made it")							
 							break;
 						}
 					}	
@@ -571,7 +570,7 @@ var JUnitTable1Prod = (function(){
 						if(radioData[r][c]==true){
 							var inputArray = [];
 							for(var j=1; j<inputs.length;j++){
-								inputArray.push(JSON.parse($("#"+inputs[j].name+"Input"+columnsDisplayed[c]).val()));
+								inputArray.push(JSON.parse($(".JUnitTable1Prod #"+inputs[j].name+"Input"+columnsDisplayed[c]).val()));
 							}
 							temp2=allRows[r].checkMembership.apply("ph",inputArray);
 							ind2=r-numGroup1;							
@@ -849,12 +848,12 @@ var JUnitTable1Prod = (function(){
 		/*Find method returns number of times a number was found in an array*/
 
 //Temp just for debuging
-/*$(".JUnitTable1Prod #xInput1").val(1)
+$(".JUnitTable1Prod #xInput1").val(1)
 $(".JUnitTable1Prod #xInput2").val(1)
 $(".JUnitTable1Prod #xInput3").val(1)
 $(".JUnitTable1Prod #aInput1").val("[]")
 $(".JUnitTable1Prod #aInput2").val("[1]")
-$(".JUnitTable1Prod #aInput3").val("[1,1]")*/
+$(".JUnitTable1Prod #aInput3").val("[1,1]")
 
 		/*Checks the user inputs when the submit button is pressed*/
 		$(".JUnitTable1Prod #submit1").on("click", function(){						
@@ -1006,6 +1005,7 @@ $(".JUnitTable1Prod #aInput3").val("[1,1]")*/
 				}*/
 			}catch(e){				
 
+				console.log(e)
 				/*Some error checking*/
 				var hasShownProd=false;
 				var errmsg="The input fields don't make sense.\n";
