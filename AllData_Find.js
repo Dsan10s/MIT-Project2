@@ -88,7 +88,8 @@ Header part for the page
 */
 var header = {title:"Find Function",
 			code:"/**\n* Find the first occurrence of x in sorted array a.\n* @param x int value to find\n* @param a array of integers to search for x\n* @return lowest i such that a[i]==x, or -1 if x not found in a. \n*/\npublic static int Find(int x, int[] a) {\n  for (int i = 0; i < a.length; i++) {\n    if (x == a[i]) {\n      return i;\n    }\n  }\n  return -1;\n}\n",
-			explanation:"What we'll be doing here is attempting to exhaust our test cases given a function, <b>find</b>.  You'll see the code for find above.  </p>\n<p>On the left, as a label for every row, you'll see labels that define <b>key test cases</b>. You want to be sure that when you test your function, you test each of these cases.</p>\n<p>Input values for <b>x</b> and <b>a</b> into the top of each column, such that every row gets checked off."};
+			explanation:"What we'll be doing here is attempting to exhaust our test cases given a function, <b>find</b>.  You'll see the code for find above." 
+			+ "</p>\n<p>Below you will see 3 tables.  Each table has it's own way of testing test cases.  For information on how each table works, you can click on the question mark next to that respective table, or check out the help section above."};
 
 /*
 All rows with their properties.

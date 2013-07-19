@@ -15,6 +15,25 @@
 	border-bottom: 1px solid black;
 	width: 30px;
 }
+.JUnitTable2 #inputs{
+	font-size: 16pt;
+	font-weight: bolder;
+	vertical-align: middle;
+}
+.JUnitTable2 .inputField1{
+	font-size: 12pt;
+	border: 0px;
+	border-radius: 4px;
+	border-bottom: 1px solid black;
+	width: 30px;
+}
+.JUnitTable2 .inputField2{
+	font-size: 12pt;
+	border: 0px;
+	border-radius: 4px;
+	border-bottom: 1px solid black;
+	width: 60px;
+}
 .JUnitTable2 .customRadioBorder{
 	position: relative;
 }
@@ -49,6 +68,7 @@
 }
 
 .JUnitTable2 #submit1{
+	margin: 4px;
 }
 .JUnitTable2 #mainAlert{
 	float: right;
@@ -59,20 +79,16 @@
 	opacity: 0.5;
 }
 .JUnitTable2 #tableFixed{
-	border-left: 6px solid grey;
-	border-top: 6px solid grey;
-	border-bottom: 6px solid grey;
+	
+	
+	
 	width: 420px;
 	float: left;
 	margin: 0px;
 }
 .JUnitTable2 #tableContentDiv{
-	border-right: 6px solid grey;
-	border-top: 6px solid grey;
-	border-bottom: 6px solid grey;
 
 	overflow: auto;
-	float: left;
 }
 .JUnitTable2 #tableContent{
 	margin: 0px;
@@ -86,13 +102,11 @@
 	width: 200px;
 }
 .JUnitTable2 .delete{
+	font-size: 20px;
 	opacity: 0;
+	margin-left: 10px;
 }
 .JUnitTable2 td{
 	white-space: nowrap;
-	text-align: center;
 	vertical-align: middle;
-	height: 60;
-	min-width: 300px;
-	max-width: 520px;
 }

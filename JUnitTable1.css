@@ -1,8 +1,8 @@
 /*For testing*/
 
-/*body{
+body{
 	margin: 10px;
-}*/
+}
 
 /*For implementation*/
 .JUnitTable1 table{
@@ -10,10 +10,10 @@
 	overflow: auto;
 }
 .JUnitTable1 input{
-	border: 0px;
+/*	border: 0px;
 	border-radius: 4px;
 	border-bottom: 1px solid black;
-	width: 30px;
+	width: 30px;*/
 }
 .JUnitTable1 .customRadioBorder{
 	position: relative;
@@ -49,9 +49,13 @@
 }
 
 .JUnitTable1 #submit1{
-	float: left;
+	margin: 4px;
+	/*float: left;*/
 }
 .JUnitTable1 #mainAlert{
+	margin: 0px;
+	margin-top: 4px;
+	margin
 	float: right;
 	opacity: 0.5;
 }
@@ -74,20 +78,47 @@
 }
 .JUnitTable1 .plusButton{
 	color: white;
-	width: 60px;
+	/*width: 60px;*/
 	/*font-size: 20pt;*/
 }
 .JUnitTable1 .col0{
-	width: 200px;
+	text-align: center;
+	width: 150px;
 }
 .JUnitTable1 .delete{
+	font-size: 20px;
 	opacity: 0;
+	margin-left: 10px;
 }
 .JUnitTable1 td{
 	white-space: nowrap;
-	text-align: center;
+	/*text-align: center;*/
 	vertical-align: middle;
-	height: 60;
-	min-width: 300px;
+	/*height: 60;*/
+	/*min-width: 300px;*/
 	max-width: 520px;
+}
+.JUnitTable1 #inputs{
+	font-size: 16pt;
+	font-weight: bolder;
+	vertical-align: middle;
+}
+.JUnitTable1 .inputField1{
+	font-size: 12pt;
+	border: 0px;
+	border-radius: 4px;
+	border-bottom: 1px solid black;
+	width: 30px;
+}
+.JUnitTable1 .inputField2{
+	font-size: 12pt;
+	border: 0px;
+	border-radius: 4px;
+	border-bottom: 1px solid black;
+	width: 60px;
+}
+.JUnitTable1 #tableFixed{
+	width: 200px;
+	float: left;
+	margin: 0px;
 }
