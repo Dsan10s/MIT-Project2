@@ -768,7 +768,7 @@ var JUnitTable1Prod = (function(){
 						if(radioData[r][c]==true){
 							var inputArray = [];
 							for(var j=1; j<inputs.length;j++){
-								inputArray.push(JSON.parse($("#"+inputs[j].name+"Input"+columnsDisplayed[c]).val()));
+								inputArray.push(JSON.parse($(".JUnitTable1_Prod #"+inputs[j].name+"Input"+columnsDisplayed[c]).val()));
 							}
 							temp1=allRows[r].checkMembership.apply("ph",inputArray);
 							ind1= r;
@@ -781,7 +781,7 @@ var JUnitTable1Prod = (function(){
 						if(radioData[r][c]==true){
 							var inputArray = [];
 							for(var j=1; j<inputs.length;j++){
-								inputArray.push(JSON.parse($("#"+inputs[j].name+"Input"+columnsDisplayed[c]).val()));
+								inputArray.push(JSON.parse($(".JUnitTable1_Prod #"+inputs[j].name+"Input"+columnsDisplayed[c]).val()));
 							}
 							temp2=allRows[r].checkMembership.apply("ph",inputArray);
 							ind2=r-numGroup1;
@@ -897,7 +897,7 @@ $(".JUnitTable1Prod #aInput3").val("[1,1]")
 
 						var inputArray =[]; 
 						for(var j=1;j<=inputs.length-1;j++){
-							inputArray.push(JSON.parse($("#"+inputs[j].name+"Input" + c).val()));
+							inputArray.push(JSON.parse($(".JUnitTable1Prod #"+inputs[j].name+"Input" + c).val()));
 						}
 						for(var r=1;r<=allRows.length-1;r++){							
 							if(allRows[r].checkMembership.apply("ph",inputArray)&& radioData[r][c] == true){								
@@ -1004,8 +1004,6 @@ $(".JUnitTable1Prod #aInput3").val("[1,1]")
 				/*for(var i = 1; i <= radioData.length; i++){
 				}*/
 			}catch(e){				
-
-				console.log(e)
 				/*Some error checking*/
 				var hasShownProd=false;
 				var errmsg="The input fields don't make sense.\n";
