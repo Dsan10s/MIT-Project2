@@ -44,7 +44,7 @@ var JUnitTable1 = (function(){
  		var tableContentDiv = $('<div id = "tableContentDiv"></div>');
 		var bottomDiv = $("<div style = 'width: 100%'></div>")
 		var submit = $("<button id = 'submit1' class = 'btn btn-success btn-large' style = ''>Submit</button>")
-		var alert = $("<div id = 'mainAlert' class = 'alert alert-error'>Test</div>")
+		var alert = $("<div id = 'mainAlert' class = 'alert alert-error' style = 'float: right'>Test</div>")
 		var success = $("<div id = 'mainSuccess' class = 'alert alert-success'>Test</div>")
 		bottomDiv.append(submit, alert, success);
 		tableContentDiv.append(tableContent);

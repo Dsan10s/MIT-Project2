@@ -94,6 +94,7 @@ body{
 	margin: 0px;
 }
 .JUnitTable1Prod #tableContentCont{
+	width: 950px;
 	border-right: 6px solid grey;
 	overflow: auto;
 	float: left;
@@ -106,10 +107,10 @@ body{
 }
 .JUnitTable1Prod #infoDiv{
 	/*float: left;*/
-	width: 450px;
+	width: 430px;
 	overflow: auto;
 	margin: 0px;
-	/*white-space: nowrap;*/
+	white-space: nowrap;
 }
 .JUnitTable1Prod .subLabel{
 	min-width: 92px;
@@ -122,8 +123,10 @@ body{
 
 }
 .JUnitTable1Prod #mainDivPartition{
+	white-space: nowrap;
 	height: 43px;
 	width: 100%;
+	min-width: 400px;
 	background-color: #f2f7f6;
 }
 .JUnitTable1Prod .icon-arrow-down{
@@ -143,4 +146,16 @@ body{
 .JUnitTable1Prod .customRadioFillMini .customRadioFillMini{
 	margin-top: 10px;
 	margin-left: 2px;
+}
+/*.JUnitTable1Prod .ui-resizable-e {
+	background-color:grey;
+    width: 10px;
+    position: absolute;
+}*/
+.JUnitTable1Prod #maximize{
+	position: absolute;
+	width: 21px;
+	border-top-right-radius: 6px;
+	background-color: lightgrey;
+	visibility: hidden;
 }

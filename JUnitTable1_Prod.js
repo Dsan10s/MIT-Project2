@@ -300,7 +300,7 @@ var JUnitTable1Prod = (function(){
 		.attr("class", "customRadioFill")
 		.attr("width", "40px")
 		.attr("height", "40px")
-		.append("circle").attr("class", "circleFill").attr("cx", 20).attr("cy", 20).attr("r", 0).attr("fill", "#8bede5");
+		.append("circle").attr("class", "circleFill").attr("cx", 20).attr("cy", 20).attr("r", 0).attr("fill", "#91cfff");
 	/*End*/
 
 	/*Little Radio Buttons*/
@@ -661,7 +661,7 @@ var JUnitTable1Prod = (function(){
 			.attr("class", "customRadioFill")
 			.attr("width", "40px")
 			.attr("height", "40px")
-			.append("circle").attr("class", "circleFill").attr("cx", 20).attr("cy", 20).attr("r", 0).attr("fill", "#8bede5");
+			.append("circle").attr("class", "circleFill").attr("cx", 20).attr("cy", 20).attr("r", 0).attr("fill", "#91cfff");
 
 
 			$(".JUnitTable1Prod .customRadioBorder").on("hover", function(){
@@ -1037,6 +1037,8 @@ $(document).ready(function(){
 		$(this).css("border", "3px solid grey").css("border-radius", "10px");
 	});
 	
+	$(".JUnitTable1Prod #tableContentCont").resizable({handles: "e", maxWidth: parseFloat($(".JUnitTable1Prod").parent().width()) - parseFloat( $(".JUnitTable1Prod #tablePartitions").width() ) - 20});
+ 
 	$(".JUnitTable1Prod #tablePartitions tr").height($(".JUnitTable1Prod #tableContent .row1").height());
 	$(".JUnitTable1Prod .row0").height($(".JUnitTable1Prod .row0 .col1").height());
 	for (var i = 1; i <= allRows.length - 2; i++){
@@ -1047,10 +1049,14 @@ $(document).ready(function(){
 	}
 	
 
-	$(".JUnitTable1Prod #tableContentCont").width( ( parseFloat($(".JUnitTable1Prod").parent().width()) - parseFloat( $(".JUnitTable1Prod #infoDiv").width() )- parseFloat( $(".JUnitTable1Prod #tablePartitions").width() ) - 14) );
+	$(".JUnitTable1Prod #infoDiv").width( ( parseFloat($(".JUnitTable1Prod").parent().width()) - parseFloat( $(".JUnitTable1Prod #tableContentCont").width() )- parseFloat( $(".JUnitTable1Prod #tablePartitions").width() ) - 14) );
+	/*$(".JUnitTable1Prod #infoDiv").width( ( parseFloat($(".JUnitTable1Prod").parent().width()) - parseFloat( $(".JUnitTable1Prod #tableContentCont").width() )- parseFloat( $(".JUnitTable1Prod #tablePartitions").width() ) - 14) );*/
 	$(window).resize(function(){
-		$(".JUnitTable1Prod #tableContentCont").width( ( parseFloat($(".JUnitTable1Prod").parent().width()) - parseFloat( $(".JUnitTable1Prod #infoDiv").width() ) - parseFloat( $(".JUnitTable1Prod #tablePartitions").width() ) - 14) )
+		$(".JUnitTable1Prod #infoDiv").width( ( parseFloat($(".JUnitTable1Prod").parent().width()) - parseFloat( $(".JUnitTable1Prod #tableContentCont").width() ) - parseFloat( $(".JUnitTable1Prod #tablePartitions").width() ) - 14) )
+		
+		/*$(".JUnitTable1Prod #tableContentCont").resizable("option", "maxWidth", parseFloat($(".JUnitTable1Prod").parent().width()) - parseFloat( $(".JUnitTable1Prod #tablePartitions").width() ) - 30);*/
 	});
+
 	$(".JUnitTable1Prod #tablePartitions").height(  $(".JUnitTable1Prod #tableContent").height()  )
 	$(".JUnitTable1Prod #infoDiv").height(  $(".JUnitTable1Prod #tableContentCont").height()  )
 }); 

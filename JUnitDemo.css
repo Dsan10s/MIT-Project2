@@ -13,8 +13,15 @@
 	display: inline-block;
 	vertical-align: middle;
 }
-/*legend .popover-content{
+legend .popover{
+	max-width: 500px;
+}
+legend .popover-content{
 	font-size: 12pt;
-	max-height: 40px;
-	max-width: 740px;
-}*/
+	max-width: 500px;
+}
+.modal-body img{
+	width: 98%;
+	border: 3px solid grey;
+	border-radius: 5px;
+}

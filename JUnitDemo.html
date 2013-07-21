@@ -2,22 +2,24 @@
 	<head>
 		<title>JUnit Table</title>
 		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-		<!-- <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
+
+		<link href="jQuery_UI/css/ui-darkness/jquery-ui-1.10.3.custom.css" rel="stylesheet">
+		<script src="jQuery_UI/js/jquery-1.9.1.js"></script>
+		<script src="jQuery_UI/js/jquery-ui-1.10.3.custom.js"></script> 
 		<script src = "js/bootstrap.min.js"></script>
 		<script src = "AllData_Find.js"></script>
 		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 		<script src ="setHeader.js"></script>
 
-		<script src = "JUnitTable1.js"></script>
-		
-		<script src = "JUnitTable1_Prod.js"></script>
-		<script src = "JUnitTable2.js"></script>
+		<script src = "JUnitTables.js"></script>
 		<script src = "JUnitDemo.js"></script>
     	<script src="googlePrettify/run_prettify.js" type="text/javascript"></script>
 
 		<link href = "css/bootstrap.css" rel = "stylesheet"></link>
 		<link href = "JUnitDemo.css" rel = "stylesheet"></link>
 		<link href = "JUnitTable1.css" rel = "stylesheet"></link>
+
+		<!-- <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" rel = "stylesheet"></link> -->
 		
 		<link href = "JUnitTable1_Prod.css" rel = "stylesheet"></link>
 		<link href = "JUnitTable2.css" rel = "stylesheet"></link>
@@ -48,14 +50,18 @@
 			    <div class = "tab-content">
 
 			    	<div class = "tab-pane active" id = "modalTab1">
+			    		<img src = 'images/SumModeTable.JPG'/>
 			    		<p>When you look at the sum mode table, you'll see a column to the left containing partitions for the given function, and a row on top with the same function, but with blank fields</p>
 			    		<p>You're job is to fill out the fields in the first row, so that all the partitions on the left are covered</p>
+			    		<p>You can input more test cases by clicking on the <b>New Column</b> button at the top left corner of the table.  This applies for all the tables that follow as well</p>
 			    		<p>When you fill out a test case in a certain column, click on the bubble that corresponds to the row of the test case you are covering</p>
-			    		<p>Every test case you input should cover one row in each section of the table.  For example if the table is broken up into 2 partitions, each test case should cover 2 rows</p>
+			    		<p>Every test case you input should cover one row in each group of the table.  For example if the table is broken up into 2 groups, each test case should cover 2 rows</p>
+			    		<img src = 'images/RadioExample.JPG'/>
 			    		<p>In sum mode, you simply need to have every row covered, not every possible combination of rows</p>
 			    	</div>
 
 			    	<div class = "tab-pane" id = "modalTab2">
+			    		<img src = 'images/ProdModeTable.JPG'/>
 			    		<p>Product mode operates similar to Sum mode, in that you will still be filling out test cases in the first row to cover the table</p>
 			    		<p>What's different about sum mode is that you will now need to cover every possible combination of test cases.  For example, if you are given 3 partitions with 3 cases to cover in each partition, you will need 27 cases to cover every possible combination</p>
 			    		<p>To make this more clear, you will see a list on the right side of the table containing all the possible test cases.  Fill out the table in the middle with all the test cases that are possible.</p>
@@ -239,7 +245,7 @@
 				</div>
 			</div>
 		</div>
-		<div class = 'container' style = 'margin-top: 41px'>
+		<div class = 'container' style = 'margin-top: 41px; width: 80%'>
 			
 			<div class = "header"></div>
 			<legend style = 'margin-top: 20px'><h2 class = 'tableHeader' id = 'sumHeader'>Sum Mode</h2><button id = 'sumHelp' class = 'btn btn-primary help'>?</button></legend>
