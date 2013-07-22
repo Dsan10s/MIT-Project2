@@ -38,196 +38,58 @@
 		  <div class="modal-body">
 		    <h4>Click on the tabs below to find out how each table works.</h4>
 
-
-		    <div class = "tabbable">
-			    <ul class = "nav nav-tabs">
-			    	<li class = "active"><a href = "#modalTab1" data-toggle = "tab">Sum Mode</a></li>
-					<li><a href = "#modalTab2" data-toggle = "tab">Product Mode</a></li>
-					<li><a href = "#modalTab3" data-toggle = "tab">Code Review</a></li>
-					<!-- <li><a href = "#modalTab4" data-toggle = "tab">Embedding</a></li>
-					<li><a href = "#modalTab5" data-toggle = "tab">Credits</a></li> -->
-			    </ul>
-			    <div class = "tab-content">
-
-			    	<div class = "tab-pane active" id = "modalTab1">
-			    		<img src = 'images/SumModeTable.JPG'/>
-			    		<p>When you look at the sum mode table, you'll see a column to the left containing partitions for the given function, and a row on top with the same function, but with blank fields</p>
-			    		<p>You're job is to fill out the fields in the first row, so that all the partitions on the left are covered</p>
-			    		<p>You can input more test cases by clicking on the <b>New Column</b> button at the top left corner of the table.  This applies for all the tables that follow as well</p>
-			    		<p>When you fill out a test case in a certain column, click on the bubble that corresponds to the row of the test case you are covering</p>
-			    		<p>Every test case you input should cover one row in each group of the table.  For example if the table is broken up into 2 groups, each test case should cover 2 rows</p>
-			    		<img src = 'images/RadioExample.JPG'/>
-			    		<p>In sum mode, you simply need to have every row covered, not every possible combination of rows</p>
-			    	</div>
-
-			    	<div class = "tab-pane" id = "modalTab2">
-			    		<img src = 'images/ProdModeTable.JPG'/>
-			    		<p>Product mode operates similar to Sum mode, in that you will still be filling out test cases in the first row to cover the table</p>
-			    		<p>What's different about sum mode is that you will now need to cover every possible combination of test cases.  For example, if you are given 3 partitions with 3 cases to cover in each partition, you will need 27 cases to cover every possible combination</p>
-			    		<p>To make this more clear, you will see a list on the right side of the table containing all the possible test cases.  Fill out the table in the middle with all the test cases that are possible.</p>
-			    		<p>However, some test cases that are presented in the list will be impossible. If there is a certain test case you don't think you can cover, click on the bubble in the list under "Mark as Impossible"</p>
-			    		<p>Make sure you cover all the possible test cases in the table in the middle, and for everything else, mark that as impossible in the list on the right.  Make sure you cover all the cases!</p>
-			    	</div>
-
-			    	<div class = "tab-pane" id = "modalTab3">
-			    		<p>In the last table, you will be reviewing code that we give you</p>
-			    		<p>On the left side of the table, you'll see different versions of code for the given function.  Some of these versions are good implementations, while some are not</p>
-			    		<p>What makes a piece of code a good implementation is that it does not have a test case that refutes it</p>
-			    		<!-- <div class = "tabbable">
-			    			<ul class = "nav nav-pills">
-			    				<li class = "active">
-			    					<a href = "#pulmonicTab" data-toggle = "tab">
-			    						Pulmonic Consanants
-			    					</a>
-			    				</li>
-			    				<li>
-			    					<a href = "#nonPulmonicTab" data-toggle = "tab">
-			    						Non-Pulmonic Consanants
-			    					</a>
-			    				</li>
-			    				<li>
-			    					<a href = "#vowelsTab" data-toggle = "tab">
-			    						Vowels
-			    					</a>
-			    				</li>
-			    			</ul>
+		    <div class  = 'tabbable'>
+		    	<ul class = 'nav nav-tabs'>
+		    		<li class = "active"><a href = "#modalTab1" data-toggle = "tab">Tables</a></li>
+					<li><a href = "#modalTab2" data-toggle = "tab">For teachers</a></li>
+					<li><a href = "#modalTab3" data-toggle = "tab">Credits</a></li>
+		    	</ul>
+		    	<div class = 'tab-content'>
+		    		<div class = 'tab-pane active' id = 'modalTab1'>
+		    			<div class = 'tabbable'>
+		    				<ul class = 'nav nav-pills'>
+		    					<li class = "active"><a href = "#table1" data-toggle = "tab">Sum Mode</a></li>
+								<li><a href = "#table2" data-toggle = "tab">Product Mode</a></li>
+								<li><a href = "#table3" data-toggle = "tab">Code Review</a></li>
+		    				</ul>
 			    			<div class = "tab-content">
-			    				<div class = "tab-pane active" id = "pulmonicTab">
-			    					<p>Below is what the Pulmonic consanants chart looks like:</p>
-			    					<img class = "modalImg" style = "width: 95%" src = "images/pulmonicTable.JPG"/>
-			    					<p>When you click on a symbol, aside from playing the sound of the symbol, you can get extra functionality if you have IPAquiz on the webpage</p>
-			    					<img class = "modalImg" src = "images/tableClick.JPG"/>
-			    					<i class = "icon-arrow-right"></i>
-			    					<img class = "modalImg" src = "images/clickToQuiz.JPG"/>
-			    					<p>Clicking on a symbol within the chart will change the symbol being guessed in the quiz.  This allows you to pick a symbol in the chart that you want to test yourself on</p>
+						    	<div class = "tab-pane active" id = "table1">
+						    		<img src = 'images/SumModeTable.JPG'/>
+						    		<p>When you look at the sum mode table, you'll see a column to the left containing partitions for the given function, and a row on top with the same function, but with blank fields</p>
+						    		<p>You're job is to fill out the fields in the first row, so that all the partitions on the left are covered</p>
+						    		<p>You can input more test cases by clicking on the <b>New Column</b> button at the top left corner of the table.  This applies for all the tables that follow as well</p>
+						    		<p>If you'd like to delete a test case column that you don't need, hover over the area to the right of your test case and a delete button will show</p>
+						    		<img src = 'images/DeleteExample.JPG'/>
+						    		<p>When you fill out a test case in a certain column, click on the bubble that corresponds to the row of the test case you are covering</p>
+						    		<p>Every test case you input should cover one row in each group of the table.  For example if the table is broken up into 2 groups, each test case should cover 2 rows</p>
+						    		<img src = 'images/RadioExample.JPG'/>
+						    		<p>In sum mode, you simply need to have every row covered, not every possible combination of rows</p>
+						    	</div>
 
-			    				</div>
-			    				<div class = "tab-pane" id = "nonPulmonicTab">
-			    					<p>Here is the Non Pulmonic consanants chart</p>
-			    					<img class = "modalImg" style = "width: 95%" src = "images/nonPulmonicTable.JPG"/>
-			    					<p>All the symbols here are not included in the English language, so clicking on a symbol does not change the quiz symbol</p>
-			    				</div>
-			    				<div class = "tab-pane" id = "vowelsTab">
-			    					<p>This is the chart of Vowels</p>
-			    					<img class = "modalImg" style = "width: 95%" src = "images/vowelTable.JPG"/>
-			    					<p>This chart works a little bit differently than the others</p>
+						    	<div class = "tab-pane" id = "table2">
+						    		<img src = 'images/ProdModeTable.JPG'/>
+						    		<p>Product mode operates similar to Sum mode, in that you will still be filling out test cases in the first row to cover the table</p>
+						    		<p>What's different about sum mode is that you will now need to cover every possible combination of test cases.  For example, if you are given 3 partitions with 3 cases to cover in each partition, you will need 27 cases to cover every possible combination</p>
+						    		<p>To make this more clear, you will see a list on the right side of the table containing all the possible test cases.  Fill out the table in the middle with all the test cases that are possible.</p>
+						    		<p>However, some test cases that are presented in the list will be impossible. If there is a certain test case you don't think you can cover, click on the bubble in the list under "Mark as Impossible"</p>
+						    		<p>Make sure you cover all the possible test cases in the table in the middle, and for everything else, mark that as impossible in the list on the right.  Make sure you cover all the cases!</p>
+						    	</div>
 
-			    					<p>There are 3 main columns: "Front", "Central", and "Back".  Below each of these columns you will see a dot: "&#8226".  The dot below a dot in that respective column represents another pair of vowels within that column.  This may get confusing because the columns actually slant to the right as you go down, but just follow the dots and you'll know where everything belongs</p>
-
-			    					<img  class = "modalImg" style = "width: 95%" src = "images/VowelTableLines.JPG"/> 
-
-			    					<p>Next to every dot there will either be 1 or 2 symbols.  The symbol to the right is rounded, meaning you physically round your lips as you are pronouncing the symbol.  The symbol to the left is unrounded, so you can voice it without doing anything fancy.</p>
-			    				</div>
-			    			</div>
-			    		</div> -->
-			    	</div>
-
-			    	<div class = "tab-pane" id = "modalTab4">
-			    		<p>To embed any of these components into your own website, follow this link to our github repository:</p>
-
-			    		<a href = "https://github.com/olearym/MITx-Project-1/tree/master/IPA-Interface">https://github.com/olearym/MITx-Project-1/tree/master/IPA-Interface</a>
-			    		<p></p>
-			    		<p>Download all the files in the IPA-Interface folder to the same folder that you're storing your website on</p>
-
-			    		<p>Below you'll find instructions as what to insert at the head and body of your html</p>
-			    		<div class = "tabbable">
-			    			<ul class = "nav nav-pills">
-			    				<li class = "active"><a href = "#modalHead" data-toggle = "tab">Head</a></li>
-			    				<li><a href="#modalBody" data-toggle = "tab">Body</a></li>
-			    			</ul>
-			    			<div class = "tab-content">
-			    				<div class = "tab-pane active" id = "modalHead">
-			    					<p>Include these tags at the head of your html:</p>
-						    		<p>These script tags include all the files you need no matter what widget you are using on your webpage</p>
-						    				
-						    		<pre>
-&lt;META http-equiv="Content-Type" content="text/html; charset=utf-8" />
-&lt;script src="http://code.jquery.com/jquery-1.10.1.min.js">&lt;/script>
-&lt;script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js">&lt;/script>
-&lt;script src = "js/bootstrap.min.js">&lt;/script>
-&lt;link href = "css/bootstrap.css" rel = "stylesheet">&lt;/link>
-&lt;script src="IPAdata.js">&lt;/script>
-&lt;script src="IPAconverter.js">&lt;/script>
-&lt;script src="IPAcharts.js">&lt;/script>
-&lt;script src="IPAquiz.js">&lt;/script>
-						    		</pre>
-			    				</div>
-			    				<div class = "tab-pane" id = "modalBody">
-			    					<p>After you have the "META", "script", and "link" tags, you will need to define where each widget will go on you webpage:</p>
-					    			<li>
-					    				<p>To get the IPA Converter, insert this div into the html of your webpage:</p>
-					    				<pre>&lt;div class="IPAConverter">&lt;/div></pre>
-					    			</li>
-					    			<li>
-					    				<p>For the charts:</p>
-					    				<div class = "tabbable">
-					    					<ul class = "nav nav-pills">
-					    						<li class = "active"><a href = "#modalChart1" data-toggle = "tab">Seperate Charts</a></li>
-					    						<li><a href = "#modalChart2" data-toggle = "tab">Tabbed Charts</a></li>
-					    					</ul>
-					    					<div class = "tab-content">
-					    						<div class = "tab-pane active" id = "modalChart1">
-					    							<ul>
-								    					<li>
-								    						<p>Pulmonic Consanants:</p>
-								    						<pre>&lt;div class="IPAPulmonic">&lt;/div></pre>
-								    					</li>
-								    					<li>
-								    						<p>Non-Pulmonic Consanants:</p>
-								    						<pre>&lt;div class="IPANonPulmonic">&lt;/div></pre>
-								    					</li>
-								    					<li>
-								    						<p>Vowels:</p>
-								    						<pre>&lt;div class = "IPAVowels">&lt;/div></pre>
-								    					</li>
-								    				</ul>
-					    						</div>
-					    						<div class = "tab-pane" id = "modalChart2">
-					    							<p>To have the charts tabbed, you'll need to include much more html, but we decided to make it easy.  Simply copy and paste the html below where you want the tabbed charts in your code:</p>
-					    							<pre>
-&lt;div class = "tabbable">
-	&lt;ul class = "nav nav-tabs">
-	&lt;li id = "NPCTab" class = "active">&lt;a href = "#tab1" data-toggle="tab">Pulmonic Consanants&lt;/a>&lt;/li>
-	&lt;li id = "PCTab">&lt;a href = "#tab2" data-toggle="tab">Non-Pulmonic Consanants&lt;/a>&lt;/li>
-	&lt;li id = "NounTab">&lt;a href = "#tab3" data-toggle="tab">Vowels&lt;/a>&lt;/li>
-	&lt;/ul>
-	&lt;div class = "tab-content">
-		&lt;div class = "tab-pane active" id="tab1">
-			&lt;div class="IPAPulmonic">&lt;/div>
-			&lt;h5 style = "text-align: center">Within each column, consanants on the right are voiced&lt;/h5>
-		&lt;/div>
-		&lt;div class  = "tab-pane" id = "tab2">
-			&lt;div class = "IPANonPulmonic">&lt;/div>
-		&lt;/div>
-		&lt;div class = "tab-pane" id = "tab3">
-			&lt;div class = "IPAVowels">&lt;/div>
-			&lt;h5 style = "text-align: center">Where there is a "&#8226", the vowel to the right is rounded&lt;/h5>
-		&lt;/div>
-	&lt;/div>
-&lt;/div>
-					    							</pre>
-					    						</div>
-					    					</div>
-					    				</div>
-						    				
-
-					    			</li>
-					    			<li>
-					    				<p>For the Quiz:</p>
-					    				<pre>&lt;div class="IPAQuiz">&lt;/div></pre>
-					    			</li>
-			    				</div>
-			    			</div>
-			    		</div>
-			    	</div>
-			    	<div class = "tab-pane" id = "modalTab5">
-			    		<h4>Main Developers</h4>
-			    		<p>Megan O'Leary and Daniel Sanchez</p>
-			    		<h4>Project Advisor</h4>
-			    		<p>Haoqi Zhang</p>
-			    	</div>
-			    </div>
-			</div>
+						    	<div class = "tab-pane" id = "table3">
+						    		<p>In the last table, you will be reviewing code that we give you</p>
+						    		<p>On the left side of the table, you'll see different versions of code for the given function.  Some of these versions are good implementations, while some are not</p>
+						    		<p>What makes a piece of code a good implementation is that it does not have a test case that refutes it</p>
+						    	</div>
+						    </div>
+						</div>
+		    		</div>
+		    		<div class = 'tab-pane' id = 'modalTab2'>
+		    			
+		    		</div>
+		    		<div class = 'tab-pane' id = 'modalTab3'>
+		    		</div>
+		    	</div>
+		    </div>
 		  </div>
 		  <div class="modal-footer">
 		    <a href="#" class="btn" data-dismiss="modal">Close</a>

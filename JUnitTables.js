@@ -1584,9 +1584,9 @@ $(document).ready(function(){
 	
 	/*$(".JUnitTable1Prod #infoDiv").width( ( parseFloat($(".JUnitTable1Prod").parent().width()) - parseFloat( $(".JUnitTable1Prod #tableContentCont").width() )- parseFloat( $(".JUnitTable1Prod #tablePartitions").width() ) - 14) );*/
 	$(window).resize(function(){
-		//$(".JUnitTable1Prod #infoDiv").width( ( parseFloat($(".JUnitTable1Prod").parent().width()) - parseFloat( $(".JUnitTable1Prod #tableContentCont").width() ) - parseFloat( $(".JUnitTable1Prod #tablePartitions").width() ) - 14) )
-		
-		$(".JUnitTable1Prod #tableContentCont").resizable("option", "maxWidth", parseFloat($(".JUnitTable1Prod").parent().width()) - parseFloat( $(".JUnitTable1Prod #tablePartitions").width() ) - 30);
+		$(".JUnitTable1Prod #tableContentCont").width( ( parseFloat($(".JUnitTable1Prod").parent().width()) - parseFloat( $(".JUnitTable1Prod #infoDiv").width() ) - parseFloat( $(".JUnitTable1Prod #tablePartitions").width() ) - 14) )
+		$(".JUnitTable1Prod #maximize").css("margin-left", $(".JUnitTable1Prod").parent().width() - 27);
+		//$(".JUnitTable1Prod #tableContentCont").resizable("option", "maxWidth", parseFloat($(".JUnitTable1Prod").parent().width()) - parseFloat( $(".JUnitTable1Prod #tablePartitions").width() ) - 30);
 	});
 	$(".JUnitTable1Prod #tablePartitions").height(  $(".JUnitTable1Prod #tableContent").height()  )
 	$(".JUnitTable1Prod #infoDiv").height(  $(".JUnitTable1Prod #tableContentCont").height()  )
