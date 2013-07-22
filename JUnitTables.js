@@ -1621,7 +1621,7 @@ var JUnitTable2 = (function(){
 		tableContentDiv.append(tableContent);
 		/*Row0*/
 		var plusRow = $("<tr class = 'row0'></tr>");
-		var emptyLabel = $("<td class = 'col0'><button class = 'plusButton btn btn-info'><b style = 'font-size: 20pt'>+</b></button><font face='verdana' color='grey'>  Click on the codes that you think are correct!</font></td>");
+		var emptyLabel = $("<td class = 'col0'><button class = 'plusButton btn btn-info'>New Column</button><span style = 'float: right'><span><i id = 'markCorrectArrow' class = 'icon-arrow-down'></i></span><span><h4 style = 'float: right' id = 'markCorrect'>Mark as Correct</h4></span></span></td>");
 
 		plusRow.append(emptyLabel);
 		tableFixed.append(plusRow);
