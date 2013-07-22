@@ -26,8 +26,8 @@ Header part for the page
 */
 var header = {title:"Find Function",
 			code:"/**\n* Find the first occurrence of x in sorted array a.\n* @param x int value to find\n* @param a array of integers to search for x\n* @return lowest i such that a[i]==x, or -1 if x not found in a. \n*/\npublic static int Find(int x, int[] a) {\n  for (int i = 0; i < a.length; i++) {\n    if (x == a[i]) {\n      return i;\n    }\n  }\n  return -1;\n}\n",
-			explanation:"What we'll be doing here is attempting to exhaust our test cases given a function, <b>find</b>.  You'll see the code for find above." 
-			+ "</p>\n<p>Below you will see 3 tables.  Each table has it's own way of testing test cases.  For information on how each table works, you can click on the question mark next to that respective table, or if you need more info, check out the help section above."};
+			explanation:"We'll be attempting to exhaust our test cases given a function, <b>find</b>.  You'll see the code for find above." 
+			+ "</p>\n<p>Below you will see 3 tables.  Each table has its own way of testing test cases.  For information on how each table works, you can click on the question mark next to that respective table, or if you need more info, check out the help section above."};
 
 /*
 All rows with their properties.
@@ -54,23 +54,8 @@ var functionName="Find";
 Input name and type : string, number, object - add a checkType function to test whether it is an array or associative array or any datatype you want.
 */
 var inputs=["ph",
-			{name:"x",type:"number",display:"a number"},
+			{name:"x",type:"number",display:"an integer"},
 			{name:"a",type:"object",display:"an array", checkObject:function(object){return Object.prototype.toString.call( object ) === '[object Array]';}}]
-
-
-/*
-Implementations for the second table's rows, and checking function.
-*/
-var code =["ph", 
-			{jv:"public static int find(int x, int[] a) {\n  for (int i = 0; i < a.length; i++) {\n    if (x == a[i]) {\n      return i;\n    }\n  }\n  return -1;\n}\n",js:A,isGood: true}, 
-			{jv:"public static int find(int x, int[] a){\n  int i=0;\n  while (i < a.length){\n    if(x != a[i]){\n      i++;\n    }else{\n      return i;\n    }\n  }\n  return -1;\n}\n",js:B, isGood:true}, 
-			{jv:"public static int find(int x, int[] a){\n  int i=0;\n  while (i < a.length && x != a[i]){\n    i++;\n  }\n  return i;\n}\n",js:C, isGood : false}, 
-			{jv:"public static int find(int x, int[] a) {\nfor (int i = a.length-1; i >-1 ; i--) {\n  if (x == a[i]) {\n    return i;\n  }\n}\n  return -1;\n}\n",js:D, isGood:false}, 
-			{jv:"public static int find(int x, int[] a){\n  int i=a.length-1;\n  while (i>=0 && x != a[i]){\n    i--;\n  }\n  return i;\n}\n",js:E, isGood:false}, 
-			{jv:"public static int find(int x, int[] a){\n  if(a.length==0){\n    return -1;\n  }else if(x!=a[0]){\n    int[] copyA = new int[a.length-1];\n    System.arraycopy(a,1,copyA,0,a.length-1);\n    return 1+find(x,copyA);\n  }else{\n    return 0;\n  }\n}\n",js:F,isGood: false}, 
-			{jv:"public static int find(int x,int[] a){\n  if(a.length==0){\n    return -1;\n  }else if(x==a[0]){\n    return 0;\n  }\n}\n",js:G, isGood :false}];
-//A good code that we want to compare answers with.
-var goodFunction = A;
 
 /*For verifying good and bad codes*/
 var A= function(x,a){
@@ -135,4 +120,19 @@ var G = function (x,a){
 		return 0;
 	}
 }
+/*
+Implementations for the second table's rows, and checking function.
+*/
+var code =["ph", 
+			{jv:"public static int find(int x, int[] a) {\n  for (int i = 0; i < a.length; i++) {\n    if (x == a[i]) {\n      return i;\n    }\n  }\n  return -1;\n}\n",js:A,isGood: true}, 
+			{jv:"public static int find(int x, int[] a){\n  int i=0;\n  while (i < a.length){\n    if(x != a[i]){\n      i++;\n    }else{\n      return i;\n    }\n  }\n  return -1;\n}\n",js:B, isGood:true}, 
+			{jv:"public static int find(int x, int[] a){\n  int i=0;\n  while (i < a.length && x != a[i]){\n    i++;\n  }\n  return i;\n}\n",js:C, isGood : false}, 
+			{jv:"public static int find(int x, int[] a) {\nfor (int i = a.length-1; i >-1 ; i--) {\n  if (x == a[i]) {\n    return i;\n  }\n}\n  return -1;\n}\n",js:D, isGood:false}, 
+			{jv:"public static int find(int x, int[] a){\n  int i=a.length-1;\n  while (i>=0 && x != a[i]){\n    i--;\n  }\n  return i;\n}\n",js:E, isGood:false}, 
+			{jv:"public static int find(int x, int[] a){\n  if(a.length==0){\n    return -1;\n  }else if(x!=a[0]){\n    int[] copyA = new int[a.length-1];\n    System.arraycopy(a,1,copyA,0,a.length-1);\n    return 1+find(x,copyA);\n  }else{\n    return 0;\n  }\n}\n",js:F,isGood: false}, 
+			{jv:"public static int find(int x,int[] a){\n  if(a.length==0){\n    return -1;\n  }else if(x==a[0]){\n    return 0;\n  }\n}\n",js:G, isGood :false}];
+//A good code that we want to compare answers with.
+var goodFunction = A;
+
+
 

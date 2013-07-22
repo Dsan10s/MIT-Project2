@@ -1173,7 +1173,7 @@ var JUnitTable1Prod = (function(){
 			for (var i = 1; i < radioData.length; i++){
 				radioData[i].push(false);
 			}
-			console.log(radioData)
+			console.log(radioDataProd)
 
 			for (var r = 1; r <= allRows.length-2; r++){
 				for (var c = 0; c < columnsDisplayed.length; c++){
@@ -1267,7 +1267,7 @@ var JUnitTable1Prod = (function(){
 						if(radioData[r][c]==true){
 							var inputArray = [];
 							for(var j=1; j<inputs.length;j++){
-								inputArray.push(JSON.parse($(".JUnitTable1_Prod #"+inputs[j].name+"Input"+columnsDisplayed[c]).val()));
+								inputArray.push(JSON.parse($(".JUnitTable1Prod #"+inputs[j].name+"Input"+columnsDisplayed[c]).val()));
 							}
 							temp1=allRows[r].checkMembership.apply("ph",inputArray);
 							ind1= r;
@@ -1280,7 +1280,7 @@ var JUnitTable1Prod = (function(){
 						if(radioData[r][c]==true){
 							var inputArray = [];
 							for(var j=1; j<inputs.length;j++){
-								inputArray.push(JSON.parse($(".JUnitTable1_Prod #"+inputs[j].name+"Input"+columnsDisplayed[c]).val()));
+								inputArray.push(JSON.parse($(".JUnitTable1Prod #"+inputs[j].name+"Input"+columnsDisplayed[c]).val()));
 							}
 							temp2=allRows[r].checkMembership.apply("ph",inputArray);
 							ind2=r-numGroup1;
@@ -1293,7 +1293,8 @@ var JUnitTable1Prod = (function(){
 					}
 				}
 			/*End*/
-
+				console.log(radioDataProd);
+				console.log(impossibleArray);
 				
 			})			
 			$(".JUnitTable1Prod .delete").on("click", function(){				
@@ -1595,12 +1596,12 @@ $(document).ready(function(){
 /*Currently, the table only works with the "find" function*/
 
 var JUnitTable2 = (function(){
-	var columnsDisplayed = [0, 1, 2, 3];
+	var columnsDisplayed = [0, 1];
 
 	/*Nulls are placeholders so indexing is easier later*/
 	var radioData = [[null]];
 	for(var i =0;i<code.length-1;i++){
-		radioData.push([null, false, false, false]);
+		radioData.push([null, false]);
 	}
 
 	var exports = {};
@@ -1620,7 +1621,7 @@ var JUnitTable2 = (function(){
 		tableContentDiv.append(tableContent);
 		/*Row0*/
 		var plusRow = $("<tr class = 'row0'></tr>");
-		var emptyLabel = $("<td class = 'col0'><button class = 'plusButton btn btn-info'>New Column</button><span style = 'float: right'><span><i id = 'markCorrectArrow' class = 'icon-arrow-down'></i></span><span><h4 style = 'float: right' id = 'markCorrect'>Mark as Correct</h4></span></span></td>");
+		var emptyLabel = $("<td class = 'col0'><button class = 'plusButton btn btn-info'><b style = 'font-size: 20pt'>+</b></button><font face='verdana' color='grey'>  Click on the codes that you think are correct!</font></td>");
 
 		plusRow.append(emptyLabel);
 		tableFixed.append(plusRow);
@@ -1629,7 +1630,7 @@ var JUnitTable2 = (function(){
 		Add input fields
 		*/
 		var row0=$("<tr class = 'row0'></tr>");                        
-		for(var i=1;i<=3;i++){
+		for(var i=1;i<=1;i++){
 			/*generate a string for input fields in HTML*/
 			var temp="";
 			for(var j=1;j<inputs.length-1;j++){
@@ -1653,7 +1654,7 @@ var JUnitTable2 = (function(){
 				var newCol = $("<td class = 'col" + columnsDisplayed[c] + "'></td>");
 				
 				/*Labels*/
-				newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><span class = relative><img class = 'mark checkMark' src = 'images/CheckMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span></span>"));
+				newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><span class = relative><img class = 'mark checkMark' src = 'images/checkMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span></span>"));
 			
 				newRow.append(newCol);
 			}
@@ -1692,7 +1693,7 @@ var JUnitTable2 = (function(){
 		$(".JUnitTable2 .customRadioBorder").on("hover", function(){
 			$(this).css('cursor', 'pointer');
 		})
-		for(var c=1;c<=3;c++){
+		for(var c=1;c<=1;c++){
 			$(".JUnitTable2 .col"+c+" .customRadioBorder").on("click", function(){
 				var rowClass = $(this).parent('span').parent('td').parent('tr').attr("class");
 				var rowIndex = rowClass[3];
@@ -1777,7 +1778,7 @@ var JUnitTable2 = (function(){
 					var newDeleteBtn = $("<button class = 'delete btn btn-danger' style = 'float: right;'>&times;</button>")
 					newCol.append("<span>"+functionName+"(", newFindLabel, ")</span>", newDeleteBtn);
 				}else{
-					newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><span class='relative'><img class = 'mark checkMark' src = 'images/CheckMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span></span>"));
+					newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><span class='relative'><img class = 'mark checkMark' src = 'images/checkMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span></span>"));
 				}
 
 				$(rowClass).append(newCol);
@@ -1789,7 +1790,7 @@ var JUnitTable2 = (function(){
 			$(".JUnitTable2 .delete").on("mouseenter", function(){	
 				var colClass = $(this).parent("td").attr("class");
 				var colNum = parseInt(colClass.slice(3, colClass.length));
-				if(colNum > 3){
+				if(colNum > 1){
 					$(this).animate({"opacity": "1"}, 200);
 				}
 			});
@@ -1799,7 +1800,7 @@ var JUnitTable2 = (function(){
 			$(".JUnitTable2 .delete").on("mouseleave", function(){
 				var colClass = $(this).parent("td").attr("class");
 				var colNum = parseInt(colClass.slice(3, colClass.length));
-				if(colNum  > 3){
+				if(colNum  > 1){
 					$(this).animate({"opacity": "0"}, 200);
 				}
 			})	
@@ -1862,7 +1863,7 @@ var JUnitTable2 = (function(){
 				var deleteCol = $(this).parent("td").attr("class");
 				var deleteColNum = deleteCol.slice(3, deleteCol.length);
 				
-				if(parseInt(deleteColNum)>3){
+				if(parseInt(deleteColNum)>1){
 					$(".JUnitTable2 ." + deleteCol).remove();
 					if(columnsDisplayed.indexOf(parseInt(deleteColNum))!=-1){
 						columnsDisplayed.splice(columnsDisplayed.indexOf(parseInt(deleteColNum)), 1);
@@ -1878,7 +1879,7 @@ var JUnitTable2 = (function(){
 		$(".JUnitTable2 .delete").on("click", function(){
 			var deleteCol = $(this).parent("td").attr("class");
 			var deleteColNum = deleteCol.slice(3, deleteCol.length);
-			if(parseInt(deleteColNum)<=3){
+			if(parseInt(deleteColNum)<=1){
 				$(".JUnitTable2 ." + deleteCol).remove();
 				if(columnsDisplayed.indexOf(parseInt(deleteColNum))!=-1){
 					columnsDisplayed.splice(columnsDisplayed.indexOf(parseInt(deleteColNum)), 1);				
@@ -1890,7 +1891,7 @@ var JUnitTable2 = (function(){
 		$(".JUnitTable2 .delete").on("mouseenter", function(){			
 			var colClass = $(this).parent("td").attr("class");
 			var colNum = parseInt(colClass.slice(3, colClass.length));
-			if(colNum <= 3){
+			if(colNum <= 1){
 				$(this).animate({"opacity": "1"}, 200);	
 			}
 		});
@@ -1899,7 +1900,7 @@ var JUnitTable2 = (function(){
 		$(".JUnitTable2 .delete").on("mouseleave", function(){
 			var colClass = $(this).parent("td").attr("class");
 			var colNum = parseInt(colClass.slice(3, colClass.length));
-			if(colNum  <= 3){
+			if(colNum  <= 1){
 				$(this).animate({"opacity": "0"}, 200);
 			}
 		})	
@@ -2071,9 +2072,9 @@ $(document).ready(function(){
 
 
 	//Resize the table
-	$(".JUnitTable2 #tableContentDiv").width( ( parseFloat($(".JUnitTable2").parent().width()) - parseFloat( $(".JUnitTable2 #tableFixed").width() ) - 20) );
+	$(".JUnitTable2 #tableContentDiv").width( ( parseFloat($(".JUnitTable2").parent().width()) - parseFloat( $(".JUnitTable2 #tableFixed").width() ) - 8) );
 	$(window).resize(function(){
-		$(".JUnitTable2 #tableContentDiv").width( ( parseFloat($(".JUnitTable2").parent().width())  - parseFloat( $(".JUnitTable2 #tableFixed").width() ) - 20) )
+		$(".JUnitTable2 #tableContentDiv").width( ( parseFloat($(".JUnitTable2").parent().width())  - parseFloat( $(".JUnitTable2 #tableFixed").width() ) - 8) )
 	});
 	
 	
