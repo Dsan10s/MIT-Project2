@@ -1,0 +1,408 @@
+/*For testing*/
+
+/*For implementation*/
+.JUnitTable1 table{
+	border-radius: 10px;
+	overflow: auto;
+}
+.JUnitTable1 input{
+/*	border: 0px;
+	border-radius: 4px;
+	border-bottom: 1px solid black;
+	width: 30px;*/
+}
+.JUnitTable1 .customRadioBorder{
+	position: relative;
+}
+.JUnitTable1 .customRadioFill{
+	position: absolute;
+	
+}
+.JUnitTable1 .relative{
+	position: relative;
+}
+.JUnitTable1 .mark{
+	margin-left: 10px;
+	height: 40px;
+	position: relative;
+}
+.JUnitTable1 .checkMark{
+	position: absolute;
+	opacity: 0;
+}
+.JUnitTable1 .errorMark{
+	position: absolute;
+	opacity: 0;
+}
+.JUnitTable1 .cellContent{
+	margin-left: auto;
+	margin-right: auto;
+	display: table;
+}
+
+.JUnitTable1 .popover {
+	width: 1000px;
+}
+
+.JUnitTable1 #submit1{
+	margin: 4px;
+	/*float: left;*/
+}
+.JUnitTable1 #mainAlert{
+	margin: 0px;
+	margin-top: 4px;
+	margin
+	float: right;
+	opacity: 0.5;
+}
+.JUnitTable1 #mainSuccess{
+	float: right;
+	opacity: 0.5;
+}
+.JUnitTable1 #tableFixed{
+	width: 200px;
+	float: left;
+	margin: 0px;
+}
+.JUnitTable1 #tableContentDiv{
+	border-right: 1px solid lightgrey;
+	overflow: auto;
+	float: left;
+}
+.JUnitTable1 #tableContent{
+	margin: 0px;
+}
+.JUnitTable1 .plusButton{
+	color: white;
+	/*width: 60px;*/
+	/*font-size: 20pt;*/
+}
+.JUnitTable1 .col0{
+	text-align: center;
+	width: 150px;
+}
+.JUnitTable1 .delete{
+	font-size: 20px;
+	opacity: 0;
+	margin-left: 10px;
+}
+.JUnitTable1 td{
+	white-space: nowrap;
+	/*text-align: center;*/
+	vertical-align: middle;
+	/*height: 60;*/
+	/*min-width: 300px;*/
+	max-width: 520px;
+}
+.JUnitTable1 #inputs{
+	font-size: 16pt;
+	font-weight: bolder;
+	vertical-align: middle;
+}
+.JUnitTable1 .inputField1{
+	font-size: 12pt;
+	border: 0px;
+	border-radius: 4px;
+	border-bottom: 1px solid black;
+	width: 30px;
+}
+.JUnitTable1 .inputField2{
+	font-size: 12pt;
+	border: 0px;
+	border-radius: 4px;
+	border-bottom: 1px solid black;
+	width: 60px;
+}
+.JUnitTable1 #tableFixed{
+	width: 200px;
+	float: left;
+	margin: 0px;
+}
+
+
+
+/*For testing*/
+
+body{
+	margin: 10px;
+}
+
+/*For implementation*/
+
+.JUnitTable1Prod table{
+	border-radius: 10px;
+	margin: 0px;
+	/*overflow: auto;*/
+}
+.JUnitTable1Prod #inputs{
+	font-size: 16pt;
+	font-weight: bolder;
+	vertical-align: middle;
+}
+.JUnitTable1Prod .inputField1{
+	font-size: 12pt;
+	border: 0px;
+	border-radius: 4px;
+	border-bottom: 1px solid black;
+	width: 30px;
+}
+.JUnitTable1Prod .inputField2{
+	font-size: 12pt;
+	border: 0px;
+	border-radius: 4px;
+	border-bottom: 1px solid black;
+	width: 60px;
+}
+.JUnitTable1Prod .customRadio{
+	
+}
+.JUnitTable1Prod .customRadioFill{
+	position: absolute;
+	
+}
+.JUnitTable1Prod .customRadioFillMini{
+	position: absolute;
+}
+.JUnitTable1Prod .mark{
+	margin-left: 10px;
+	height: 40px;
+}
+.JUnitTable1Prod .relative{
+	position: relative;
+}
+.JUnitTable1Prod .checkMark{
+	position: absolute;
+	opacity: 0;
+}
+.JUnitTable1Prod .errorMark{
+	position: absolute;
+	opacity: 0;
+}
+.JUnitTable1Prod .cellContent{
+	margin-left: auto;
+	margin-right: auto;
+	display: table;
+}
+.JUnitTable1Prod .cellContentMini{
+	margin-top: 2px;
+}
+.JUnitTable1Prod #submit1{
+	margin: 4px;
+}
+.JUnitTable1Prod #mainAlert{
+	float: right;
+	opacity: 0;
+}
+.JUnitTable1Prod #mainSuccess{
+	float: right;
+	opacity: 0;
+}
+.JUnitTable1Prod .plusButton{
+	color: white;
+	/*font-size: 20pt;*/
+}
+.JUnitTable1Prod .delete{
+	font-size: 20px;
+	opacity: 0;
+	margin-left: 10px;
+}
+.JUnitTable1Prod td{
+	white-space: nowrap;
+	text-align: center;
+	vertical-align: middle;
+}
+.JUnitTable1Prod #tablePartitions{
+	width: 200px;
+	float: left;
+	margin: 0px;
+}
+.JUnitTable1Prod #tableContentCont{
+	width: 950px;
+	border-right: 6px solid grey;
+	overflow: auto;
+	float: left;
+}
+.JUnitTable1Prod #tableContent{
+	margin: 0px;
+}
+.JUnitTable1Prod .col0{
+
+}
+.JUnitTable1Prod #infoDiv{
+	/*float: left;*/
+	width: 430px;
+	overflow: auto;
+	margin: 0px;
+	white-space: nowrap;
+}
+.JUnitTable1Prod .subLabel{
+	min-width: 92px;
+}
+.JUnitTable1Prod .testCases{
+	border-radius: 5px;
+
+}
+.JUnitTable1Prod .testCases b{
+
+}
+.JUnitTable1Prod #mainDivPartition{
+	white-space: nowrap;
+	height: 43px;
+	width: 100%;
+	min-width: 400px;
+	background-color: #f2f7f6;
+}
+.JUnitTable1Prod .icon-arrow-down{
+	margin-left: 3px;
+}
+.JUnitTable1Prod .impossibleText{
+	margin-left: 10px;
+	display: inherit;
+}
+.JUnitTable1Prod .markImpossible{
+	margin-left: 42px;
+	margin-bottom: 5px;
+}
+.JUnitTable1Prod .customRadioBorderMini .customRadioMini{
+	margin-top: 8px;
+}
+.JUnitTable1Prod .customRadioFillMini .customRadioFillMini{
+	margin-top: 10px;
+	margin-left: 2px;
+}
+/*.JUnitTable1Prod .ui-resizable-e {
+	background-color:grey;
+    width: 10px;
+    position: absolute;
+}*/
+.JUnitTable1Prod #minimize{
+	border-radius: 0px;
+	margin-top: -1px;
+	border-bottom-left-radius: 4px;
+}
+.JUnitTable1Prod #maximize{
+	position: absolute;
+	width: 21px;
+	border-top-right-radius: 6px;
+	background-color: lightgrey;
+	visibility: hidden;
+}
+
+
+
+/*For testing*/
+
+/*body{
+	margin: 10px;
+}*/
+
+/*For implementation*/
+.JUnitTable2 table{
+	border-radius: 10px;
+	overflow: auto;
+}
+.JUnitTable2 input{
+	border: 0px;
+	border-radius: 4px;
+	border-bottom: 1px solid black;
+	width: 30px;
+}
+.JUnitTable2 #inputs{
+	font-size: 16pt;
+	font-weight: bolder;
+	vertical-align: middle;
+}
+.JUnitTable2 .inputField1{
+	font-size: 12pt;
+	border: 0px;
+	border-radius: 4px;
+	border-bottom: 1px solid black;
+	width: 30px;
+}
+.JUnitTable2 .inputField2{
+	font-size: 12pt;
+	border: 0px;
+	border-radius: 4px;
+	border-bottom: 1px solid black;
+	width: 60px;
+}
+.JUnitTable2 .customRadioBorder{
+	position: relative;
+}
+.JUnitTable2 .customRadioFill{
+	position: absolute;
+	
+}
+.JUnitTable2 .relative{
+	position: relative;
+}
+.JUnitTable2 .mark{
+	margin-left: 10px;
+	height: 40px;
+	position: relative;
+}
+.JUnitTable2 .checkMark{
+	position: absolute;
+	opacity: 0;
+}
+.JUnitTable2 .errorMark{
+	position: absolute;
+	opacity: 0;
+}
+.JUnitTable2 .cellContent{
+	margin-left: auto;
+	margin-right: auto;
+	display: table;
+}
+
+.JUnitTable2 .popover {
+	width: 1000px;
+}
+
+.JUnitTable2 #submit1{
+	margin: 4px;
+}
+.JUnitTable2 #mainAlert{
+	float: right;
+	opacity: 0.5;
+}
+.JUnitTable2 #mainSuccess{
+	float: right;
+	opacity: 0.5;
+}
+.JUnitTable2 #tableFixed{
+	width: 420px;
+	float: left;
+	margin: 0px;
+}
+.JUnitTable2 #tableContentDiv{
+	margin: 0px;
+	overflow: auto;
+}
+.JUnitTable2 #tableContent{
+	margin: 0px;
+}
+.JUnitTable2 .plusButton{
+	color: white;
+	/*font-size: 20pt;*/
+}
+.JUnitTable2 .col0{
+	width: 200px;
+}
+.JUnitTable2 .delete{
+	font-size: 20px;
+	opacity: 0;
+	margin-left: 10px;
+}
+.JUnitTable2 td{
+	white-space: nowrap;
+	vertical-align: middle;
+}
+.JUnitTable2 #markCorrect{
+	margin: 0;
+	margin-top: 3px;
+}
+.JUnitTable2 #markCorrectArrow{
+	margin: 0;
+	margin-top: 4px;
+}

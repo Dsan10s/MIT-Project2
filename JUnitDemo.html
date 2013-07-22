@@ -10,22 +10,15 @@
 		<script src = "AllData_Find.js"></script>
 		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 		<script src ="setHeader.js"></script>
-
 		<script src = "JUnitTables.js"></script>
 		<script src = "JUnitDemo.js"></script>
     	<script src="googlePrettify/run_prettify.js" type="text/javascript"></script>
 
 		<link href = "css/bootstrap.css" rel = "stylesheet"></link>
 		<link href = "JUnitDemo.css" rel = "stylesheet"></link>
-		<link href = "JUnitTable1.css" rel = "stylesheet"></link>
-
-		<!-- <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" rel = "stylesheet"></link> -->
-		
-		<link href = "JUnitTable1_Prod.css" rel = "stylesheet"></link>
-		<link href = "JUnitTable2.css" rel = "stylesheet"></link>
+		<link href = "JUnitTables.css" rel = "stylesheet"></link>	
 		<link href="googlePrettify/prettify.css" type="text/css" rel="stylesheet">
 
-		<!-- <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script> -->
 
 
 	</head>
@@ -41,25 +34,29 @@
 		    <div class  = 'tabbable'>
 		    	<ul class = 'nav nav-tabs'>
 		    		<li class = "active"><a href = "#modalTab1" data-toggle = "tab">Tables</a></li>
-					<li><a href = "#modalTab2" data-toggle = "tab">For teachers</a></li>
-					<li><a href = "#modalTab3" data-toggle = "tab">Credits</a></li>
+					<li><a href = "#modalTab2" data-toggle = "tab">Embedding</a></li>
+					<li><a href = "#modalTab3" data-toggle = "tab">Changing Functionality</a></li>
+					<li><a href = "#modalTab4" data-toggle = "tab">Credits</a></li>
 		    	</ul>
 		    	<div class = 'tab-content'>
 		    		<div class = 'tab-pane active' id = 'modalTab1'>
-		    			<div class = 'tabbable'>
+		    			<h4>Below you'll see information that applies to all tables. If you'd like to learn more about a specific table, click on one of the pills at the very bottom</h4>
+		    			<p>For each of the tables, you will be working with test cases.  If you'd like to add more test case columns for your input, click on the <b>New Column</b> button at the top left corner of the table</p>
+		    			<p>If you'd like to delete a test case column that you don't need, hover over the area to the right of your test case and a delete button will show</p>
+						<img src = 'images/DeleteExample.JPG'/>
+						<!-- <p>Each of the circles in the tables are bubbles that you can fill in by clicking on them.  Clicking on a bubble means that for the input at the top of the column of that bubble, you think that the partition in the row of that bubble applies to your input.</p> -->
+		    			<div class = 'tabbable' style = 'margin-top: 10px; border-top: 3px solid grey'>
 		    				<ul class = 'nav nav-pills'>
-		    					<li class = "active"><a href = "#table1" data-toggle = "tab">Sum Mode</a></li>
+		    					<li><a href = "#table1" data-toggle = "tab">Sum Mode</a></li>
 								<li><a href = "#table2" data-toggle = "tab">Product Mode</a></li>
 								<li><a href = "#table3" data-toggle = "tab">Code Review</a></li>
 		    				</ul>
 			    			<div class = "tab-content">
-						    	<div class = "tab-pane active" id = "table1">
+						    	<div class = "tab-pane" id = "table1">
 						    		<img src = 'images/SumModeTable.JPG'/>
 						    		<p>When you look at the sum mode table, you'll see a column to the left containing partitions for the given function, and a row on top with the same function, but with blank fields</p>
 						    		<p>You're job is to fill out the fields in the first row, so that all the partitions on the left are covered</p>
-						    		<p>You can input more test cases by clicking on the <b>New Column</b> button at the top left corner of the table.  This applies for all the tables that follow as well</p>
-						    		<p>If you'd like to delete a test case column that you don't need, hover over the area to the right of your test case and a delete button will show</p>
-						    		<img src = 'images/DeleteExample.JPG'/>
+						    		
 						    		<p>When you fill out a test case in a certain column, click on the bubble that corresponds to the row of the test case you are covering</p>
 						    		<p>Every test case you input should cover one row in each group of the table.  For example if the table is broken up into 2 groups, each test case should cover 2 rows</p>
 						    		<img src = 'images/RadioExample.JPG'/>
@@ -84,9 +81,123 @@
 						</div>
 		    		</div>
 		    		<div class = 'tab-pane' id = 'modalTab2'>
-		    			
+		    			<h4>Below you'll see all the tags you need to include at the head of your project:</h4>
+		    			<pre>
+&lt;script src="http://code.jquery.com/jquery-1.10.1.min.js">&lt;/script>
+&lt;script src = "js/bootstrap.min.js">&lt;/script>
+&lt;script src = "AllData_Find.js">&lt;/script>
+&lt;script src="http://d3js.org/d3.v3.min.js" charset="utf-8">&lt;/script>
+&lt;script src ="setHeader.js">&lt;/script>
+&lt;script src = "JUnitTables.js">&lt;/script>
+&lt;script src = "JUnitDemo.js">&lt;/script>
+&lt;script src="googlePrettify/run_prettify.js" type="text/javascript">&lt;/script>
+
+&lt;link href = "css/bootstrap.css" rel = "stylesheet">&lt;/link>
+&lt;link href = "JUnitTables.css" rel = "stylesheet">&lt;/link>	
+&lt;link href="googlePrettify/prettify.css" type="text/css" rel="stylesheet">
+		    			</pre>
+
+		    			<p>If you'd like to place tables at specific locations on your page, make a div at that location, with a class depending on what table you want.  You'll see an example for each table below:</p>
+		    			<h6>Sum Table:</h6>
+		    			<pre>&lt;div class = 'JUnitTable1'>&lt;/div></pre>
+		    			<h6>Product Table</h6>
+		    			<pre>&lt;div class = 'JUnitTable1Prod'>&lt;/div></pre>
+		    			<h6>Code Review Table</h6>
+		    			<pre>&lt;div class = 'JUnitTable2'>&lt;/div></pre>
 		    		</div>
+
 		    		<div class = 'tab-pane' id = 'modalTab3'>
+		    			<h4>Here you can learn how to take full advantage of using this widget in your website</h4>
+		    			<p>By default, we provide you with a <b>find</b> function and give functionlity to all the tables by allowing them to check if certain specs meet the requirements for this function</p>
+		    			<p>However, you can use your own functions as well if you would like.  If you'd like to change the function being used in the tables, navigate to the <b>AllData_Find.js</b> file and open it up in your text editor.</p>
+		    			<p>You'll see that it's been named after the function we used in our demo.  When changing the data in this file, make sure to make a copy of this file, but name it after the file you are using</p>
+
+		    			<h4>How to appropriately change the <b>AllData</b> file</h4>
+		    			<ol>
+		    				<li>
+		    					<p>The first thing you'll see is a javascript version of the function we will be basing our tables around.  It is adviced that you do the same, as it will make functionality much easier later in the <b>AllData</b> file</p>
+								<img src="images/AllDataFunction.JPG"/>
+		    				</li>
+		    				<li>
+		    					<p>The next thing to look for is the numTestCases variable.  This defines how many 	columns we initially give the user.  The user can always add or delete columns, but if 	you'd like to change the default amount, simply change the number</p>
+								<img src="images/AllDataNumTestCases.JPG"/>
+		    				</li>
+		    				<li>
+		    					<p>Next you'll see a variable <b>header</b>.  This variable represents what you see at the very top of the demo page: The function name, code for the function, and then a short description for the user.</p>
+		    					<p>If you change the values, make sure they are contained within quotes.</p>
+		    					<img src="images/AllDataHeader.JPG"/>
+		    					<p>Change the value of the <b>title</b> key to change the main title of the page.</p>
+		    					<p>For the <b>code</b> key, the value is the code that we will show to the user for the function you will write.  Write your code as usual, but for formatting, instead of pressing <i>return</i> for a new line, type <b>\n</b>. All your code should be on one line for this value</p>
+		    					<p>Finally, for <b>explanation</b>, the value is the short description that you will be giving to the user.  Assume that the entire value will eventually be wrapped in <b>&lt;p>&lt;/p></b> tags.  Write the html for your description.  If you don't know html or would rather not use it, feel free to just type your text, with a <b>\n</b> wherever you want a new line.</p>
+		    				</li>
+							<li>
+								<p>The next value you see the <b>allRows</b> array.  This array contains information about the partitions for your table.</p>
+								<img src="images/AllDataAllRows.JPG"/>
+								<p>The first value of this array should always be <b>"ph"</b>, as you can see above.  <b>Don't change this value.</b></p>
+								<p>The values you do want to worry about are the associative arrays that follow.</p>
+								<p>Each associative array contains 4 key-value pairs:</p>
+								<ul>
+									<li><b>group: </b>The group that you want this particular partition to belong to.  Currently the tables work up to a maximum of 2 groups.</li>
+									<li><b>title: </b>Information about this partition that will be displayed to the user in the tables.  Make desciptions as short as possible.</li>
+									<li><b>checkMembership: </b>JavaScript functions that test the given partition.  These functions return either true or false.  Depending on what function you are using, each of these checkMembership functions will vary.  Look at the code above for our find function as an example.</li>
+									<li><b>index: </b>Refers to what partition we are looking at within each group.  The first partition for a group must have an index of 1, and each new partition has an index of one more than the index of the previous partition.  If you start a new group, the index of the first partition in this group is 1.</li>
+								</ul>
+							</li>
+							<li>
+								<p>Next is the <b>impossibleCases</b> array.  This array contains other arrays, that represent cases that are impossible in product mode.</p>
+								<img src="images/AllDataImpossibleCases.JPG">
+								<p>To create an array within impossibleCases that represents an impossible combination of partitions:</p>
+								<ul>
+									<li>The first element is always <b>"ph"</b></li>
+									<li>The next element is the index of the partition from group 1</li>
+									<li>Next is the index of the partition from group 2</li>
+								</ul>
+								
+							</li>
+							<li>
+								<p>After impossibleCases, you'll see a variable <b>functionName</b>.  As you might have guessed, this is simply the name of your function.  We need this input for display purposes in the tables.</p>
+								<img src="images/AllDataFunctionName.JPG"/>
+							</li>
+							<li>
+								<p>Next is the variable <b>inputs</b>.  Inputs is an array containing associative arrays with data about what the inputs of your function should be.</p>
+								<img src="images/AllDataInputs.JPG"/>
+								<p>The first value is always <b>"ph"</b>. DO NOT CHANGE THIS VALUE</p>
+								<p>Within each associative array, you can have 3-4 values:</p>
+								<ul>
+									<li><b>name: </b>The variable name of this particular input for the function</li>
+									<li><b>type: </b>The JavaScript type of input; eg: number, string, object, ect.</li>
+									<li><b>display: </b>What we want to tell the user that this particular input is</li>
+									<li>OPTIONAL - <b>checkObject: </b>a JavaScript function to check if the user typed in the correct type of input for this field.  This is used for our error messages to the user</li>
+								</ul>
+							</li>
+							<li>
+								<p>Next is the array <b>code</b>.  Code contains an array of associative arrays with data for the code review table.  Including the actual code displayed to the user, and whether or not that code is a good implementation</p>
+								<img src="images/AllDataInputs.JPG"/>
+								<p>TEach associative array contains 3 key-value pairs: </p>
+								<ul>
+									<li><b>jv: </b>This is the code that you will be displaying to the user.  Write all the code on one line.  For formatting, when you want to start a new line, type <b>\n</b>.</li>
+									<li><b>js: </b>Represents the choice letter.  Start with <b>A</b> and then continue along the alphabet for each new code example</li>
+									<li><b>isGood: </b><b>true</b> if the code example is good, false otherwise</li>
+								</ul>
+							</li>
+							<li>
+								<p><b>goodFunction</b> is simply a version of the code that you typed above that you think is the best, one that other codes should be compared to.</p>
+								<img src="images/AllDataCode.JPG"/>
+								<p>The value is the <b>js</b> value from the <b>code</b> variable of the code you think is best</p>
+							</li>
+							<li>
+								<p>Finally we have JavaScript versions of the code we typed for the user in <b>code</b>.  To make a new JavaScript version of the code, make a new variable who's name is the <b>js</b> value from <b>code</b>.  Next simply type the function you did before, but in JavaScript.</p>
+							</li>
+							<li>
+								<h4>You're done editing!</h4>
+								<p>Make sure you save the file you made with a new name corresponding to the function you are using in your tables.  Then in the html for your project, reference your new file with a script tag.</p>
+							</li>
+		    			</ol>
+		    		</div>
+
+		    		<div class = 'tab-pane' id = 'modalTab4'>
+		    			<h4>Developers: Daniel Sanchez and Thanard Kurutach</h4>
+		    			<h4>Mentor: Max Goldman</h4>
 		    		</div>
 		    	</div>
 		    </div>
