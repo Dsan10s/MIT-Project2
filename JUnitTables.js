@@ -84,7 +84,7 @@ var JUnitTable1 = (function(){
 				var newCol = $("<td class = 'col" + columnsDisplayed[c] + "'></td>");
 				
 				/*Labels*/
-				newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><span class = relative><img class = 'mark checkMark' src = 'images/checkMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span></span>"));
+				newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><span class = relative><img class = 'mark checkMark' src = 'images/CheckMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span></span>"));
 			
 				newRow.append(newCol);
 			}
@@ -188,7 +188,7 @@ var JUnitTable1 = (function(){
 					var newDeleteBtn = $("<button class = 'delete btn btn-danger' style = 'float: right;'>&times;</button>")
 					newCol.append("<span>"+functionName+"(", newFindLabel, ")</span>", newDeleteBtn);
 				}else{
-					newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><span class='relative'><img class = 'mark checkMark' src = 'images/checkMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span></span>"));
+					newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><span class='relative'><img class = 'mark checkMark' src = 'images/CheckMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span></span>"));
 				}
 
 				$(rowClass).append(newCol);
@@ -647,7 +647,7 @@ var JUnitTable1Prod = (function(){
 				}/*else if (c !== 0){
 					var rowClass2 = ".row" + r;
 					var newCol2 = $("<td class = 'col" + c + "'></td>");
-					newCol2.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><img class = 'mark checkMark' src = 'images/checkMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span>"));
+					newCol2.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><img class = 'mark checkMark' src = 'images/CheckMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span>"));
 					newRow.append(newCol2);
 					tableContent.append(newRow);
 				}*/
@@ -671,7 +671,7 @@ var JUnitTable1Prod = (function(){
 					newRow.append(newCol);
 					tableFixed.append(newRow);
 				}*/if (c !== 0){
-					newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'relative'><span class = 'customRadioFill'></span></span></span><span class = 'relative' ><img class = 'mark checkMark' src = 'images/checkMark.png'/></span><span class = 'relative'><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span></span>"));
+					newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'relative'><span class = 'customRadioFill'></span></span></span><span class = 'relative' ><img class = 'mark checkMark' src = 'images/CheckMark.png'/></span><span class = 'relative'><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span></span>"));
 					newRow.append(newCol);
 					tableContent.append(newRow);
 				}
@@ -715,7 +715,7 @@ var JUnitTable1Prod = (function(){
 						"<div id = 'mainDivPartition' class = 'mainDivPartition" + i + "'>"
 							+ "<span class = 'subDivPartition" + n + "'>"
 								+ "<span = style = ' float: left; margin-right: 40px;' class = 'relative'>"
-									+ "<img class = 'mark checkMark' style = 'height: 30px; margin-top: 4px' src = 'images/checkMark.png'/>"
+									+ "<img class = 'mark checkMark' style = 'height: 30px; margin-top: 4px' src = 'images/CheckMark.png'/>"
 								+ "</span>"
 								+ "<span style = ' float: left;' class = 'relative'>"
 									+ "<img class = 'mark errorMark' style = 'height: 30px; margin-top: 4px' src = 'images/ErrorMark.png'/>"
@@ -737,7 +737,7 @@ var JUnitTable1Prod = (function(){
 						"<div id = 'mainDivPartition' class = 'mainDivPartition" + i + "'>"
 							+ "<span class = 'subDivPartition" + n + "'>"
 								+ "<span = style = ' float: left; margin-right: 40px;' class = 'relative'>"
-									+ "<img class = 'mark checkMark' style = 'height: 30px; margin-top: 4px' src = 'images/checkMark.png'/>"
+									+ "<img class = 'mark checkMark' style = 'height: 30px; margin-top: 4px' src = 'images/CheckMark.png'/>"
 								+ "</span>"
 								+ "<span style = ' float: left;' class = 'relative'>"
 									+ "<img class = 'mark errorMark' style = 'height: 30px; margin-top: 4px' src = 'images/ErrorMark.png'/>"
@@ -1112,7 +1112,7 @@ var JUnitTable1Prod = (function(){
 					var newDeleteBtn = $("<button class = 'delete btn btn-danger' style = 'float: right;'>&times;</button>")
 					newCol.append("<span>"+functionName+"(", newFindLabel, ")</span>", newDeleteBtn);
 				}else{
-					newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'relative'><span class = 'customRadioFill'></span></span></span><span class = 'relative'><img class = 'mark checkMark' src = 'images/checkMark.png'/></span><span class = 'relative'><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span></span>"));
+					newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'relative'><span class = 'customRadioFill'></span></span></span><span class = 'relative'><img class = 'mark checkMark' src = 'images/CheckMark.png'/></span><span class = 'relative'><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span></span>"));
 				}
 				/*$(".col" + newNum).children().css("opacity", 0)
 				$(".col" + newNum).children().hide();*/
@@ -1653,7 +1653,7 @@ var JUnitTable2 = (function(){
 				var newCol = $("<td class = 'col" + columnsDisplayed[c] + "'></td>");
 				
 				/*Labels*/
-				newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><span class = relative><img class = 'mark checkMark' src = 'images/checkMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span></span>"));
+				newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><span class = relative><img class = 'mark checkMark' src = 'images/CheckMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span></span>"));
 			
 				newRow.append(newCol);
 			}
@@ -1777,7 +1777,7 @@ var JUnitTable2 = (function(){
 					var newDeleteBtn = $("<button class = 'delete btn btn-danger' style = 'float: right;'>&times;</button>")
 					newCol.append("<span>"+functionName+"(", newFindLabel, ")</span>", newDeleteBtn);
 				}else{
-					newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><span class='relative'><img class = 'mark checkMark' src = 'images/checkMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span></span>"));
+					newCol.append($("<span class = 'cellContent'><span class = 'customRadioBorder'><span class = 'customRadioFill'></span></span><span class='relative'><img class = 'mark checkMark' src = 'images/CheckMark.png'/><img class = 'mark errorMark' src = 'images/ErrorMark.png'/></span></span>"));
 				}
 
 				$(rowClass).append(newCol);
